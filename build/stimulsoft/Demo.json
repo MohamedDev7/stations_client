@@ -1,0 +1,98 @@
+﻿{
+	"info": {
+		"year": "2024",
+		"date": "2024/12/31",
+		"name": "سالمين عبدالله عمر",
+		"job": "المدير التجاري",
+		"department": "الادارة التجارية",
+		"section": "مكتب المدير التجاري",
+		"members": [
+			{
+				"name1": "محسن سعد القميري",
+				"title1": "رئيس اللجنة",
+				"name2": "محمد حسم محمد دحروج",
+				"title2": "عضو",
+				"name3": "احمد عمر المرشدي",
+				"title3": "عضو"
+			},
+			{
+				"name1": "رائد عمر المرشدي",
+				"title1": "عضو",
+				"name2": "دحان احمد الطيري",
+				"title2": "عضو",
+				"name3": "عادل سالم الضالعي",
+				"title3": "عضو"
+			},
+
+			{
+				"name1": "مراد العزي عبدالمغني",
+				"title1": "عضو",
+				"name2": "عماد حسن محمد دحروج",
+				"title2": "عضو",
+				"name3": "حسن عمر بامزروع",
+				"title3": "عضو"
+			},
+
+			{
+				"name1": "احمد عمر بامزروع",
+				"title1": "عضو",
+				"name2": "محمد حسان",
+				"title2": "عضو"
+			}
+		],
+		"items": [
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 1 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 2 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 3 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 1 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 4 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 5 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 6 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 7 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 8 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 9 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 10 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 11 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 12 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 13 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 14 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 1 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 15 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 16 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 17 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 18 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 19 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 20 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 21 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 1 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 22 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 1 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 23 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 24 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 25 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 1 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 26 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 27 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 28 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 1 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 29 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 30 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 31 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 32 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 33 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 34 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 35 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 36 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 37 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 38 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 39 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 40 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 41 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 42 },
+			{ "name": "بوابة زجاجية فردتين", "amount": 1, "number": 43 },
+			{ "name": "مكيف a.ux   3طن", "amount": 1, "number": 44 },
+			{ "name": "قواطع المنيوم زجاج 3*3 متر", "amount": 2, "number": 45 },
+			{ "name": "اضاءة مسطحة", "amount": 6, "number": 46 }
+		]
+	}
+}

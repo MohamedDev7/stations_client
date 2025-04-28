@@ -1,0 +1,128 @@
+﻿{
+	"info": {
+		"station_name": "محطة الغيضة النموذجية 1",
+		"date": "2024/12/31",
+		"movment_number": "2041500"
+	},
+	"dispensers": [
+		{
+			"title": "حركة البترول",
+			"substance_id": "1",
+			"data": [
+				{
+					"number": "1",
+					"substance_id": "1",
+					"prev_A": 10,
+					"curr_A": 100,
+					"prev_B": 20,
+					"curr_B": 200,
+					"total": 500
+				},
+				{
+					"number": "2",
+					"substance_id": "1",
+					"prev_A": 10,
+					"curr_A": 100,
+					"prev_B": 20,
+					"curr_B": 200,
+					"total": 500
+				},
+				{
+					"number": "3",
+					"substance_id": "1",
+					"prev_A": 10,
+					"curr_A": 100,
+					"prev_B": 20,
+					"curr_B": 200,
+					"total": 500
+				}
+			]
+		},
+		{
+			"title": "حركة الديزل",
+			"substance_id": "2",
+			"data": [
+				{
+					"substance_id": "2",
+					"number": "1",
+					"prev_A": 10,
+					"curr_A": 100,
+					"prev_B": 20,
+					"curr_B": 200,
+					"total": 500
+				},
+				{
+					"substance_id": "2",
+					"number": "2",
+					"prev_A": 10,
+					"curr_A": 100,
+					"prev_B": 20,
+					"curr_B": 200,
+					"total": 500
+				},
+				{
+					"substance_id": "2",
+					"number": "3",
+					"prev_A": 10,
+					"curr_A": 100,
+					"prev_B": 20,
+					"curr_B": 200,
+					"total": 500
+				}
+			]
+		}
+	],
+	"stores": [
+		{
+			"title": "حركة مخازن البترول",
+			"substance_id": "1",
+			"data": [
+				{
+					"substance_id": "1",
+					"name": "شركة",
+					"prev_value": 1000,
+					"curr_value": 1100,
+					"income": 500,
+					"total_spent": 500,
+					"price": 1400,
+					"total_value": 1600
+				},
+				{
+					"substance_id": "1",
+					"name": "مشاريع",
+					"prev_value": 1000,
+					"curr_value": 1100,
+					"income": 500,
+					"total_spent": 500,
+					"price": 1400,
+					"total_value": 1600
+				}
+			]
+		},
+		{
+			"title": "حركة مخازن الديزل",
+			"substance_id": "2",
+			"data": [
+				{
+					"substance_id": "2",
+					"name": "شركة",
+					"prev_value": 1000,
+					"curr_value": 1100,
+					"income": 500,
+					"total_spent": 500,
+					"total_value": 1600,
+					"totalCoupons": 50
+				},
+				{
+					"substance_id": "2",
+					"name": "مشاريع",
+					"prev_value": 1000,
+					"curr_value": 1100,
+					"income": 500,
+					"total_spent": 500,
+					"total_value": 1600
+				}
+			]
+		}
+	]
+}

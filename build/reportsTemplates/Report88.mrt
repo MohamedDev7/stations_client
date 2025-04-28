@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <_x0032_ Ref="2" type="Stimulsoft.Report.Dictionary.StiJsonDatabase" isKey="true">
+        <Alias>2</Alias>
+        <Key>1504ad47adcb4c1386e955b9b5546a14</Key>
+        <Name>2</Name>
+        <PathData>D:\projects\stations\Client\public\reportsTemplates\2.json</PathData>
+      </_x0032_>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <cash Ref="3" type="DataTableSource" isKey="true">
+        <Alias>cash</Alias>
+        <Columns isList="true" count="36">
+          <value>ORIGINAL,id,id,id,System.Decimal,cd6ab6d89dd54692b08401810be170f2</value>
+          <value>ORIGINAL,prev_A,prev_A,prev_A,System.Decimal,_x0037_6b6c993249f40558ec2be394ffff107</value>
+          <value>ORIGINAL,curr_A,curr_A,curr_A,System.Decimal,_x0035_c495137f9594589b864d74b1d9869fe</value>
+          <value>ORIGINAL,prev_B,prev_B,prev_B,System.Decimal,_x0031_79fd7a5f4ad4a4f98f24c3cd9384553</value>
+          <value>ORIGINAL,curr_B,curr_B,curr_B,System.Decimal,_x0031_3b3edb687ea4f80801d36adbf9df6e7</value>
+          <value>ORIGINAL,tank_id,tank_id,tank_id,System.Decimal,_x0035_c8a979766df490eb3e48b347d216bbb</value>
+          <value>ORIGINAL,station_id,station_id,station_id,System.Decimal,_x0034_83ffbb9b3a3446b8363163dab8f8458</value>
+          <value>ORIGINAL,movment_id,movment_id,movment_id,System.Decimal,_x0038_eaba6f3880a4a99acf5845f11426b5f</value>
+          <value>ORIGINAL,dispenser_id,dispenser_id,dispenser_id,System.Decimal,_x0035_2665b9c25e448c3949ebc982a8eb4c3</value>
+          <value>ORIGINAL,shift_number,shift_number,shift_number,System.Decimal,c1b68488ae7f4ae9ae7d4dda7f1663ec</value>
+          <value>ORIGINAL,start,start,start,System.String,_x0032_4b0b9ba679c44acbffb38f79497a2d8</value>
+          <value>ORIGINAL,end,end,end,System.String,_x0030_e6f8e6f7b6e42699e317dea7ef425cd</value>
+          <value>ORIGINAL,price,price,price,System.Decimal,eca1720f314d42f08675a298ee511f45</value>
+          <value>ORIGINAL,is_active,is_active,is_active,System.Decimal,_x0039_c5a50dd0b2e48649c9b511d1ad2290c</value>
+          <value>ORIGINAL,employee_id,employee_id,employee_id,System.Decimal,_x0038_da14826ae5b499dbdefa3b2fbee49e0</value>
+          <value>ORIGINAL,createdAt,createdAt,createdAt,System.DateTime,d4a6cac49d3b48e4b6bcda7c85b83439</value>
+          <value>ORIGINAL,updatedAt,updatedAt,updatedAt,System.DateTime,faf0f5163ca34c5fbbfc836b91890811</value>
+          <value>ORIGINAL,cash,cash,cash,System.Decimal,_x0031_22cdedd76324018b36e83fa9bbf94a2</value>
+          <value>ORIGINAL,amount,amount,amount,System.Decimal,c19e2a689a6341fa8c1e3b4cb2df4a40</value>
+          <value>ORIGINAL,movment.date,movment.date,movment.date,System.String,_x0034_109fc06038e4b5ebe28a186278bdd37</value>
+          <value>ORIGINAL,dispenser.number,dispenser.number,dispenser.number,System.Decimal,e335e1e036bd4e708283cbc1a7df66d4</value>
+          <value>ORIGINAL,dispenser.tank.id,dispenser.tank.id,dispenser.tank.id,System.Decimal,_x0036_665b56fa178495392fbfaf5c492e99c</value>
+          <value>ORIGINAL,dispenser.tank.number,dispenser.tank.number,dispenser.tank.number,System.Decimal,c1943dc0677d414b99dd9d1290e3518b</value>
+          <value>ORIGINAL,dispenser.tank.substance.id,dispenser.tank.substance.id,dispenser.tank.substance.id,System.Decimal,_x0033_168032a92474d83ae5ecaace5ab8d62</value>
+          <value>ORIGINAL,dispenser.tank.substance.name,dispenser.tank.substance.name,dispenser.tank.substance.name,System.String,ab25c4df8c7f4ec1ab6c8f42a3854a7e</value>
+          <value>ORIGINAL,statement,statement,statement,System.String,_x0031_b7b3456b8b4408b8112fc0ffd6522ea</value>
+          <value>ORIGINAL,date,date,date,System.String,e8d16525a80043d9bf366a0a6f0f856b</value>
+          <value>ORIGINAL,creditor,creditor,creditor,System.Decimal,_x0034_f622d6dc88e402ab4f08fe6a500e0f5</value>
+          <value>ORIGINAL,debtor,debtor,debtor,System.Decimal,da6701d26f6643158038560d5a909a96</value>
+          <value>ORIGINAL,store_id,store_id,store_id,System.Decimal,_x0038_43d876925234c8c851b8fb7cd592792</value>
+          <value>ORIGINAL,store_movment_id,store_movment_id,store_movment_id,System.Decimal,_x0034_e805aa26d0e4ab3a974d86eb06612a4</value>
+          <value>ORIGINAL,type,type,type,System.String,da9a189b859f4e5ca114560a4707e669</value>
+          <value>ORIGINAL,store.name,store.name,store.name,System.String,b1a3b8f99c4c468993c33d3376fe9868</value>
+          <value>ORIGINAL,store.substance.id,store.substance.id,store.substance.id,System.Decimal,bdc353d3650f4735ad18f7cb933f09c1</value>
+          <value>ORIGINAL,store.substance.name,store.substance.name,store.substance.name,System.String,_x0030_673f13148b143788395ce5d3b39b178</value>
+          <value>CALC,balance,balance,System.Decimal,cash.creditor_x0020_-_x0020_cash.debtor,_x0039_f2d8b1113b742218c35702297ac4e05</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>ea5d0854bfc94bce890d092ab384a63c</Key>
+        <Name>cash</Name>
+        <NameInSource>2.cash</NameInSource>
+      </cash>
+      <info Ref="4" type="DataTableSource" isKey="true">
+        <Alias>info</Alias>
+        <Columns isList="true" count="4">
+          <value>station_name,System.String</value>
+          <value>employee_name,System.String</value>
+          <value>startDate,System.String</value>
+          <value>endDate,System.String</value>
+        </Columns>
+        <Dictionary isRef="1" />
+        <Key>e6265eec488c432094633608583d39cb</Key>
+        <Name>info</Name>
+        <NameInSource>2.info</NameInSource>
+      </info>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>3b99fbf653fd4d06b162b689a614d33f</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="5" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="1">
+        <Table1 Ref="6" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,0.4,19,2.4</ClientRectangle>
+          <Components isList="true" count="15">
+            <Table1_Cell1 Ref="7" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0,0,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>0</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell1</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell1>
+            <Table1_Cell2 Ref="8" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>3.6,0,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>1</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell2</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell2>
+            <Table1_Cell3 Ref="9" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>7.2,0,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>2</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell3</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell3>
+            <Table1_Cell4 Ref="10" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>10.8,0,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>3</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell4</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell4>
+            <Table1_Cell5 Ref="11" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>14.4,0,4.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>4</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell5</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>hh</Text>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell5>
+            <Table1_Cell6 Ref="12" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0,0.8,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>5</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell6</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{cash.balance}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Table1_Cell6>
+            <Table1_Cell7 Ref="13" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>3.6,0.8,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>6</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell7</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{cash.cash}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+            </Table1_Cell7>
+            <Table1_Cell8 Ref="14" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>7.2,0.8,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>7</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell8</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{SumRunning(Table1,cash.store_substance_name)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Totals</Type>
+            </Table1_Cell8>
+            <Table1_Cell9 Ref="15" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>10.8,0.8,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>8</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell9</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell9>
+            <Table1_Cell10 Ref="16" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>14.4,0.8,4.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>9</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell10</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell10>
+            <Table1_Cell11 Ref="17" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>0,1.6,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>10</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell11</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell11>
+            <Table1_Cell12 Ref="18" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>3.6,1.6,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>11</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell12</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell12>
+            <Table1_Cell13 Ref="19" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>7.2,1.6,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>12</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell13</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell13>
+            <Table1_Cell14 Ref="20" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>10.8,1.6,3.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>13</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell14</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell14>
+            <Table1_Cell15 Ref="21" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>14.4,1.6,4.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9</Font>
+              <ID>14</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell15</Name>
+              <Page isRef="5" />
+              <Parent isRef="6" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+            </Table1_Cell15>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>cash</DataSourceName>
+          <Expressions isList="true" count="0" />
+          <Filters isList="true" count="0" />
+          <FooterRowsCount>1</FooterRowsCount>
+          <HeaderRowsCount>1</HeaderRowsCount>
+          <MinHeight>0.60000000000000009</MinHeight>
+          <Name>Table1</Name>
+          <NumberID>25</NumberID>
+          <Page isRef="5" />
+          <Parent isRef="5" />
+          <RowCount>3</RowCount>
+          <Sort isList="true" count="0" />
+        </Table1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Expressions isList="true" count="0" />
+      <Guid>0d24a7c1446e40a5a11984af37e3e1b5</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>2/20/2025 9:49:15 PM</ReportChanged>
+  <ReportCreated>2/20/2025 8:46:27 PM</ReportCreated>
+  <ReportFile>D:\projects\stations\Client\public\reportsTemplates\Report88.mrt</ReportFile>
+  <ReportGuid>4fdd896a7a154b5bb0e5b1776ff39f80</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2022.1.1.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

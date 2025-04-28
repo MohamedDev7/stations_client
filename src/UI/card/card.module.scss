@@ -1,0 +1,20 @@
+.card {
+	background-color: #fff;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+	border: 0 solid rgba(0, 0, 0, 0.125);
+	border-radius: 0.25rem;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	.title {
+		background-color: #076dc4;
+		color: #fff;
+		font-weight: 700;
+		font-size: 16px;
+		padding: 12px 20px;
+		margin-bottom: 5px;
+	}
+	.content {
+		padding: 5px 10px;
+	}
+}

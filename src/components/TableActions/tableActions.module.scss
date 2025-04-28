@@ -1,0 +1,23 @@
+.actions {
+	display: flex;
+	font-size: 16px;
+	font-weight: 700;
+	div {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80px;
+		height: 25px;
+		gap: 5px;
+		line-height: 15;
+		transition: all 0.3 ease-in-out;
+		cursor: pointer;
+		&:hover {
+			transform: scale(1.05);
+		}
+		&:not(:last-child) {
+			border-left: 1px solid #c7c7c7;
+		}
+	}
+}

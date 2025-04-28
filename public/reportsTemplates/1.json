@@ -1,0 +1,87 @@
+{
+	"info": {
+		"station_name": "محطة حوف النموذجية",
+		"fromDate": "2024-11-01",
+		"toDate": "2024-11-30"
+	},
+	"stores": [
+		{
+			"title": "خلاصة حركة مخازن البترول",
+			"substance_id": 49,
+			"data": [
+				{
+					"id": 1779,
+					"prev_value": 19862,
+					"curr_value": 13425,
+					"store_id": 379,
+					"date": "2024-11-30",
+					"shift_number": 1,
+					"movment_id": 621,
+					"station_id": 360,
+					"start": "08:00:00",
+					"end": "22:00:00",
+					"price": 1400,
+					"createdAt": "2025-02-09T20:42:23.000Z",
+					"updatedAt": "2025-02-09T20:42:23.000Z",
+					"store.id": 379,
+					"store.name": "شركة",
+					"store.substance.id": 49,
+					"store.substance.name": "بترول",
+					"income": 48930,
+					"others": 0,
+					"others_value": 0,
+					"branchWithdrawals": 0,
+					"branchWithdrawals_value": 0,
+					"othersAndbranchWithdrawalsAmount": 0,
+					"othersAndbranchWithdrawalsValue": 0,
+					"incomeAndPrevValue": 68792,
+					"store": "شركة - بترول",
+					"cashSalesAmount": 55367,
+					"total_cash": 77513800,
+					"totalSpend": 55367,
+					"stockTaking": 0,
+					"final_value": 13425
+				}
+			]
+		},
+		{
+			"title": "خلاصة حركة مخازن الديزل",
+			"substance_id": 50,
+			"data": [
+				{
+					"id": 1780,
+					"prev_value": 3024,
+					"curr_value": 1090,
+					"store_id": 380,
+					"date": "2024-11-30",
+					"shift_number": 1,
+					"movment_id": 621,
+					"station_id": 360,
+					"start": "08:00:00",
+					"end": "22:00:00",
+					"price": 1450,
+					"createdAt": "2025-02-09T20:42:23.000Z",
+					"updatedAt": "2025-02-09T20:42:23.000Z",
+					"store.id": 380,
+					"store.name": "شركة",
+					"store.substance.id": 50,
+					"store.substance.name": "ديزل",
+					"income": 16680,
+					"others": 0,
+					"others_value": 0,
+					"branchWithdrawals": 360,
+					"branchWithdrawals_value": 522000,
+					"othersAndbranchWithdrawalsAmount": 360,
+					"othersAndbranchWithdrawalsValue": 522000,
+					"incomeAndPrevValue": 19704,
+					"store": "شركة - ديزل",
+					"cashSalesAmount": 18254,
+					"total_cash": 26468300,
+					"totalSpend": 18614,
+					"stockTaking": 0,
+					"final_value": 1090
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,16 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	padding: 0;
+	margin: 0;
+
+	select {
+		height: 30px;
+	}
+	label {
+		color: #75799d;
+		font-weight: 700;
+		font-size: 14px;
+	}
+}
