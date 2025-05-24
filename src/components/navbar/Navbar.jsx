@@ -71,6 +71,11 @@ const Navbar = () => {
 						<Link to="/deposits">
 							<MenubarItem className="justify-end">الايداعات</MenubarItem>
 						</Link>
+						<Link to="/creditSales">
+							<MenubarItem className="justify-end">
+								سداد المبيعات الآجلة
+							</MenubarItem>
+						</Link>
 					</MenubarContent>
 				</MenubarMenu>
 				<MenubarMenu>
@@ -105,10 +110,14 @@ const Navbar = () => {
 						<Link to="/depositsReport">
 							<MenubarItem className="justify-end">حركة الايداعات</MenubarItem>
 						</Link>
+
 						<Link to="/accountStatements">
 							<MenubarItem className="justify-end">
 								التقارير المالية
 							</MenubarItem>
+						</Link>
+						<Link to="/creditSalesReport">
+							<MenubarItem className="justify-end">مبيعات آجلة</MenubarItem>
 						</Link>
 					</MenubarContent>
 				</MenubarMenu>
@@ -123,7 +132,6 @@ const Navbar = () => {
 								تغيير كلمة المرور
 							</MenubarItem>
 						</Link>
-
 						{authCtx.permissions.admin && (
 							<>
 								<Link to="/users">

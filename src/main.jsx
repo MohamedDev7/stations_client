@@ -39,7 +39,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 		<QueryClientProvider client={queryClient}>
 			<AuthContextProvider>
 				<FluentProvider theme={webLightTheme} dir="rtl">
-					<HeroUIProvider locale="en-GB">
+					<HeroUIProvider locale="ar">
 						<main className="light text-foreground bg-background">
 							<App />
 						</main>

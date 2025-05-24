@@ -1,14 +1,8 @@
 import React, { useRef, useState } from "react";
-import TopBar from "../../components/TopBar/TopBar";
-
-import { useNavigate } from "react-router-dom";
-
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import {
-	deleteStocktaking,
-	getAllStocktaking,
-	getStocktakingPriceReport,
-} from "../../api/serverApi";
+
+import { toast } from "react-toastify";
+import TopBar from "../../components/TopBar/TopBar";
 import {
 	Modal,
 	ModalContent,
@@ -24,108 +18,53 @@ import {
 	TableRow,
 	TableCell,
 	Pagination,
+	Card,
+	CardBody,
+	CardHeader,
 	Dropdown,
 	DropdownTrigger,
 	DropdownMenu,
 	DropdownItem,
-	Card,
-	CardBody,
-	CardHeader,
 } from "@heroui/react";
-import {
-	Check,
-	X,
-	DotsVertical,
-	Printer,
-	Trash,
-	Edit,
-} from "@mynaui/icons-react";
-import { toast } from "react-toastify";
-const Stocktakings = () => {
+import { DotsVertical, Printer, Trash, Edit, Plus } from "@mynaui/icons-react";
+import { useNavigate } from "react-router-dom";
+import { getAllCreditSales } from "../../api/serverApi";
+import tafqeet from "@/utils/Tafqeet";
+const CreditSalesPage = () => {
 	//hooks
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 	const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-
 	//states
-	const [stocktakingToFetch, setStocktakingToFetch] = useState("");
 	const [page, setPage] = useState(1);
 	const [pages, setPages] = useState("");
 	const [total, setTotal] = useState("");
+	const [creditSales, setCreditSales] = useState([]);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
-
-	//states
 	const [modal, setModal] = useState({
 		header: "",
 		body: "",
 		footer: "",
 	});
-
 	//queries
-	const { data: stocktakings } = useQuery({
-		queryKey: ["stocktakings", page - 1, rowsPerPage],
-		queryFn: getAllStocktaking,
+	useQuery({
+		queryKey: ["creditSales", page - 1, rowsPerPage],
+		queryFn: getAllCreditSales,
 		select: (res) => {
 			return res.data;
 		},
 		onSuccess: (data) => {
 			setPages(Math.ceil(data.total / rowsPerPage));
 			setTotal(data.total);
-		},
-	});
-	const deleteMutation = useMutation({
-		mutationFn: deleteStocktaking,
-		onSuccess: (res) => {
-			queryClient.invalidateQueries("stocktakings");
-			toast.success("تم حذف الجرد بنجاح", {
-				position: "top-center",
-			});
-			queryClient.invalidateQueries({ queryKey: ["stocktakings"] });
-			setModal({
-				title: "",
-				content: "",
-				actions: "",
-			});
-			onClose();
+			setCreditSales(data.creditSales);
 		},
 		onError: (err) => {
 			toast.error(err.response.data.message, {
 				position: "top-center",
 			});
-			setModal({
-				title: "",
-				content: "",
-				actions: "",
-			});
-			onClose();
 		},
 	});
-	const { data, isLoading } = useQuery({
-		queryKey: ["stocktakingPrice", stocktakingToFetch],
-		queryFn: getStocktakingPriceReport,
-		onSuccess: (data) => {
-			setStocktakingToFetch("");
-			const dataToPrint = `${data.data.data.stocktaking.date
-				.split("T")[0]
-				.replace(/-/g, "/")}`;
-			navigate("./print", {
-				state: {
-					data: {
-						...data.data.data,
-						stocktaking: { ...data.data.data.stocktaking, date: dataToPrint },
-					},
-					reportTemplate:
-						data.data.data.stocktaking.type === "تسعيرة"
-							? "stocktakingPriceReport"
-							: "stocktakingReport",
-				},
-			});
-		},
-		onError: () => {
-			setStocktakingToFetch("");
-		},
-		enabled: !!stocktakingToFetch,
-	});
+
 	//functions
 	const onRowsPerPageChange = React.useCallback((e) => {
 		setRowsPerPage(Number(e.target.value));
@@ -136,7 +75,7 @@ const Stocktakings = () => {
 		<div className="w-full h-full overflow-auto ">
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange}>
 				<ModalContent>
-					{(onClose) => (
+					{() => (
 						<>
 							<ModalHeader className="flex flex-col gap-1">
 								{modal.header}
@@ -156,7 +95,8 @@ const Stocktakings = () => {
 								navigate("./add");
 							}}
 						>
-							إضافة جرد
+							<Plus />
+							إضافة
 						</Button>
 					</>
 				}
@@ -164,15 +104,15 @@ const Stocktakings = () => {
 			<div className="w-full p-5 pb-16">
 				<Card>
 					<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-						جرد المحطات
+						المبيعات الآجلة
 					</CardHeader>
 					<CardBody>
 						<Table
-							aria-labelledby="table"
+							aria-label="table"
 							bottomContent={
 								<div className="py-2 px-2 flex justify-between items-center">
 									<span className="text-default-400 text-small">
-										الاجمالي {total} جرد
+										الاجمالي {total} نتيجة
 									</span>
 									<Pagination
 										isCompact
@@ -182,6 +122,7 @@ const Stocktakings = () => {
 										page={page}
 										total={pages}
 										onChange={setPage}
+										// dir="ltr"
 									/>
 									<label className="flex items-center text-default-400 text-small">
 										النتائج لكل صفحة:
@@ -200,22 +141,38 @@ const Stocktakings = () => {
 							bottomContentPlacement="outside"
 						>
 							<TableHeader>
-								<TableColumn>رقم المحضر</TableColumn>
-								<TableColumn>المحطة</TableColumn>
 								<TableColumn>التاريخ</TableColumn>
-								<TableColumn>النوع</TableColumn>
-								<TableColumn>خيارات</TableColumn>
+								<TableColumn>المحطة</TableColumn>
+								<TableColumn>الكمية</TableColumn>
+								<TableColumn>القيمة</TableColumn>
+								<TableColumn>الحالة</TableColumn>
+								<TableColumn>تاريخ السداد</TableColumn>
+								{/* <TableColumn>البيان</TableColumn> */}
+								{/* <TableColumn>خيارات</TableColumn> */}
 							</TableHeader>
 							<TableBody>
-								{stocktakings &&
-									stocktakings.stocktaking.map((stocktaking) => {
+								{creditSales &&
+									creditSales.map((creditSale) => {
+										const disabledActions = [];
+
 										return (
-											<TableRow key={stocktaking.id}>
-												<TableCell>{stocktaking.id}</TableCell>
-												<TableCell>{stocktaking.station.name}</TableCell>
-												<TableCell>{stocktaking.date}</TableCell>
-												<TableCell>{stocktaking.type}</TableCell>
+											<TableRow key={creditSale.id}>
+												<TableCell>{creditSale.movment.date}</TableCell>
+												<TableCell>{creditSale.station.name}</TableCell>
+												<TableCell>{creditSale.amount}</TableCell>
 												<TableCell>
+													{creditSale.amount * creditSale.price}
+												</TableCell>
+												<TableCell>
+													{creditSale.isSettled ? "تم التسديد" : "غير مسدد"}
+												</TableCell>
+												<TableCell>
+													{creditSale.settlement_date
+														? creditSale.settlement_date
+														: "-"}
+												</TableCell>
+
+												{/* <TableCell>
 													<div className="relative flex justify-center items-center gap-2">
 														<Dropdown>
 															<DropdownTrigger>
@@ -224,30 +181,23 @@ const Stocktakings = () => {
 																</Button>
 															</DropdownTrigger>
 															<DropdownMenu
+																disabledKeys={disabledActions}
 																onAction={(key) => {
 																	if (key === "delete") {
 																		setModal((prev) => {
 																			return {
 																				...prev,
-																				header: "حذف محضر جرد",
+																				header: "حذف استلام",
 																				body: (
 																					<div>
-																						هل أنت متأكد من حذف محضر الجرد برقم
+																						هل أنت متأكد من حذف الاستلام
 																						<span
 																							style={{
 																								fontWeight: "bold",
 																								fontSize: "16px",
 																								color: "#b33c37",
 																							}}
-																						>{` ${stocktaking.id} `}</span>
-																						لـ
-																						<span
-																							style={{
-																								fontWeight: "bold",
-																								fontSize: "16px",
-																								color: "#b33c37",
-																							}}
-																						>{` ${stocktaking.station.name} `}</span>
+																						>{` ${creditSale.id} `}</span>
 																						؟
 																					</div>
 																				),
@@ -265,7 +215,7 @@ const Stocktakings = () => {
 																							color="primary"
 																							onPress={() => {
 																								deleteMutation.mutate(
-																									stocktaking.id
+																									creditSale.id
 																								);
 																							}}
 																						>
@@ -278,10 +228,38 @@ const Stocktakings = () => {
 																		onOpen();
 																	}
 																	if (key === "print") {
-																		setStocktakingToFetch(stocktaking.id);
+																		const dataToPrint = `${creditSale.date
+																			.split("T")[0]
+																			.replace(/-/g, "/")}`;
+																		navigate("./print", {
+																			state: {
+																				data: {
+																					...creditSale,
+																					date: dataToPrint,
+																					station_name: creditSale.station.name,
+																					employee_name:
+																						creditSale.employee.name,
+																					amount_text: tafqeet(
+																						creditSale.amount
+																					),
+																				},
+																				reportTemplate: "receipt3",
+																			},
+																		});
+																	}
+																	if (key === "edit") {
+																		navigate("./edit", {
+																			state: { id: creditSale.id },
+																		});
 																	}
 																}}
 															>
+																<DropdownItem
+																	key="edit"
+																	startContent={<Edit />}
+																>
+																	تعديل
+																</DropdownItem>
 																<DropdownItem
 																	key="print"
 																	startContent={<Printer />}
@@ -299,7 +277,7 @@ const Stocktakings = () => {
 															</DropdownMenu>
 														</Dropdown>
 													</div>
-												</TableCell>
+												</TableCell> */}
 											</TableRow>
 										);
 									})}
@@ -312,4 +290,4 @@ const Stocktakings = () => {
 	);
 };
 
-export default Stocktakings;
+export default CreditSalesPage;

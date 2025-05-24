@@ -111,8 +111,6 @@ const AccountStatement = () => {
 		queryKey: ["stationAccountStatement", startDate, endDate, station],
 		queryFn: getStationAccountStatementReport,
 		onSuccess: (data) => {
-			console.log(data);
-			console.log(data.data.info);
 			const fromDataToPrint = `${data.data.data.info.startDate
 				.split("T")[0]
 				.replace(/-/g, "/")}`;

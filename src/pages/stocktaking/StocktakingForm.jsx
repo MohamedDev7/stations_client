@@ -55,6 +55,7 @@ const StocktakingForm = () => {
 	const [stores, setStores] = useState([]);
 	const [selectedSubstances, setSelectedSubstances] = useState([]);
 	const [isPriceChange, setIsPriceChange] = useState(false);
+	const [storeAdjustment, setStoreAdjustment] = useState(false);
 	//hooks
 	let formatter = useDateFormatter({ dateStyle: "short" });
 	const navigate = useNavigate();
@@ -153,6 +154,7 @@ const StocktakingForm = () => {
 		onSuccess: (data) => {
 			if (data.length === 0 && selectedSubstances.length !== 0) {
 				setPriceMovmentIsChecked(false);
+				setIsPriceChange(false);
 				toast.error("لا يمكن اضافة جرد تسعيرة في هذا التاريخ لعدم تغير السعر", {
 					position: "top-center",
 				});
@@ -160,30 +162,16 @@ const StocktakingForm = () => {
 		},
 		enabled: !!station && !!date && !!isPriceChange,
 	});
-	useQuery({
-		queryKey: ["stocks", currMovment?.id, lastShift, selectedSubstances],
-		queryFn: getSubstancesStocksByMovmentIdAndShiftId,
-		select: (res) => {
-			return res.data.stocks.map((el) => {
-				return { ...el, realAmount: el.amount, diff: 0 };
-			});
-		},
-		onSuccess: (data) => {
-			setStocks(data);
-		},
-		enabled:
-			currMovmentIsChecked &&
-			nextMovmentIsChecked &&
-			pendingMovmentIsChecked &&
-			!!lastShift &&
-			priceMovmentIsChecked,
-	});
-	useQuery({
+	const { data: storesMovments } = useQuery({
 		queryKey: ["storesMovments", currMovment?.id, lastShift],
 		queryFn: getStoresMovmentByMovmentIdAndShiftId,
 		select: (res) => {
 			return res.data.storesMovments.map((el) => {
-				return { ...el, prev_value: el.curr_value };
+				return {
+					...el,
+					prev_value: el.curr_value,
+					curr_value: el.curr_value - el.deficit,
+				};
 			});
 		},
 		onSuccess: (data) => {
@@ -196,6 +184,37 @@ const StocktakingForm = () => {
 			!!lastShift &&
 			priceMovmentIsChecked,
 	});
+	useQuery({
+		queryKey: ["stocks", currMovment?.id, lastShift, selectedSubstances],
+		queryFn: getSubstancesStocksByMovmentIdAndShiftId,
+		select: (res) => {
+			return res.data.stocks.map((el) => {
+				let deficit = 0;
+
+				stores.forEach((ele) => {
+					if (ele.store.substance.id === el.substance_id) {
+						deficit = deficit + ele.deficit;
+					}
+				});
+				return {
+					...el,
+					realAmount: el.amount - deficit,
+					diff: -deficit,
+				};
+			});
+		},
+		onSuccess: (data) => {
+			setStocks(data);
+		},
+		enabled:
+			currMovmentIsChecked &&
+			nextMovmentIsChecked &&
+			pendingMovmentIsChecked &&
+			!!lastShift &&
+			!!stores &&
+			priceMovmentIsChecked,
+	});
+
 	const { data: dispensersMovments } = useQuery({
 		queryKey: ["dispensersMovments", currMovment?.id, lastShift],
 		queryFn: getDispensersMovmentByMovmentIdAndShiftId,
@@ -245,16 +264,6 @@ const StocktakingForm = () => {
 		setMembersCount((prev) => prev + 1);
 	};
 	const onSaveMovmentHandler = () => {
-		console.log({
-			station,
-			substance: selectedSubstances,
-			date: date,
-			stores,
-			members,
-			stocks,
-			currMovmentId: currMovment.id,
-			type: isPriceChange ? "تسعيرة" : "جرد",
-		});
 		saveMutation.mutate({
 			station,
 			substance: selectedSubstances,
@@ -343,7 +352,7 @@ const StocktakingForm = () => {
 									}}
 								/>
 							</Row>
-							<Row flex={[1, 1, 1]}>
+							<Row flex={[1, 2, 18]}>
 								<Checkbox
 									isSelected={isPriceChange}
 									onChange={(e) => {
@@ -353,6 +362,15 @@ const StocktakingForm = () => {
 								>
 									تسعيرة
 								</Checkbox>
+								<Checkbox
+									isSelected={storeAdjustment}
+									onChange={(e) => {
+										setStoreAdjustment(e.target.checked);
+									}}
+								>
+									معالجة العجز
+								</Checkbox>
+								<></>
 							</Row>
 						</CardBody>
 					</Card>

@@ -84,8 +84,8 @@ const AuthContextProvider = ({ children }) => {
 
 	const login = async (data) => {
 		const res = await serverApi.post(
-			// "http://3.235.213.140:8060/api/v1/auth/login",
-			"http://localhost:8060/api/v1/auth/login",
+			"http://3.235.213.140:8060/api/v1/auth/login",
+			// "http://localhost:8060/api/v1/auth/login",
 			// "http://192.168.2.200:8050/api/v1/auth/login",
 			// "https://pixalloy.com/edt/api/v1/auth/login",
 			{ ...data, deviceId }

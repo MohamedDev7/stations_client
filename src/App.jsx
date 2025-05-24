@@ -41,6 +41,8 @@ import SurplusesPage from "./pages/surplus/SurplusPage";
 import SurplusFormPage from "./pages/surplus/SurplusFormPage";
 import StoresMovmentSummaryReport from "./pages/reports/StoresMovmentSummaryReport";
 import ReceivesPage from "./pages/receives/ReceivesPage";
+import CreditSalesPage from "./pages/creditSales/CreditSalesPage";
+import SettleCreditSaleFormPage from "./pages/creditSales/SettleCreditSaleFormPage";
 import ReceiveFormPage from "./pages/receives/ReceiveFormPage";
 import DepositsPage from "./pages/deposits/DepositsPage";
 import DepositFormPage from "./pages/deposits/DepositFormPage";
@@ -52,6 +54,7 @@ import DepositsMovmentReport from "./pages/reports/DepositsMovmentReport";
 import ChangePasswordPage from "./pages/changePassword/ChangePasswordPage";
 import StocktakingForm from "./pages/stocktaking/StocktakingForm";
 import Stocktakings from "./pages/stocktaking/Stocktakings";
+import CreditSalesReport from "./pages/reports/CreditSalesReport";
 
 function App() {
 	const { currUser } = useContext(AuthContext);
@@ -395,6 +398,42 @@ function App() {
 						{
 							path: "print",
 							element: <ReportViewer />,
+						},
+					],
+				},
+				{
+					path: "creditSales",
+					element: <Outlet />,
+					children: [
+						{
+							path: "",
+							element: <CreditSalesPage />,
+						},
+						{
+							path: "add",
+							element: <SettleCreditSaleFormPage />,
+						},
+						{
+							path: "edit",
+							element: <SettleCreditSaleFormPage />,
+						},
+						{
+							path: "print",
+							element: <ReportViewer />,
+						},
+					],
+				},
+				{
+					path: "creditSalesReport",
+					element: <Outlet />,
+					children: [
+						{
+							path: "",
+							element: <CreditSalesReport />,
+						},
+						{
+							path: "print",
+							element: <CreditSalesReport />,
 						},
 					],
 				},

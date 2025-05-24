@@ -26,7 +26,6 @@ const LoginPage = () => {
 				password: password,
 			});
 		} catch (err) {
-			console.log(`err`, err);
 			setErr(err.response.data.message);
 		}
 	};

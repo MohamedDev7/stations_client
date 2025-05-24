@@ -5071,12 +5071,9 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Parent isRef="13" />
               <Text>{stocktaking.date}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="21" type="DateFormat" isKey="true">
-                <StringFormat>dd/MM/yyyy</StringFormat>
-              </TextFormat>
               <Type>DataColumn</Type>
             </Text6>
-            <Text10 Ref="22" type="Text" isKey="true">
+            <Text10 Ref="21" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>3.75,2.11,2.2,0.72</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -5092,11 +5089,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text10>
-            <HorizontalLinePrimitive1 Ref="23" type="HorizontalLinePrimitive" isKey="true">
+            <HorizontalLinePrimitive1 Ref="22" type="HorizontalLinePrimitive" isKey="true">
               <ClientRectangle>0.01,3.56,19,0.0254</ClientRectangle>
               <Color>Black</Color>
               <Conditions isList="true" count="0" />
-              <EndCap Ref="24" type="Cap" isKey="true">
+              <EndCap Ref="23" type="Cap" isKey="true">
                 <Color>Black</Color>
               </EndCap>
               <Expressions isList="true" count="0" />
@@ -5104,7 +5101,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Page isRef="12" />
               <Parent isRef="13" />
               <Size>2</Size>
-              <StartCap Ref="25" type="Cap" isKey="true">
+              <StartCap Ref="24" type="Cap" isKey="true">
                 <Color>Black</Color>
               </StartCap>
             </HorizontalLinePrimitive1>
@@ -5115,11 +5112,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
           <Page isRef="12" />
           <Parent isRef="12" />
         </PageHeaderBand1>
-        <ReportTitleBand1 Ref="26" type="ReportTitleBand" isKey="true">
+        <ReportTitleBand1 Ref="25" type="ReportTitleBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,4.82,19,1.43</ClientRectangle>
           <Components isList="true" count="1">
-            <Text3 Ref="27" type="Text" isKey="true">
+            <Text3 Ref="26" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>1.98,0.22,15.14,1.17</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -5130,7 +5127,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Margins>0,0,0,0</Margins>
               <Name>Text3</Name>
               <Page isRef="12" />
-              <Parent isRef="26" />
+              <Parent isRef="25" />
               <Text>محضر جرد</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -5142,12 +5139,12 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
           <Page isRef="12" />
           <Parent isRef="12" />
         </ReportTitleBand1>
-        <DataBand1 Ref="28" type="DataBand" isKey="true">
+        <DataBand1 Ref="27" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,7.05,19,2.21</ClientRectangle>
           <Components isList="true" count="1">
-            <Text4 Ref="29" type="Text" isKey="true">
+            <Text4 Ref="28" type="Text" isKey="true">
               <Anchor>Top, Right</Anchor>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.24,0.19,18.56,1.95</ClientRectangle>
@@ -5158,7 +5155,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Margins>0,0,0,0</Margins>
               <Name>Text4</Name>
               <Page isRef="12" />
-              <Parent isRef="28" />
+              <Parent isRef="27" />
               <ShiftMode>None</ShiftMode>
               <Text>بناء على تكليفنا بالنزول إلى {stocktaking.station_name} لجرد مادة ال{stocktaking.substance_name} عند تغير السعر من {stocktaking.prev_price} ريال الى {stocktaking.curr_price} ريال ،فقد كان الجرد على النحو التالي:</Text>
               <TextBrush>Black</TextBrush>
@@ -5176,22 +5173,22 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
           <Parent isRef="12" />
           <Sort isList="true" count="0" />
         </DataBand1>
-        <DataBand2 Ref="30" type="DataBand" isKey="true">
+        <DataBand2 Ref="29" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,10.06,19,2.79</ClientRectangle>
           <Components isList="true" count="2">
-            <Panel1 Ref="31" type="Panel" isKey="true">
+            <Panel1 Ref="30" type="Panel" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0.04,0.61,18.96,2.07</ClientRectangle>
               <Components isList="true" count="1">
-                <Table1 Ref="32" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
+                <Table1 Ref="31" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
                   <Brush>Transparent</Brush>
                   <BusinessObjectGuid isNull="true" />
                   <ClientRectangle>0,0.4,18.96,1.6</ClientRectangle>
                   <ColumnCount>4</ColumnCount>
                   <Components isList="true" count="8">
-                    <Table1_Cell1 Ref="33" type="TableCell" isKey="true">
+                    <Table1_Cell1 Ref="32" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>0,0,4.8,0.8</ClientRectangle>
@@ -5204,13 +5201,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table1_Cell1</Name>
                       <Page isRef="12" />
-                      <Parent isRef="32" />
+                      <Parent isRef="31" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>الفارق</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Center</VertAlignment>
                     </Table1_Cell1>
-                    <Table1_Cell2 Ref="34" type="TableCell" isKey="true">
+                    <Table1_Cell2 Ref="33" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>4.8,0,4.8,0.8</ClientRectangle>
@@ -5223,13 +5220,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table1_Cell2</Name>
                       <Page isRef="12" />
-                      <Parent isRef="32" />
+                      <Parent isRef="31" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>الرصيد الفعلي</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Center</VertAlignment>
                     </Table1_Cell2>
-                    <Table1_Cell3 Ref="35" type="TableCell" isKey="true">
+                    <Table1_Cell3 Ref="34" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>9.6,0,4.8,0.8</ClientRectangle>
@@ -5242,13 +5239,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table1_Cell3</Name>
                       <Page isRef="12" />
-                      <Parent isRef="32" />
+                      <Parent isRef="31" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>الرصيد الدفتري</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Center</VertAlignment>
                     </Table1_Cell3>
-                    <Table1_Cell4 Ref="36" type="TableCell" isKey="true">
+                    <Table1_Cell4 Ref="35" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>14.4,0,4.56,0.8</ClientRectangle>
@@ -5261,13 +5258,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table1_Cell4</Name>
                       <Page isRef="12" />
-                      <Parent isRef="32" />
+                      <Parent isRef="31" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>المادة</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Center</VertAlignment>
                     </Table1_Cell4>
-                    <Table1_Cell5 Ref="37" type="TableCell" isKey="true">
+                    <Table1_Cell5 Ref="36" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>0,0.8,4.8,0.8</ClientRectangle>
@@ -5280,11 +5277,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table1_Cell5</Name>
                       <Page isRef="12" />
-                      <Parent isRef="32" />
+                      <Parent isRef="31" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{ stocktaking.curr_value  - stocktaking.prev_value }</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="38" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="37" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -5293,7 +5290,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table1_Cell5>
-                    <Table1_Cell6 Ref="39" type="TableCell" isKey="true">
+                    <Table1_Cell6 Ref="38" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>4.8,0.8,4.8,0.8</ClientRectangle>
@@ -5306,11 +5303,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table1_Cell6</Name>
                       <Page isRef="12" />
-                      <Parent isRef="32" />
+                      <Parent isRef="31" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stocktaking.curr_value}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="40" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="39" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -5319,7 +5316,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table1_Cell6>
-                    <Table1_Cell7 Ref="41" type="TableCell" isKey="true">
+                    <Table1_Cell7 Ref="40" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>9.6,0.8,4.8,0.8</ClientRectangle>
@@ -5332,11 +5329,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table1_Cell7</Name>
                       <Page isRef="12" />
-                      <Parent isRef="32" />
+                      <Parent isRef="31" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stocktaking.prev_value}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="42" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="41" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -5345,7 +5342,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table1_Cell7>
-                    <Table1_Cell8 Ref="43" type="TableCell" isKey="true">
+                    <Table1_Cell8 Ref="42" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>14.4,0.8,4.56,0.8</ClientRectangle>
@@ -5358,7 +5355,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table1_Cell8</Name>
                       <Page isRef="12" />
-                      <Parent isRef="32" />
+                      <Parent isRef="31" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stocktaking.substance_name}</Text>
                       <TextBrush>Black</TextBrush>
@@ -5376,7 +5373,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                   <Name>Table1</Name>
                   <NumberID>35</NumberID>
                   <Page isRef="12" />
-                  <Parent isRef="31" />
+                  <Parent isRef="30" />
                   <RowCount>2</RowCount>
                   <Sort isList="true" count="0" />
                 </Table1>
@@ -5385,9 +5382,9 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Expressions isList="true" count="0" />
               <Name>Panel1</Name>
               <Page isRef="12" />
-              <Parent isRef="30" />
+              <Parent isRef="29" />
             </Panel1>
-            <Text5 Ref="44" type="Text" isKey="true">
+            <Text5 Ref="43" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>14.73,0.06,4.31,0.51</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -5397,7 +5394,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Margins>0,0,0,0</Margins>
               <Name>Text5</Name>
               <Page isRef="12" />
-              <Parent isRef="30" />
+              <Parent isRef="29" />
               <Text>اولاً:جرد السوائل</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -5413,22 +5410,22 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
           <Parent isRef="12" />
           <Sort isList="true" count="0" />
         </DataBand2>
-        <DataBand4 Ref="45" type="DataBand" isKey="true">
+        <DataBand4 Ref="44" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,13.65,19,2.83</ClientRectangle>
           <Components isList="true" count="2">
-            <Panel5 Ref="46" type="Panel" isKey="true">
+            <Panel5 Ref="45" type="Panel" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0.04,0.67,18.96,2.07</ClientRectangle>
               <Components isList="true" count="1">
-                <Table4 Ref="47" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
+                <Table4 Ref="46" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
                   <Brush>Transparent</Brush>
                   <BusinessObjectGuid isNull="true" />
                   <ClientRectangle>0,0.4,18.96,1.6</ClientRectangle>
                   <ColumnCount>3</ColumnCount>
                   <Components isList="true" count="6">
-                    <Table4_Cell1 Ref="48" type="TableCell" isKey="true">
+                    <Table4_Cell1 Ref="47" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>0,0,6.4,0.8</ClientRectangle>
@@ -5441,13 +5438,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table4_Cell1</Name>
                       <Page isRef="12" />
-                      <Parent isRef="47" />
+                      <Parent isRef="46" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>ب</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Center</VertAlignment>
                     </Table4_Cell1>
-                    <Table4_Cell2 Ref="49" type="TableCell" isKey="true">
+                    <Table4_Cell2 Ref="48" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>6.4,0,6.2,0.8</ClientRectangle>
@@ -5460,14 +5457,14 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table4_Cell2</Name>
                       <Page isRef="12" />
-                      <Parent isRef="47" />
+                      <Parent isRef="46" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>أ</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table4_Cell2>
-                    <Table4_Cell3 Ref="50" type="TableCell" isKey="true">
+                    <Table4_Cell3 Ref="49" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>12.6,0,6.2,0.8</ClientRectangle>
@@ -5480,14 +5477,14 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table4_Cell3</Name>
                       <Page isRef="12" />
-                      <Parent isRef="47" />
+                      <Parent isRef="46" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>العداد</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table4_Cell3>
-                    <Table4_Cell4 Ref="51" type="TableCell" isKey="true">
+                    <Table4_Cell4 Ref="50" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>0,0.8,6.4,0.8</ClientRectangle>
@@ -5500,11 +5497,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table4_Cell4</Name>
                       <Page isRef="12" />
-                      <Parent isRef="47" />
+                      <Parent isRef="46" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{dispensers.curr_B}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="52" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="51" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -5513,7 +5510,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table4_Cell4>
-                    <Table4_Cell5 Ref="53" type="TableCell" isKey="true">
+                    <Table4_Cell5 Ref="52" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>6.4,0.8,6.2,0.8</ClientRectangle>
@@ -5526,11 +5523,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table4_Cell5</Name>
                       <Page isRef="12" />
-                      <Parent isRef="47" />
+                      <Parent isRef="46" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{dispensers.curr_A}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="54" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="53" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -5539,7 +5536,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table4_Cell5>
-                    <Table4_Cell6 Ref="55" type="TableCell" isKey="true">
+                    <Table4_Cell6 Ref="54" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>12.6,0.8,6.2,0.8</ClientRectangle>
@@ -5552,7 +5549,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table4_Cell6</Name>
                       <Page isRef="12" />
-                      <Parent isRef="47" />
+                      <Parent isRef="46" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{dispensers.name}</Text>
                       <TextBrush>Black</TextBrush>
@@ -5571,7 +5568,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                   <Name>Table4</Name>
                   <NumberID>35</NumberID>
                   <Page isRef="12" />
-                  <Parent isRef="46" />
+                  <Parent isRef="45" />
                   <RowCount>2</RowCount>
                   <Sort isList="true" count="0" />
                 </Table4>
@@ -5580,9 +5577,9 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Expressions isList="true" count="0" />
               <Name>Panel5</Name>
               <Page isRef="12" />
-              <Parent isRef="45" />
+              <Parent isRef="44" />
             </Panel5>
-            <Text11 Ref="56" type="Text" isKey="true">
+            <Text11 Ref="55" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>14.71,0.08,4.31,0.51</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -5592,7 +5589,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Margins>0,0,0,0</Margins>
               <Name>Text11</Name>
               <Page isRef="12" />
-              <Parent isRef="45" />
+              <Parent isRef="44" />
               <Text>ثانياً:قراءة العدادات</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -5608,22 +5605,22 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
           <Parent isRef="12" />
           <Sort isList="true" count="0" />
         </DataBand4>
-        <DataBand5 Ref="57" type="DataBand" isKey="true">
+        <DataBand5 Ref="56" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,17.28,19,3.97</ClientRectangle>
           <Components isList="true" count="2">
-            <Panel6 Ref="58" type="Panel" isKey="true">
+            <Panel6 Ref="57" type="Panel" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0.04,1.04,18.96,2.07</ClientRectangle>
               <Components isList="true" count="1">
-                <Table5 Ref="59" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
+                <Table5 Ref="58" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
                   <Brush>Transparent</Brush>
                   <BusinessObjectGuid isNull="true" />
                   <ClientRectangle>0,0.4,18.96,2.4</ClientRectangle>
                   <ColumnCount>3</ColumnCount>
                   <Components isList="true" count="9">
-                    <Table5_Cell1 Ref="60" type="TableCell" isKey="true">
+                    <Table5_Cell1 Ref="59" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>0,0,6.4,0.8</ClientRectangle>
@@ -5637,7 +5634,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table5_Cell1</Name>
                       <Page isRef="12" />
-                      <Parent isRef="59" />
+                      <Parent isRef="58" />
                       <ParentJoin>25</ParentJoin>
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>ال</Text>
@@ -5645,7 +5642,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table5_Cell1>
-                    <Table5_Cell2 Ref="61" type="TableCell" isKey="true">
+                    <Table5_Cell2 Ref="60" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>0,0,12.6,0.8</ClientRectangle>
@@ -5664,7 +5661,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table5_Cell2</Name>
                       <Page isRef="12" />
-                      <Parent isRef="59" />
+                      <Parent isRef="58" />
                       <ParentJoin>25</ParentJoin>
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>الرصيد</Text>
@@ -5672,7 +5669,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table5_Cell2>
-                    <Table5_Cell3 Ref="62" type="TableCell" isKey="true">
+                    <Table5_Cell3 Ref="61" type="TableCell" isKey="true">
                       <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>12.6,0,6.36,0.8</ClientRectangle>
@@ -5685,13 +5682,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table5_Cell3</Name>
                       <Page isRef="12" />
-                      <Parent isRef="59" />
+                      <Parent isRef="58" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>المخزن</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Bottom</VertAlignment>
                     </Table5_Cell3>
-                    <Table5_Cell4 Ref="63" type="TableCell" isKey="true">
+                    <Table5_Cell4 Ref="62" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>0,0.8,6.4,0.8</ClientRectangle>
@@ -5704,14 +5701,14 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table5_Cell4</Name>
                       <Page isRef="12" />
-                      <Parent isRef="59" />
+                      <Parent isRef="58" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>بعد الجرد</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table5_Cell4>
-                    <Table5_Cell5 Ref="64" type="TableCell" isKey="true">
+                    <Table5_Cell5 Ref="63" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>6.4,0.8,6.2,0.8</ClientRectangle>
@@ -5724,14 +5721,14 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table5_Cell5</Name>
                       <Page isRef="12" />
-                      <Parent isRef="59" />
+                      <Parent isRef="58" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>قبل الجرد</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table5_Cell5>
-                    <Table5_Cell6 Ref="65" type="TableCell" isKey="true">
+                    <Table5_Cell6 Ref="64" type="TableCell" isKey="true">
                       <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
                       <Brush>[141:179:226]</Brush>
                       <ClientRectangle>12.6,0.8,6.36,0.8</ClientRectangle>
@@ -5743,11 +5740,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table5_Cell6</Name>
                       <Page isRef="12" />
-                      <Parent isRef="59" />
+                      <Parent isRef="58" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <TextBrush>Black</TextBrush>
                     </Table5_Cell6>
-                    <Table5_Cell7 Ref="66" type="TableCell" isKey="true">
+                    <Table5_Cell7 Ref="65" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>0,1.6,6.4,0.8</ClientRectangle>
@@ -5760,11 +5757,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table5_Cell7</Name>
                       <Page isRef="12" />
-                      <Parent isRef="59" />
+                      <Parent isRef="58" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stores.curr_value}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="67" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="66" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -5773,7 +5770,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table5_Cell7>
-                    <Table5_Cell8 Ref="68" type="TableCell" isKey="true">
+                    <Table5_Cell8 Ref="67" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>6.4,1.6,6.2,0.8</ClientRectangle>
@@ -5786,11 +5783,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table5_Cell8</Name>
                       <Page isRef="12" />
-                      <Parent isRef="59" />
+                      <Parent isRef="58" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stores.prev_value}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="69" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="68" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -5799,7 +5796,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table5_Cell8>
-                    <Table5_Cell9 Ref="70" type="TableCell" isKey="true">
+                    <Table5_Cell9 Ref="69" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
                       <ClientRectangle>12.6,1.6,6.36,0.8</ClientRectangle>
@@ -5812,7 +5809,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table5_Cell9</Name>
                       <Page isRef="12" />
-                      <Parent isRef="59" />
+                      <Parent isRef="58" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stores.name}</Text>
                       <TextBrush>Black</TextBrush>
@@ -5830,7 +5827,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                   <Name>Table5</Name>
                   <NumberID>40</NumberID>
                   <Page isRef="12" />
-                  <Parent isRef="58" />
+                  <Parent isRef="57" />
                   <RowCount>3</RowCount>
                   <Sort isList="true" count="0" />
                 </Table5>
@@ -5839,9 +5836,9 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Expressions isList="true" count="0" />
               <Name>Panel6</Name>
               <Page isRef="12" />
-              <Parent isRef="57" />
+              <Parent isRef="56" />
             </Panel6>
-            <Text12 Ref="71" type="Text" isKey="true">
+            <Text12 Ref="70" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>14.75,0.38,4.31,0.51</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -5851,7 +5848,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Margins>0,0,0,0</Margins>
               <Name>Text12</Name>
               <Page isRef="12" />
-              <Parent isRef="57" />
+              <Parent isRef="56" />
               <Text>ثالثاً:بيانات المخازن</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -5867,21 +5864,21 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
           <Parent isRef="12" />
           <Sort isList="true" count="0" />
         </DataBand5>
-        <DataBand3 Ref="72" type="DataBand" isKey="true">
+        <DataBand3 Ref="71" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,22.05,19,5.55</ClientRectangle>
           <Components isList="true" count="3">
-            <Panel2 Ref="73" type="Panel" isKey="true">
+            <Panel2 Ref="72" type="Panel" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>11.85,0.64,7.12,2.17</ClientRectangle>
               <Components isList="true" count="1">
-                <Table3 Ref="74" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
+                <Table3 Ref="73" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
                   <Brush>Transparent</Brush>
                   <BusinessObjectGuid isNull="true" />
                   <ClientRectangle>0,0.4,7.12,1.6</ClientRectangle>
                   <ColumnCount>2</ColumnCount>
                   <Components isList="true" count="4">
-                    <Table3_Cell1 Ref="75" type="TableCell" isKey="true">
+                    <Table3_Cell1 Ref="74" type="TableCell" isKey="true">
                       <Brush>White</Brush>
                       <ClientRectangle>0,0,6.19,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -5893,12 +5890,12 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table3_Cell1</Name>
                       <Page isRef="12" />
-                      <Parent isRef="74" />
+                      <Parent isRef="73" />
                       <ParentJoin>1</ParentJoin>
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <TextBrush>Black</TextBrush>
                     </Table3_Cell1>
-                    <Table3_Cell2 Ref="76" type="TableCell" isKey="true">
+                    <Table3_Cell2 Ref="75" type="TableCell" isKey="true">
                       <Brush>White</Brush>
                       <ClientRectangle>0,0,7.12,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -5916,7 +5913,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table3_Cell2</Name>
                       <Page isRef="12" />
-                      <Parent isRef="74" />
+                      <Parent isRef="73" />
                       <ParentJoin>1</ParentJoin>
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>اعضاء اللجنة</Text>
@@ -5925,7 +5922,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table3_Cell2>
-                    <Table3_Cell3 Ref="77" type="TableCell" isKey="true">
+                    <Table3_Cell3 Ref="76" type="TableCell" isKey="true">
                       <Brush>White</Brush>
                       <ClientRectangle>0,0.8,6.19,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -5937,7 +5934,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table3_Cell3</Name>
                       <Page isRef="12" />
-                      <Parent isRef="74" />
+                      <Parent isRef="73" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{members.name}</Text>
                       <TextBrush>Black</TextBrush>
@@ -5945,7 +5942,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table3_Cell3>
-                    <Table3_Cell4 Ref="78" type="TableCell" isKey="true">
+                    <Table3_Cell4 Ref="77" type="TableCell" isKey="true">
                       <Brush>White</Brush>
                       <ClientRectangle>6.19,0.8,0.93,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -5957,7 +5954,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>Table3_Cell4</Name>
                       <Page isRef="12" />
-                      <Parent isRef="74" />
+                      <Parent isRef="73" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{LineThrough}</Text>
                       <TextBrush>Black</TextBrush>
@@ -5976,7 +5973,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                   <Name>Table3</Name>
                   <NumberID>25</NumberID>
                   <Page isRef="12" />
-                  <Parent isRef="73" />
+                  <Parent isRef="72" />
                   <RowCount>2</RowCount>
                   <Sort isList="true" count="0" />
                 </Table3>
@@ -5985,19 +5982,19 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Expressions isList="true" count="0" />
               <Name>Panel2</Name>
               <Page isRef="12" />
-              <Parent isRef="72" />
+              <Parent isRef="71" />
             </Panel2>
-            <Panel3 Ref="79" type="Panel" isKey="true">
+            <Panel3 Ref="78" type="Panel" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0.04,0.68,4.36,2.15</ClientRectangle>
               <Components isList="true" count="1">
-                <Table2 Ref="80" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
+                <Table2 Ref="79" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
                   <Brush>Transparent</Brush>
                   <BusinessObjectGuid isNull="true" />
                   <ClientRectangle>0,0.4,4.36,1.6</ClientRectangle>
                   <ColumnCount>2</ColumnCount>
                   <Components isList="true" count="4">
-                    <TableCell1 Ref="81" type="TableCell" isKey="true">
+                    <TableCell1 Ref="80" type="TableCell" isKey="true">
                       <Brush>White</Brush>
                       <ClientRectangle>0,0,6.19,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -6009,12 +6006,12 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>TableCell1</Name>
                       <Page isRef="12" />
-                      <Parent isRef="80" />
+                      <Parent isRef="79" />
                       <ParentJoin>1</ParentJoin>
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <TextBrush>Black</TextBrush>
                     </TableCell1>
-                    <TableCell2 Ref="82" type="TableCell" isKey="true">
+                    <TableCell2 Ref="81" type="TableCell" isKey="true">
                       <Brush>White</Brush>
                       <ClientRectangle>0,0,4.36,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -6032,7 +6029,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>TableCell2</Name>
                       <Page isRef="12" />
-                      <Parent isRef="80" />
+                      <Parent isRef="79" />
                       <ParentJoin>1</ParentJoin>
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>مشرف المحطة</Text>
@@ -6041,7 +6038,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </TableCell2>
-                    <TableCell3 Ref="83" type="TableCell" isKey="true">
+                    <TableCell3 Ref="82" type="TableCell" isKey="true">
                       <Brush>White</Brush>
                       <ClientRectangle>0,0.8,6.19,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -6053,7 +6050,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>TableCell3</Name>
                       <Page isRef="12" />
-                      <Parent isRef="80" />
+                      <Parent isRef="79" />
                       <ParentJoin>6</ParentJoin>
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{members.name}</Text>
@@ -6062,7 +6059,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </TableCell3>
-                    <TableCell4 Ref="84" type="TableCell" isKey="true">
+                    <TableCell4 Ref="83" type="TableCell" isKey="true">
                       <Brush>White</Brush>
                       <ClientRectangle>0,0.8,4.36,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -6080,7 +6077,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Margins>0,0,0,0</Margins>
                       <Name>TableCell4</Name>
                       <Page isRef="12" />
-                      <Parent isRef="80" />
+                      <Parent isRef="79" />
                       <ParentJoin>6</ParentJoin>
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{info.supervisor}</Text>
@@ -6100,7 +6097,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                   <Name>Table2</Name>
                   <NumberID>25</NumberID>
                   <Page isRef="12" />
-                  <Parent isRef="79" />
+                  <Parent isRef="78" />
                   <RowCount>2</RowCount>
                   <Sort isList="true" count="0" />
                 </Table2>
@@ -6109,13 +6106,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Expressions isList="true" count="0" />
               <Name>Panel3</Name>
               <Page isRef="12" />
-              <Parent isRef="72" />
+              <Parent isRef="71" />
             </Panel3>
-            <Panel4 Ref="85" type="Panel" isKey="true">
+            <Panel4 Ref="84" type="Panel" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0.03,4.85,18.96,0.67</ClientRectangle>
               <Components isList="true" count="1">
-                <Text9 Ref="86" type="Text" isKey="true">
+                <Text9 Ref="85" type="Text" isKey="true">
                   <Brush>White</Brush>
                   <ClientRectangle>7.12,0.07,3.59,0.51</ClientRectangle>
                   <Conditions isList="true" count="0" />
@@ -6125,7 +6122,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                   <Margins>0,0,0,0</Margins>
                   <Name>Text9</Name>
                   <Page isRef="12" />
-                  <Parent isRef="85" />
+                  <Parent isRef="84" />
                   <Text>يعتمـــــــد</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
@@ -6136,7 +6133,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Expressions isList="true" count="0" />
               <Name>Panel4</Name>
               <Page isRef="12" />
-              <Parent isRef="72" />
+              <Parent isRef="71" />
             </Panel4>
           </Components>
           <Conditions isList="true" count="0" />
@@ -6170,10 +6167,10 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>4/27/2025 7:17:04 PM</ReportChanged>
+  <ReportChanged>4/30/2025 10:10:15 PM</ReportChanged>
   <ReportCreated>2/18/2025 11:27:23 AM</ReportCreated>
   <ReportFile>D:\projects\stations\Client\public\reportsTemplates\stocktakingPriceReport.mrt</ReportFile>
-  <ReportGuid>399acb99bb634e2182ee276070b96e04</ReportGuid>
+  <ReportGuid>b5e56f2a3fa44145abcb11e5addbdd25</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2022.1.1.0</ReportVersion>

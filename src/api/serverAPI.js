@@ -203,7 +203,6 @@ export const getMovmentsShiftsByMovmentId = async (data) => {
 	return res;
 };
 export const getLastShiftIdByMovmentId = async (data) => {
-	console.log(data);
 	const res = await serverApi.get(`/shifts/last/movment/${data.queryKey[1]}`);
 	return res;
 };
@@ -418,6 +417,29 @@ export const deleteBank = async (id) => {
 	const res = await serverApi.delete(`/banks/${id}`);
 	return res;
 };
+//Credit Sales API
+export const getAllCreditSales = async (data) => {
+	const res = await serverApi.get(
+		`/creditSales?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+	);
+	return res;
+};
+// export const getBank = async (id) => {
+// 	const res = await serverApi.get(`/banks/${id}`);
+// 	return res;
+// };
+// export const addBank = async (data) => {
+// 	const res = await serverApi.post("/banks", data);
+// 	return res;
+// };
+// export const updateBank = async (data) => {
+// 	const res = await serverApi.patch(`/banks/${data.id}`, data);
+// 	return res;
+// };
+// export const deleteBank = async (id) => {
+// 	const res = await serverApi.delete(`/banks/${id}`);
+// 	return res;
+// };
 //reports API
 export const getStoresMovmentReport = async (data) => {
 	const res = await serverApi.get(
@@ -434,6 +456,12 @@ export const getEmployeeAccountStatementReport = async (data) => {
 export const getBoxAccountStatementReport = async (data) => {
 	const res = await serverApi.get(
 		`/reports/accountStatement/box/?startDate=${data.queryKey[1]}&endDate=${data.queryKey[2]}&station=${data.queryKey[3]}`
+	);
+	return res;
+};
+export const getCreditSalesStatementReport = async (data) => {
+	const res = await serverApi.get(
+		`/reports/creditSales/?startDate=${data.queryKey[1]}&endDate=${data.queryKey[2]}&station=${data.queryKey[3]}&station=${data.queryKey[4]}`
 	);
 	return res;
 };

@@ -2,7 +2,7 @@
 	"name": "stations-client",
 	"private": true,
 	"description": "stations client",
-	"version": "1.1.0",
+	"version": "1.1.5",
 	"main": "public/main.js",
 	"homepage": "./",
 	"author": "Mohamed Hasan",
@@ -13,8 +13,8 @@
 		"lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
 		"electron:dev": "npx electronmon --trace-warnings . ",
-		"electron:build": "yarn build && electron-builder --win -c.extraMetadata.main=build/main.js",
-		"electron:publish": "npm run build && electron-builder --win -c.extraMetadata.main=build/main.js --publish always"
+		"electron:build": "yarn build && electron-builder --win --mac -c.extraMetadata.main=build/main.js",
+		"electron:publish": "npm run build && electron-builder --win --mac -c.extraMetadata.main=build/main.js --publish always"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.11.3",
@@ -68,7 +68,7 @@
 		"icon": "./../src/assets/logo.png",
 		"files": [
 			"build/**/*",
-			"node-module/**/*",
+			"node_modules/**/*",
 			"package.json"
 		],
 		"win": {
@@ -83,6 +83,31 @@
 					]
 				}
 			]
+		},
+		"mac": {
+			"publish": [
+				"github"
+			],
+			"target": [
+				{
+					"target": "dmg",
+					"arch": [
+						"x64",
+						"arm64"
+					]
+				}
+			],
+			"category": "public.app-category.business",
+			"hardenedRuntime": true,
+			"gatekeeperAssess": false,
+			"entitlements": "build/entitlements.mac.plist",
+			"entitlementsInherit": "build/entitlements.mac.plist"
+		},
+		"directories": {
+			"output": "dist"
+		},
+		"nsis": {
+			"differentialPackage": true
 		}
 	},
 	"eslintConfig": {

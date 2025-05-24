@@ -59,7 +59,7 @@ const HomePage = () => {
 				station.stock = groupedSubstances;
 				station.capacity = groupedTanks;
 			});
-			console.log(`res.data.stations`, res.data.stations);
+
 			return res.data.stations;
 		},
 		onError: (err) => {

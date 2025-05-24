@@ -22,7 +22,7 @@ import {
 	SelectItem,
 	Textarea,
 } from "@heroui/react";
-const ReceiveFormPage = () => {
+const SettleCreditSaleFormPage = () => {
 	//hooks
 	const navigate = useNavigate();
 	const info = useLocation();
@@ -97,7 +97,7 @@ const ReceiveFormPage = () => {
 		<div className="w-full h-full overflow-auto">
 			<form
 				onSubmit={(e) => {
-					e.preventDefault();
+					e.stopPropagation();
 					info.state
 						? editMutation.mutate({
 								date,
@@ -159,7 +159,6 @@ const ReceiveFormPage = () => {
 									isRequired
 									value={date}
 									type="date"
-									dir="rtl"
 									onChange={(e) => setDate(e.target.value)}
 								/>
 								<Select
@@ -209,4 +208,4 @@ const ReceiveFormPage = () => {
 	);
 };
 
-export default ReceiveFormPage;
+export default SettleCreditSaleFormPage;

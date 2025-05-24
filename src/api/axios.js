@@ -2,8 +2,8 @@ import axios from "axios";
 
 // Create axios instance with base configuration
 export const serverApi = axios.create({
-	// baseURL: "http://3.235.213.140:8060/api/v1/",
-	baseURL: "http://localhost:8060/api/v1/",
+	baseURL: "http://3.235.213.140:8060/api/v1/",
+	// baseURL: "http://localhost:8060/api/v1/",
 	// baseURL: "http://192.168.2.200:8050/api/v1/",
 	// baseURL: "https://pixalloy.com/edt/api/v1/",
 });

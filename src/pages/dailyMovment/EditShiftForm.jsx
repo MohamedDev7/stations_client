@@ -57,13 +57,15 @@ const EditShiftForm = () => {
 	const [incomes, setIncomes] = useState([]);
 	const [coupons, setCoupons] = useState([]);
 	const [couponsCount, setCouponsCount] = useState(0);
-	const [storesTransfer, setStoresTransfer] = useState([]);
 	const [surplus, setSurplus] = useState([]);
 	const [dispensers, setDispensers] = useState([]);
 	const [currStoresMovments, setCurrStoresMovments] = useState([]);
 	const [couponsIsChecked, setCouponsIsChecked] = useState(false);
 	const [othersIsChecked, setOthersIsChecked] = useState(false);
 	const [calibrations, setCalibrations] = useState([]);
+	const [creditSalesIsChecked, setCreditSalesIsChecked] = useState(false);
+	const [creditSales, setCreditSales] = useState([]);
+	const [creditSalesCount, setCreditSalesCount] = useState(0);
 	// const { data: shifts } = useQuery({
 	// 	queryKey: ["shifts", info.state.station_id],
 	// 	queryFn: getShiftsByStationId,
@@ -117,6 +119,24 @@ const EditShiftForm = () => {
 					};
 				});
 			}
+			let creditSales = [];
+			if (res.data.creditSales.length > 0) {
+				creditSales = res.data.creditSales.map((el, i) => {
+					return {
+						...el,
+						store: el.store.id,
+						beneficiary_store: el.beneficiary_store,
+						db_id: el.id,
+						id: i + 1,
+						amount: el.amount,
+						substance: el.store.substance.id,
+						title: el.title,
+						saved: true,
+						employee_id: el.employee_id,
+					};
+				});
+			}
+
 			let coupons = [];
 			if (res.data.coupons.length > 0) {
 				coupons = res.data.coupons.map((el, i) => {
@@ -131,7 +151,7 @@ const EditShiftForm = () => {
 					};
 				});
 			}
-			return { dispensers, incomes, others, coupons, stores };
+			return { dispensers, incomes, others, coupons, stores, creditSales };
 		},
 		onSuccess: (data) => {
 			setCurrStoresMovments(data.stores);
@@ -142,6 +162,9 @@ const EditShiftForm = () => {
 			setCouponsCount(data.coupons.length);
 			setCouponsIsChecked(data.coupons.length > 0 ? true : false);
 			setCoupons(data.coupons);
+			setCreditSalesCount(data.creditSales.length);
+			setCreditSalesIsChecked(data.creditSales.length > 0 ? true : false);
+			setCreditSales(data.creditSales);
 		},
 		enabled: !!prices,
 	});
@@ -278,7 +301,22 @@ const EditShiftForm = () => {
 		]);
 		setOthersCount((prev) => prev + 1);
 	};
-
+	const addCreditSalesHandler = () => {
+		setCreditSales((prev) => [
+			...prev,
+			{
+				id: creditSalesCount + 1,
+				amount: 0,
+				store: null,
+				beneficiary: null,
+				substance: "",
+				title: "",
+				employee_id: "",
+				saved: false,
+			},
+		]);
+		setCouponsCount((prev) => prev + 1);
+	};
 	const addCouponsHandler = () => {
 		setCoupons((prev) => [
 			...prev,
@@ -374,6 +412,40 @@ const EditShiftForm = () => {
 			prev.filter((el) => el.id !== item.id).concat({ ...item, saved: true })
 		);
 	};
+	const saveCreditSalesHandler = (item) => {
+		// let couponsTotal = 0;
+		// let dispensersTotal = 0;
+
+		if (
+			creditSales.filter(
+				(el) =>
+					!el.amount ||
+					!el.title ||
+					!el.employee_id ||
+					!el.store ||
+					!el.beneficiary
+			).length > 0
+		) {
+			toast.error("يرجى التأكد من تعبئة جمبيع الحقول بشكل صحيح", {
+				position: "top-center",
+			});
+			return;
+		}
+
+		const storeToUpdate = currStoresMovments.filter(
+			(el) => el.store.id === item.store
+		)[0];
+
+		if (storeToUpdate.curr_value < item.amount) {
+			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
+				position: "top-center",
+			});
+			return;
+		}
+		setCreditSales((prev) =>
+			prev.filter((el) => el.id !== item.id).concat({ ...item, saved: true })
+		);
+	};
 	const updateCurrStoresMovments = () => {
 		let updatedStoresMovments = [...shiftData.stores];
 
@@ -406,7 +478,13 @@ const EditShiftForm = () => {
 				}
 			});
 		});
-
+		updatedStoresMovments.forEach((el) => {
+			creditSales.forEach((ele) => {
+				if (el.store.id === ele.store) {
+					el.curr_value = el.curr_value - +ele.amount;
+				}
+			});
+		});
 		updatedStoresMovments.forEach((el) => {
 			others.forEach((ele) => {
 				if (el.store.id === ele.store) {
@@ -456,15 +534,13 @@ const EditShiftForm = () => {
 
 				el.curr_value =
 					el.curr_value - totalDispensersLiters + totalOthersLiters;
-			} else {
-				el.price = 0;
 			}
 		});
-		updatedStoresMovments.forEach((el) => {
-			if (el.store.type === "مجنب") {
-				el.price = 0;
-			}
-		});
+		// updatedStoresMovments.forEach((el) => {
+		// 	if (el.store.type === "مجنب") {
+		// 		el.price = 0;
+		// 	}
+		// });
 
 		setCurrStoresMovments(updatedStoresMovments);
 	};
@@ -472,8 +548,8 @@ const EditShiftForm = () => {
 		if (
 			others.filter((el) => !el.saved).length === 0 &&
 			coupons.filter((el) => !el.saved).length === 0 &&
+			creditSales.filter((el) => !el.saved).length === 0 &&
 			incomes.filter((el) => !el.saved).length === 0 &&
-			storesTransfer.filter((el) => !el.saved).length === 0 &&
 			surplus.filter((el) => !el.saved).length === 0 &&
 			prices &&
 			prices.length > 0 &&
@@ -489,12 +565,21 @@ const EditShiftForm = () => {
 		incomes,
 		dispensers,
 		calibrations,
-		storesTransfer,
 		surplus,
 		coupons,
 		prices,
+		creditSales,
 	]);
 	const onEditMovmentHandler = () => {
+		if (
+			others.filter((el) => el.saved === false).length > 0 ||
+			coupons.filter((el) => el.saved === false).length > 0
+		) {
+			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى ومسحوبات الفرع", {
+				position: "top-center",
+			});
+			return;
+		}
 		editMutation.mutate({
 			dispensers,
 			station_id: info.state.station_id,
@@ -502,12 +587,22 @@ const EditShiftForm = () => {
 			shift: info.state.shift,
 			date: info.state.date,
 			others,
+			creditSales,
 			currStoresMovments,
 			coupons,
 			state: "saved",
 		});
 	};
 	const onHoldMovmentHandler = () => {
+		if (
+			others.filter((el) => el.saved === false).length > 0 ||
+			coupons.filter((el) => el.saved === false).length > 0
+		) {
+			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى ومسحوبات الفرع", {
+				position: "top-center",
+			});
+			return;
+		}
 		editMutation.mutate({
 			dispensers,
 			station_id: info.state.station_id,
@@ -515,6 +610,7 @@ const EditShiftForm = () => {
 			shift: info.state.shift,
 			date: info.state.date,
 			others,
+			creditSales,
 			currStoresMovments,
 			coupons,
 			state: "pending",
@@ -626,10 +722,19 @@ const EditShiftForm = () => {
 								>
 									مسحوبات اخرى
 								</Checkbox>
+								<Checkbox
+									isSelected={creditSalesIsChecked}
+									onChange={() => {
+										setCreditSales([]);
+										setCreditSalesCount(0);
+										setCreditSalesIsChecked((prev) => !prev);
+									}}
+								>
+									مبيعات آجلة
+								</Checkbox>
 							</div>
 						</CardBody>
 					</Card>
-
 					<Card>
 						<CardHeader className="bg-primary text-default-50 font-bold text-medium">
 							خلاصة الحركة
@@ -1224,6 +1329,7 @@ const EditShiftForm = () => {
 															<Button
 																color="primary"
 																onPress={() => saveOtherHandler(item)}
+																isDisabled={item.saved}
 															>
 																<Save />
 															</Button>
@@ -1261,8 +1367,232 @@ const EditShiftForm = () => {
 									<Button
 										color="primary"
 										onPress={() => addOthersHandler()}
-										disabled={
+										isDisabled={
 											others.filter((el) => el.saved === false).length > 0
+										}
+									>
+										إضافة
+									</Button>
+								</Row>
+							</CardBody>
+						</Card>
+					)}
+					{creditSalesIsChecked && (
+						<Card>
+							<CardHeader className="bg-primary text-default-50 font-bold text-medium">
+								مبيعات آجلة
+							</CardHeader>
+							<CardBody>
+								{creditSales.length > 0 ? (
+									<Table aria-label="Default table">
+										<TableHeader>
+											<TableColumn className="w-1/5">الكمية</TableColumn>
+											<TableColumn className="w-1/5">المستودع</TableColumn>
+											<TableColumn className="w-1/5">المستفيد</TableColumn>
+											<TableColumn className="w-1/5">البيان</TableColumn>
+											<TableColumn className="w-1/5">الموظف</TableColumn>
+											<TableColumn className="w-1/5">خيارات</TableColumn>
+										</TableHeader>
+										<TableBody>
+											{creditSales.map((item, i) => (
+												<TableRow key={i}>
+													<TableCell>
+														<Input
+															value={
+																creditSales.filter((el) => el.id === item.id)[0]
+																	.amount
+															}
+															isDisabled={item.saved}
+															onFocus={(e) => e.target.select()}
+															onWheel={(e) => e.target.blur()}
+															onKeyDown={(e) => {
+																if (
+																	e.key === "ArrowUp" ||
+																	e.key === "ArrowDown"
+																) {
+																	e.preventDefault();
+																}
+															}}
+															onChange={(e) => {
+																const updated = creditSales.map((el) => {
+																	if (el.id === item.id) {
+																		return {
+																			...el,
+																			amount: e.target.value,
+																		};
+																	}
+																	return el;
+																});
+																setCreditSales(updated);
+															}}
+															type="number"
+														/>
+													</TableCell>
+													<TableCell>
+														<Select
+															label="المستودع"
+															isDisabled={item.saved}
+															className="max-w-xs"
+															onChange={(e) => {
+																const updated = creditSales.map((el) => {
+																	if (el.id === item.id) {
+																		return {
+																			...el,
+																			store: +e.target.value,
+																			substance: storesName.filter(
+																				(el) => el.id === +e.target.value
+																			)[0].substance,
+																		};
+																	}
+																	return el;
+																});
+																setCreditSales(updated);
+															}}
+															value={
+																creditSales.filter((el) => el.id === item.id)[0]
+																	.store
+															}
+														>
+															{storesName &&
+																storesName.map((el) => {
+																	return (
+																		<SelectItem key={el.id}>
+																			{`${el.name} - ${el.substance.name}`}
+																		</SelectItem>
+																	);
+																})}
+														</Select>
+													</TableCell>
+													<TableCell>
+														<Select
+															label="المستفيد"
+															className="max-w-xs"
+															isDisabled={item.saved}
+															onChange={(e) => {
+																const updated = creditSales.map((el) => {
+																	if (el.id === item.id) {
+																		return {
+																			...el,
+																			beneficiary: +e.target.value,
+																		};
+																	}
+																	return el;
+																});
+																setCreditSales(updated);
+															}}
+															value={
+																creditSales.filter((el) => el.id === item.id)[0]
+																	.beneficiary
+															}
+														>
+															{storesName &&
+																storesName.map((el) => {
+																	return (
+																		<SelectItem key={el.id}>
+																			{`${el.name} - ${el.substance.name}`}
+																		</SelectItem>
+																	);
+																})}
+														</Select>
+													</TableCell>
+													<TableCell>
+														<Input
+															value={
+																creditSales.filter((el) => el.id === item.id)[0]
+																	.title
+															}
+															isDisabled={item.saved}
+															onChange={(e) => {
+																e.stopPropagation();
+																const updated = creditSales.map((el) => {
+																	if (el.id === item.id) {
+																		return {
+																			...el,
+																			title: e.target.value,
+																		};
+																	}
+																	return el;
+																});
+																setCreditSales(updated);
+															}}
+															onFocus={(e) => e.target.select()}
+															onWheel={(e) => e.target.blur()}
+															onKeyDown={(e) => {
+																if (
+																	e.key === "ArrowUp" ||
+																	e.key === "ArrowDown"
+																) {
+																	e.preventDefault();
+																}
+															}}
+														/>
+													</TableCell>
+													<TableCell>
+														<Select
+															label="اسم الموظف"
+															onChange={(e) => {
+																const updated = creditSales.map((el) => {
+																	if (el.id === item.id) {
+																		return {
+																			...el,
+																			employee_id: e.target.value,
+																		};
+																	}
+																	return el;
+																});
+																setCreditSales(updated);
+															}}
+															isDisabled={item.saved}
+															value={
+																creditSales.filter((el) => el.id === item.id)[0]
+																	.employee_id
+															}
+														>
+															{employees &&
+																employees.map((employee) => {
+																	return (
+																		<SelectItem key={employee.key}>
+																			{employee.text}
+																		</SelectItem>
+																	);
+																})}
+														</Select>
+													</TableCell>
+													<TableCell>
+														<div style={{ display: "flex", gap: "5px" }}>
+															<Button
+																color="primary"
+																onPress={() => saveCreditSalesHandler(item)}
+																isDisabled={item.saved}
+															>
+																<Save />
+															</Button>
+
+															<Button
+																onPress={() =>
+																	setCreditSales((prev) =>
+																		prev.filter((el) => el.id !== item.id)
+																	)
+																}
+																color="danger"
+															>
+																<Trash />
+															</Button>
+														</div>
+													</TableCell>
+												</TableRow>
+											))}
+										</TableBody>
+									</Table>
+								) : (
+									<EmptyContainer msg="لا توجد بيانات" />
+								)}
+								<Row>
+									<Button
+										color="primary"
+										onPress={() => addCreditSalesHandler()}
+										isDisabled={
+											creditSales.filter((el) => el.saved === false).length > 0
 										}
 									>
 										إضافة

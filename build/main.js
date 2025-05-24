@@ -31,9 +31,18 @@ function createMainWindow() {
 			contextIsolation: true,
 			nodeIntegration: false,
 			preload: path.join(__dirname, "preload.js"),
+			// additionalArguments: ["--force-renderer-accessibility"],
 		},
 		icon: path.join(__dirname, "../src/assets/logo.png"),
 	});
+	// win.webContents.on("did-finish-load", () => {
+	// 	win.webContents.insertCSS(`
+	// 	  input[type="date"] {
+	// 		direction: ltr !important;
+	// 		text-align: right !important;
+	// 	  }
+	// 	`);
+	// });
 	win.maximize();
 	const template = [
 		// {
