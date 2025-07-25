@@ -2,20 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .bg-default-100 {
-	background-color: #d3d3d3;
-}
-.bg-default-100:focus,
-.bg-default-100:focus-visible,
-.bg-default-100:focus-within {
-	background-color: #d3d3d3 !important;
-}
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-} */
-
 @layer base {
 	:root {
 		--background: 0 0% 100%;

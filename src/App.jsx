@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import Navbar from "./components/navbar/Navbar";
-import SideBar from "./components/sideBar/SideBar";
 import LoginPage from "./pages/login/LoginPage";
 import PropTypes from "prop-types";
 import {
@@ -18,9 +17,12 @@ import StationFormPage from "./pages/stations/StationFormPage";
 import SubstanceFromPage from "./pages/substances/SubstanceFromPage";
 import SubstancesPage from "./pages/substances/SubstancesPage";
 import DailyMovments from "./pages/dailyMovment/DailyMovments";
+import SpicialDailyMovments from "./pages/dailyMovment/SpicialDailyMovments";
+import SpicialEditShiftForm from "./pages/dailyMovment/SpicialEditShiftForm";
 import DailyMovmentForm from "./pages/dailyMovment/DailyMovmentForm";
 import IncomesPage from "./pages/income/IncomesPage";
 import IncomePageForm from "./pages/income/IncomePageForm";
+import SpicialIncomePageForm from "./pages/income/SpicialIncomePageForm";
 import ShiftForm from "./pages/dailyMovment/ShiftForm";
 import DailyReport from "./templates/dailyReport/DailyReport";
 import ConfirmMovmentPage from "./pages/dailyMovment/ConfirmMovmentPage";
@@ -39,15 +41,18 @@ import CalibrationsPage from "./pages/calibration/calibrationsPage";
 import CalibrationFormPage from "./pages/calibration/calibrationsFormPage";
 import SurplusesPage from "./pages/surplus/SurplusPage";
 import SurplusFormPage from "./pages/surplus/SurplusFormPage";
+import SpicialSurplusFormPage from "./pages/surplus/SpicialSurplusFormPage";
 import StoresMovmentSummaryReport from "./pages/reports/StoresMovmentSummaryReport";
 import ReceivesPage from "./pages/receives/ReceivesPage";
-import CreditSalesPage from "./pages/creditSales/CreditSalesPage";
+import CreditSalesSettlementsPage from "./pages/creditSales/CreditSalesSettlementsPage";
 import SettleCreditSaleFormPage from "./pages/creditSales/SettleCreditSaleFormPage";
 import ReceiveFormPage from "./pages/receives/ReceiveFormPage";
 import DepositsPage from "./pages/deposits/DepositsPage";
 import DepositFormPage from "./pages/deposits/DepositFormPage";
 import AccountStatement from "./pages/reports/AccountStatement";
 import BanksPage from "./pages/banks/BanksPage";
+import ClientsPage from "./pages/clients/ClientsPage";
+import ClientFormPage from "./pages/clients/ClientFormPage";
 import BankFormPage from "./pages/banks/bankFormPage";
 import IncomesReportPage from "./pages/reports/IncomesReportPage";
 import DepositsMovmentReport from "./pages/reports/DepositsMovmentReport";
@@ -55,6 +60,7 @@ import ChangePasswordPage from "./pages/changePassword/ChangePasswordPage";
 import StocktakingForm from "./pages/stocktaking/StocktakingForm";
 import Stocktakings from "./pages/stocktaking/Stocktakings";
 import CreditSalesReport from "./pages/reports/CreditSalesReport";
+import SendNotificationFormPage from "./pages/sendNotification/SendNotificationFormPage";
 
 function App() {
 	const { currUser } = useContext(AuthContext);
@@ -92,23 +98,6 @@ function App() {
 			</div>
 		);
 	};
-	// const Layout = () => {
-	// 	return (
-	// 		<div
-	// 			style={{
-	// 				flex: 1,
-	// 				display: "flex",
-	// 				flexDirection: "column",
-	// 				position: "relative",
-	// 			}}
-	// 		>
-	// 			<MenuBar />
-	// 			<div style={{ overflow: "auto", padding: "0 15px" }}>
-	// 				<Outlet />
-	// 			</div>
-	// 		</div>
-	// 	);
-	// };
 
 	const router = createHashRouter([
 		{
@@ -240,6 +229,24 @@ function App() {
 					],
 				},
 				{
+					path: "spicialIncome",
+					element: <Outlet />,
+					children: [
+						{
+							path: "",
+							element: <IncomesPage />,
+						},
+						{
+							path: "add",
+							element: <SpicialIncomePageForm />,
+						},
+						{
+							path: "print",
+							element: <ReportViewer />,
+						},
+					],
+				},
+				{
 					path: "income",
 					element: <Outlet />,
 					children: [
@@ -306,6 +313,24 @@ function App() {
 					],
 				},
 				{
+					path: "spicialSurplus",
+					element: <Outlet />,
+					children: [
+						{
+							path: "",
+							element: <SurplusesPage />,
+						},
+						{
+							path: "add",
+							element: <SpicialSurplusFormPage />,
+						},
+						{
+							path: "print",
+							element: <ReportViewer />,
+						},
+					],
+				},
+				{
 					path: "dailyMovment",
 					element: <Outlet />,
 					children: [
@@ -332,6 +357,44 @@ function App() {
 						{
 							path: "editShift",
 							element: <EditShiftForm />,
+						},
+						{
+							path: "view",
+							element: <DailyReport />,
+						},
+						{
+							path: "print",
+							element: <ReportViewer />,
+						},
+					],
+				},
+				{
+					path: "spicialDailyMovment",
+					element: <Outlet />,
+					children: [
+						{
+							path: "",
+							element: <SpicialDailyMovments />,
+						},
+						{
+							path: "addMovment",
+							element: <DailyMovmentForm />,
+						},
+						{
+							path: "addShift",
+							element: <ShiftForm />,
+						},
+						{
+							path: "confirm",
+							element: <ConfirmMovmentPage />,
+						},
+						{
+							path: "edit",
+							element: <DailyMovmentForm />,
+						},
+						{
+							path: "editShift",
+							element: <SpicialEditShiftForm />,
 						},
 						{
 							path: "view",
@@ -407,7 +470,7 @@ function App() {
 					children: [
 						{
 							path: "",
-							element: <CreditSalesPage />,
+							element: <CreditSalesSettlementsPage />,
 						},
 						{
 							path: "add",
@@ -470,6 +533,24 @@ function App() {
 						{
 							path: "edit",
 							element: <BankFormPage />,
+						},
+					],
+				},
+				{
+					path: "clients",
+					element: <Outlet />,
+					children: [
+						{
+							path: "",
+							element: <ClientsPage />,
+						},
+						{
+							path: "add",
+							element: <ClientFormPage />,
+						},
+						{
+							path: "edit",
+							element: <ClientFormPage />,
 						},
 					],
 				},
@@ -560,6 +641,10 @@ function App() {
 				{
 					path: "changePassword",
 					element: <ChangePasswordPage />,
+				},
+				{
+					path: "sendNotification",
+					element: <SendNotificationFormPage />,
 				},
 			],
 		},

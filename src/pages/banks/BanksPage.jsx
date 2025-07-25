@@ -1,5 +1,5 @@
 import { Trash, Edit } from "@mynaui/icons-react";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import TopBar from "../../components/TopBar/TopBar";
@@ -13,11 +13,9 @@ import {
 	DialogSurface,
 	DialogTitle,
 	DialogTrigger,
-	useRestoreFocusTarget,
 } from "@fluentui/react-components";
 import { Button } from "@heroui/react";
 
-import { SaveRegular, DeleteRegular, EditRegular } from "@fluentui/react-icons";
 import { useNavigate } from "react-router-dom";
 import { deleteBank, getAllBanks } from "../../api/serverApi";
 import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
@@ -28,7 +26,7 @@ const BanksPage = () => {
 	//hooks
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
-	const restoreFocusTargetAttribute = useRestoreFocusTarget();
+
 	const componentRef = useRef();
 
 	//states

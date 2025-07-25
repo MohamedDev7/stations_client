@@ -22,7 +22,6 @@ export const deleteStation = async (id) => {
 // };
 
 //Income API
-
 export const getAllIncomes = async (data) => {
 	const res = await serverApi.get(
 		`/income?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
@@ -37,6 +36,10 @@ export const getIncomesByMovmentIdAndShiftId = async (data) => {
 };
 export const addIncome = async (data) => {
 	const res = await serverApi.post("/income", data);
+	return res;
+};
+export const addSpicialIncome = async (data) => {
+	const res = await serverApi.post("/income/spicial", data);
 	return res;
 };
 export const deleteIncome = async (id) => {
@@ -95,6 +98,10 @@ export const addSurplus = async (data) => {
 	const res = await serverApi.post("/surplus", data);
 	return res;
 };
+export const addSpicialSurplus = async (data) => {
+	const res = await serverApi.post("/surplus/spicial", data);
+	return res;
+};
 export const deleteSurplus = async (id) => {
 	const res = await serverApi.delete(`/surplus/${id}`);
 	return res;
@@ -111,6 +118,12 @@ export const editSurplus = async (data) => {
 export const getAllMovments = async (data) => {
 	const res = await serverApi.get(
 		`/movments?page=${data.queryKey[1]}&limit=${data.queryKey[2]}&filters=${data.queryKey[3]}`
+	);
+	return res;
+};
+export const getOthersByMovmentIdAndShiftId = async (data) => {
+	const res = await serverApi.get(
+		`/movments/others/${data.queryKey[1]}/${data.queryKey[2]}`
 	);
 	return res;
 };
@@ -144,6 +157,10 @@ export const editShiftMovment = async (data) => {
 	const res = await serverApi.patch(`/movments/shift`, data);
 	return res;
 };
+export const spicialEditShiftMovment = async (data) => {
+	const res = await serverApi.patch(`/movments/shift/spicial`, data);
+	return res;
+};
 export const deleteMovment = async (id) => {
 	const res = await serverApi.delete(`/movments/${id}`);
 	return res;
@@ -161,6 +178,13 @@ export const getShiftData = async (data) => {
 };
 export const changeMovmentState = async (data) => {
 	const res = await serverApi.post(`/movments/state/${data.movment_id}`, data);
+	return res;
+};
+export const spicialChangeMovmentState = async (data) => {
+	const res = await serverApi.post(
+		`/movments/state/spicial/${data.movment_id}`,
+		data
+	);
 	return res;
 };
 
@@ -217,14 +241,26 @@ export const getStoreByStationId = async (data) => {
 	const res = await serverApi.get(`/stores/station/${data.queryKey[1]}`);
 	return res;
 };
-export const getAllStores = async () => {
-	const res = await serverApi.get(`/stores`);
+export const getStoreByStationIdAndClientId = async (data) => {
+	const res = await serverApi.get(
+		`/stores/station/client/${data.queryKey[1]}/${data.queryKey[2]}`
+	);
+	return res;
+};
+export const getAllStores = async (data) => {
+	const res = await serverApi.get(
+		`/stores?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+	);
 	return res;
 };
 export const getStoresMovmentByMovmentIdAndShiftId = async (data) => {
 	const res = await serverApi.get(
 		`/stores/movments/shifts/${data.queryKey[1]}/${data.queryKey[2]}`
 	);
+	return res;
+};
+export const addStore = async (data) => {
+	const res = await serverApi.post(`/stores`, data);
 	return res;
 };
 //Substances API
@@ -418,12 +454,57 @@ export const deleteBank = async (id) => {
 	return res;
 };
 //Credit Sales API
-export const getAllCreditSales = async (data) => {
+export const getUnPaidCreditSalesByStationIdAndStoreIdAndClientId = async (
+	data
+) => {
 	const res = await serverApi.get(
-		`/creditSales?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+		`/creditSales/store/client/${data.queryKey[1]}/${data.queryKey[2]}/${data.queryKey[3]}`
 	);
 	return res;
 };
+export const getAllCreditSalesSettlements = async (data) => {
+	const res = await serverApi.get(
+		`/creditSales/settlements?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+	);
+	return res;
+};
+export const addCreditSalesSettlement = async (data) => {
+	const res = await serverApi.post(`/creditSales/settlements`, data);
+	return res;
+};
+export const deleteCreditSalesSettlement = async (id) => {
+	console.log(id);
+	const res = await serverApi.delete(`/creditSales/settlements/${id}`);
+	return res;
+};
+
+//Branch withdrawals API
+export const getunPaidBranchWithdrawalsByStationIdAndStoreId = async (data) => {
+	const res = await serverApi.get(
+		`/branchWithdrawals/store/${data.queryKey[1]}/${data.queryKey[2]}`
+	);
+	return res;
+};
+//Clients API
+export const getAllClients = async (data) => {
+	const res = await serverApi.get(
+		`/clients?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+	);
+	return res;
+};
+export const deleteClient = async (id) => {
+	const res = await serverApi.delete(`/clients/${id}`);
+	return res;
+};
+export const addClient = async (data) => {
+	const res = await serverApi.post(`/clients`, data);
+	return res;
+};
+export const getClientsByStationId = async (data) => {
+	const res = await serverApi.get(`/clients/station/${data.queryKey[1]}`);
+	return res;
+};
+
 // export const getBank = async (id) => {
 // 	const res = await serverApi.get(`/banks/${id}`);
 // 	return res;
@@ -461,10 +542,16 @@ export const getBoxAccountStatementReport = async (data) => {
 };
 export const getCreditSalesStatementReport = async (data) => {
 	const res = await serverApi.get(
-		`/reports/creditSales/?startDate=${data.queryKey[1]}&endDate=${data.queryKey[2]}&station=${data.queryKey[3]}&station=${data.queryKey[4]}`
+		`/reports/accountStatement/creditSales/?startDate=${data.queryKey[1]}&endDate=${data.queryKey[2]}&station=${data.queryKey[3]}&store=${data.queryKey[4]}`
 	);
 	return res;
 };
+// export const getCreditSalesStatementReport = async (data) => {
+// 	const res = await serverApi.get(
+// 		`/reports/creditSales/?startDate=${data.queryKey[1]}&endDate=${data.queryKey[2]}&station=${data.queryKey[3]}&station=${data.queryKey[4]}`
+// 	);
+// 	return res;
+// };
 export const getStationAccountStatementReport = async (data) => {
 	const res = await serverApi.get(
 		`/reports/accountStatement/station/?startDate=${data.queryKey[1]}&endDate=${data.queryKey[2]}&station=${data.queryKey[3]}`
@@ -507,5 +594,14 @@ export const getStocktakingPriceReport = async (data) => {
 };
 export const getOverview = async () => {
 	const res = await serverApi.get(`/reports/overview`);
+	return res;
+};
+//notifications API
+export const sendNotifications = async (data) => {
+	const res = await serverApi.post(`/notifications/send`, data, {
+		headers: {
+			"Content-Type": "multipart/form-data", // important for file uploads
+		},
+	});
 	return res;
 };

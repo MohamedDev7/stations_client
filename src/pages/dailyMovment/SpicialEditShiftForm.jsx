@@ -4,24 +4,21 @@ import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
 import {
 	getStoreByStationId,
-	addShiftMovment,
-	getStationMovmentByDate,
 	getSubstancesPricesByDate,
 	getEmployeeByStationId,
-	getStocktakingId,
+	getShiftData,
+	spicialEditShiftMovment,
+	deleteShiftBYMovmentIdAndShiftId,
 	getIncomesByMovmentIdAndShiftId,
 	getCalibrationsByMovmentIdAndShiftId,
 	getSurplusesByMovmentIdAndShiftId,
-	getStoresMovmentByMovmentIdAndShiftId,
-	getDispensersMovmentByMovmentIdAndShiftId,
 	getClientsByStationId,
-	getOthersByMovmentIdAndShiftId,
 } from "../../api/serverApi";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import TimeChange from "./../../utils/TimeChange";
 import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
-import { getPrevDate } from "../../utils/functions";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
 import {
 	Autocomplete,
 	AutocompleteItem,
@@ -41,8 +38,8 @@ import {
 	TableRow,
 } from "@heroui/react";
 import { Save, Trash, X, Pause } from "@mynaui/icons-react";
-import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
-const ShiftForm = () => {
+
+const SpicialEditShiftForm = () => {
 	//hooks
 	const navigate = useNavigateWithQuery();
 	const info = useLocation();
@@ -68,13 +65,107 @@ const ShiftForm = () => {
 	const [creditSalesIsChecked, setCreditSalesIsChecked] = useState(false);
 	const [creditSales, setCreditSales] = useState([]);
 	const [creditSalesCount, setCreditSalesCount] = useState(0);
-
+	// const { data: shifts } = useQuery({
+	// 	queryKey: ["shifts", info.state.station_id],
+	// 	queryFn: getShiftsByStationId,
+	// 	select: (res) => {
+	// 		return res.data.shifts;
+	// 	},
+	// });
 	const { data: prices } = useQuery({
 		queryKey: ["prices", info.state.date],
 		queryFn: getSubstancesPricesByDate,
 		select: (res) => {
 			return res.data.prices;
 		},
+	});
+	const { data: shiftData } = useQuery({
+		queryKey: ["shifts", info.state.movment_id, info.state.shift.id],
+		queryFn: getShiftData,
+		select: (res) => {
+			const stores = res.data.storesMovment.map((store) => {
+				if (store.store.type === "مجنب") {
+					return {
+						...store,
+						old_curr_value: store.curr_value,
+						curr_value: store.prev_value,
+					};
+				} else {
+					return {
+						...store,
+						old_curr_value: store.curr_value,
+						curr_value: store.prev_value,
+					};
+				}
+			});
+			const dispensers = res.data.dispensersMovment.map((el) => {
+				return {
+					...el,
+					totalLiters: el.curr_A - el.prev_A + el.curr_B - el.prev_B,
+				};
+			});
+			let others = [];
+			if (res.data.others.length > 0) {
+				others = res.data.others.map((el, i) => {
+					return {
+						...el,
+						store: el.store_id,
+						db_id: el.id,
+						id: i + 1,
+						value: el.amount * el.price,
+						substance: el.store.substance,
+						saved: true,
+					};
+				});
+			}
+			let creditSales = [];
+
+			if (res.data.creditSales.length > 0) {
+				creditSales = res.data.creditSales.map((el, i) => {
+					return {
+						...el,
+						store: el.store_id,
+						client: el.client_id,
+						db_id: el.id,
+						id: i + 1,
+						amount: el.amount,
+						title: el.title,
+						saved: true,
+						employee_id: el.employee_id,
+					};
+				});
+			}
+
+			// let coupons = [];
+			// if (res.data.coupons.length > 0) {
+			// 	coupons = res.data.coupons.map((el, i) => {
+			// 		return {
+			// 			...el,
+			// 			store: el.store_id,
+			// 			db_id: el.id,
+			// 			id: i + 1,
+			// 			value: el.amount * el.price,
+			// 			substance: el.store.substance,
+			// 			saved: true,
+			// 		};
+			// 	});
+			// }
+			return { dispensers, incomes, others, stores, creditSales };
+		},
+		onSuccess: (data) => {
+			setCurrStoresMovments(data.stores);
+			setDispensers(data.dispensers);
+			setOthersCount(data.others.length);
+			setOthersIsChecked(data.others.length > 0 ? true : false);
+			setOthers(data.others);
+			// setCouponsCount(data.coupons.length);
+			// setCouponsIsChecked(data.coupons.length > 0 ? true : false);
+			// setCoupons(data.coupons);
+			setCreditSalesCount(data.creditSales.length);
+			setCreditSalesIsChecked(data.creditSales.length > 0 ? true : false);
+			setCreditSales(data.creditSales);
+		},
+		enabled: !!prices,
 	});
 	const { data: employees } = useQuery({
 		queryKey: ["employees", info.state.station_id],
@@ -83,13 +174,6 @@ const ShiftForm = () => {
 			return res.data.employees.map((el) => {
 				return { text: el.name, key: el.id };
 			});
-		},
-	});
-	const { data: clients } = useQuery({
-		queryKey: ["clients", info.state.station_id],
-		queryFn: getClientsByStationId,
-		select: (res) => {
-			return res.data.clients;
 		},
 	});
 	useQuery({
@@ -131,6 +215,13 @@ const ShiftForm = () => {
 			setCalibrations(data);
 		},
 	});
+	const { data: clients } = useQuery({
+		queryKey: ["clients", info.state.station_id],
+		queryFn: getClientsByStationId,
+		select: (res) => {
+			return res.data.clients;
+		},
+	});
 	useQuery({
 		queryKey: ["surpluses", info.state.movment_id, info.state.shift.id],
 		queryFn: getSurplusesByMovmentIdAndShiftId,
@@ -149,41 +240,15 @@ const ShiftForm = () => {
 			setSurplus(data);
 		},
 	});
-	useQuery({
-		queryKey: ["others", info.state.movment_id, info.state.shift.id],
-		queryFn: getOthersByMovmentIdAndShiftId,
-		select: (res) => {
-			return res.data.others.map((el, i) => {
-				return {
-					db_id: el.id,
-					id: i + 1,
-					amount: el.amount,
-					substance: el.store.substance,
-					store: el.store_id,
-					title: el.title,
-					value: el.price * el.amount,
-					saved: true,
-					employee_id: "0",
-					type: el.type,
-				};
-			});
-		},
-		onSuccess: (data) => {
-			setOthersIsChecked(data.length > 0 ? true : false);
-			setOthers(data);
-			setOthersCount(data.length);
-		},
-		enabled: !!employees,
-	});
 	const { data: storesName } = useQuery({
 		queryKey: ["stores", info.state.station_id],
 		queryFn: getStoreByStationId,
 		select: (res) => {
+			if (!prices) return res.data.stores;
 			return res.data.stores.map((el) => {
 				const substanceId = el.substance.id;
 				let price = 0;
 				let substance = {};
-
 				prices.forEach((ele) => {
 					if (ele.substance_id === substanceId) {
 						price = ele.price;
@@ -195,155 +260,25 @@ const ShiftForm = () => {
 		},
 		enabled: !!prices,
 	});
-	const { refetch: refetchPrevMovment } = useQuery({
-		queryKey: [
-			"prevMovment",
-			info.state.station_id,
-			getPrevDate(info.state.date),
-		],
-		queryFn: getStationMovmentByDate,
-		select: (res) => {
-			return res.data.movment;
-		},
-		onSuccess: (data) => {
-			setPrevData({
-				movmentId: data.id,
-				shiftId: data.lastShift.id,
-				has_stocktaking: data.has_stocktaking,
-				stocktaking_id: data.stocktaking_id,
-			});
-		},
-		enabled: false,
-	});
 
-	let { data: stocktakingMovments } = useQuery({
-		queryKey: ["stocktaking", prevData.stocktaking_id],
-		queryFn: getStocktakingId,
-		select: (res) => {
-			return res.data.stores.map((el) => {
-				const substanceId = el.store.substance.id;
-				let price = 0;
-				let substance = {};
-				let store = {};
-				let curr_value;
-				let prev_value;
-				let deficit;
-				prices.forEach((ele) => {
-					if (ele.substance_id === substanceId) {
-						price = ele.price;
-						substance = { ...el.store.substance, price };
-						store = { ...el.store, substance };
-					}
-				});
-				if (el.store_adjustment) {
-					curr_value = el.curr_value;
-					prev_value = el.curr_value;
-					deficit = el.prev_value - el.curr_value;
-				} else {
-					curr_value = el.curr_value;
-					prev_value = el.prev_value;
-					deficit = 0;
-				}
-				return {
-					...el,
-					prev_value:
-						el.curr_value < el.prev_value ? el.prev_value : el.curr_value,
-					curr_value:
-						el.curr_value < el.prev_value ? el.prev_value : el.curr_value,
-					price,
-					store,
-					deficit:
-						el.curr_value < el.prev_value ? el.prev_value - el.curr_value : 0,
-					totalCoupons: 0,
-					totalIncomes: 0,
-				};
-			});
-		},
-		onSuccess: (data) => {
-			setCurrStoresMovments(data);
-		},
-		enabled:
-			!!prevData.movmentId &&
-			!!prevData.shiftId &&
-			!!prevData.shiftId &&
-			!!prices &&
-			!!prevData.has_stocktaking,
-	});
-	const { data: prevStoresMovments } = useQuery({
-		queryKey: ["prevStoresMovments", prevData.movmentId, prevData.shiftId],
-		queryFn: getStoresMovmentByMovmentIdAndShiftId,
-		select: (res) => {
-			return res.data.storesMovments.map((el) => {
-				const substanceId = el.store.substance.id;
-				let price = 0;
-				let substance = {};
-				let store = {};
-				prices.forEach((ele) => {
-					if (ele.substance_id === substanceId) {
-						price = ele.price;
-						substance = { ...el.store.substance, price };
-						store = { ...el.store, substance };
-					}
-				});
-
-				return {
-					...el,
-					prev_value: el.curr_value,
-					price,
-					store,
-					totalCoupons: 0,
-					totalIncomes: 0,
-				};
-			});
-		},
-		onSuccess: (data) => {
-			setCurrStoresMovments(data);
-			// setPrevStoresMovments(data);
-		},
-		enabled:
-			!!prevData.movmentId &&
-			!!prevData.shiftId &&
-			!!prices &&
-			!prevData.has_stocktaking,
-	});
-	useQuery({
-		queryKey: ["dispensers", prevData.movmentId, prevData.shiftId],
-		queryFn: getDispensersMovmentByMovmentIdAndShiftId,
-		select: (res) => {
-			return res.data.dispensersMovments.map((el) => {
-				const substanceId = el.dispenser.tank.substance.id;
-				let price = 0;
-				let substance = {};
-				let tank = {};
-				let dispenser = {};
-				prices.forEach((ele) => {
-					if (ele.substance_id === substanceId) {
-						price = ele.price;
-						substance = { ...el.dispenser.tank.substance, price };
-						tank = { ...el.dispenser.tank, substance };
-						dispenser = { ...el.dispenser, tank };
-					}
-				});
-				return {
-					...el,
-					totalLiters: 0,
-					totalValue: 0,
-					prev_A: el.curr_A,
-					prev_B: el.curr_B,
-					dispenser,
-					employee_id: null,
-				};
-			});
-		},
-		onSuccess: (data) => {
-			setDispensers(data);
-		},
-		enabled: !!prevData.movmentId && !!prevData.shiftId && !!prices,
-	});
-	const saveMutation = useMutation({
-		mutationFn: addShiftMovment,
+	const editMutation = useMutation({
+		mutationFn: spicialEditShiftMovment,
 		onSuccess: (res) => {
-			toast.success("تم إضافة الحركة بنجاح", {
+			toast.success("تم تعديل المناوبة بنجاح", {
+				position: "top-center",
+			});
+			navigate("./..");
+		},
+		onError: (err) => {
+			toast.error(err.response.data.message, {
+				position: "top-center",
+			});
+		},
+	});
+	const deleteMutation = useMutation({
+		mutationFn: deleteShiftBYMovmentIdAndShiftId,
+		onSuccess: (res) => {
+			toast.success("تم حذف المناوبة بنجاح", {
 				position: "top-center",
 			});
 			navigate("./..");
@@ -355,31 +290,7 @@ const ShiftForm = () => {
 		},
 	});
 
-	//functions
-	useEffect(() => {
-		setPrevData({
-			movmentId: "",
-			shiftId: "",
-			has_stocktaking: null,
-		});
-
-		if (info.state.shift.number === 1) {
-			//قراءة مناوبات اليوم السابق
-
-			refetchPrevMovment();
-		} else {
-			//قراءة مناوبات اليوم الحالي
-
-			setPrevData({
-				movmentId: info.state.movment_id,
-				shiftId: info.state.prevShiftId,
-				has_stocktaking: 0,
-			});
-		}
-	}, [info]);
-
 	const addOthersHandler = () => {
-		console.log(`others`, others);
 		setOthers((prev) => [
 			...prev,
 			{
@@ -396,7 +307,21 @@ const ShiftForm = () => {
 		]);
 		setOthersCount((prev) => prev + 1);
 	};
-
+	const addCreditSalesHandler = () => {
+		setCreditSales((prev) => [
+			...prev,
+			{
+				id: creditSalesCount + 1,
+				amount: 0,
+				store: null,
+				client: null,
+				title: "",
+				employee_id: "",
+				saved: false,
+			},
+		]);
+		setCreditSalesCount((prev) => prev + 1);
+	};
 	// const addCouponsHandler = () => {
 	// 	setCoupons((prev) => [
 	// 		...prev,
@@ -412,30 +337,12 @@ const ShiftForm = () => {
 	// 	]);
 	// 	setCouponsCount((prev) => prev + 1);
 	// };
-	const addCreditSalesHandler = () => {
-		setCreditSales((prev) => [
-			...prev,
-			{
-				id: creditSalesCount + 1,
-				amount: 0,
-				store: null,
-				beneficiary: null,
-				substance: "",
-				title: "",
-				employee_id: "",
-				client: "",
-				saved: false,
-			},
-		]);
-		setCreditSalesCount((prev) => prev + 1);
-	};
 	const saveOtherHandler = (item) => {
 		let othersTotal = 0;
 		let dispensersTotal = 0;
-
 		if (
 			others.filter(
-				(el) => !el.amount || !el.title || !el.employee_id || !el.store
+				(el) => !el.amount || !el.title || el.employee_id === "" || !el.store
 			).length > 0
 		) {
 			toast.error("يرجى التأكد من تعبئة جمبيع الحقول بشكل صحيح", {
@@ -472,10 +379,11 @@ const ShiftForm = () => {
 	};
 
 	// const saveCouponsHandler = (item) => {
+	// 	let couponsTotal = 0;
 	// 	let dispensersTotal = 0;
 	// 	if (
 	// 		coupons.filter(
-	// 			(el) => !el.amount || !el.type || !el.employee_id || !el.store
+	// 			(el) => !el.amount || !el.type || el.employee_id === "" || !el.store
 	// 		).length > 0
 	// 	) {
 	// 		toast.error("يرجى التأكد من تعبئة جمبيع الحقول بشكل صحيح", {
@@ -483,26 +391,23 @@ const ShiftForm = () => {
 	// 		});
 	// 		return;
 	// 	}
-
+	// 	coupons
+	// 		.filter((el) => el.substance.id === item.substance.id)
+	// 		.forEach((el) => (couponsTotal = couponsTotal + +el.amount));
 	// 	dispensers
 	// 		.filter((el) => el.dispenser.tank.substance.id === item.substance.id)
 	// 		.forEach((el) => (dispensersTotal = dispensersTotal + el.totalLiters));
 	// 	const storeToUpdate = currStoresMovments.filter(
 	// 		(el) => el.store.id === item.store
 	// 	)[0];
-	// 	console.log(`storeToUpdate`, storeToUpdate);
+
 	// 	if (storeToUpdate.curr_value < item.amount) {
 	// 		toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
 	// 			position: "top-center",
 	// 		});
 	// 		return;
 	// 	}
-	// 	if (
-	// 		storeToUpdate.totalCreditSales +
-	// 			storeToUpdate.totalCoupons +
-	// 			+(+item.amount) >
-	// 		dispensersTotal
-	// 	) {
+	// 	if (couponsTotal > dispensersTotal) {
 	// 		toast.error("القيمة المدخلة أكبر من مبيعات النوبة", {
 	// 			position: "top-center",
 	// 		});
@@ -513,15 +418,12 @@ const ShiftForm = () => {
 	// 	);
 	// };
 	const saveCreditSalesHandler = (item) => {
-		let dispensersTotal = 0;
-		dispensers
-			.filter((el) => el.dispenser.tank.substance.id === item.substance.id)
-			.forEach((el) => (dispensersTotal = dispensersTotal + el.totalLiters));
-
+		// let couponsTotal = 0;
+		// let dispensersTotal = 0;
+		console.log(`creditSales`, creditSales);
 		if (
 			creditSales.filter(
-				(el) =>
-					!el.amount || !el.title || !el.employee_id || !el.store || !el.client
+				(el) => el.amount === "" || !el.client || !el.store || el.title === ""
 			).length > 0
 		) {
 			toast.error("يرجى التأكد من تعبئة جمبيع الحقول بشكل صحيح", {
@@ -533,19 +435,9 @@ const ShiftForm = () => {
 		const storeToUpdate = currStoresMovments.filter(
 			(el) => el.store.id === item.store
 		)[0];
+
 		if (storeToUpdate.curr_value < item.amount) {
 			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
-				position: "top-center",
-			});
-			return;
-		}
-		if (
-			storeToUpdate.totalCoupons +
-				storeToUpdate.totalCreditSales +
-				+item.amount >
-			dispensersTotal
-		) {
-			toast.error("القيمة المدخلة أكبر من مبيعات النوبة", {
 				position: "top-center",
 			});
 			return;
@@ -555,12 +447,7 @@ const ShiftForm = () => {
 		);
 	};
 	const updateCurrStoresMovments = () => {
-		let updatedStoresMovments = [];
-		if (prevData.has_stocktaking === 0) {
-			updatedStoresMovments = [...prevStoresMovments];
-		} else {
-			updatedStoresMovments = [...stocktakingMovments];
-		}
+		let updatedStoresMovments = [...shiftData.stores];
 
 		updatedStoresMovments.forEach((ele) => {
 			ele.totalIncomes = 0;
@@ -655,7 +542,10 @@ const ShiftForm = () => {
 			surplus.filter((el) => !el.saved).length === 0 &&
 			prices &&
 			prices.length > 0 &&
-			(prevStoresMovments || stocktakingMovments)
+			currStoresMovments &&
+			shiftData
+			// &&
+			// (prevStoresMovments || stocktakingMovments)
 		) {
 			updateCurrStoresMovments();
 		}
@@ -664,36 +554,31 @@ const ShiftForm = () => {
 		incomes,
 		dispensers,
 		calibrations,
-		creditSales,
 		surplus,
 		// coupons,
 		prices,
+		creditSales,
 	]);
-	const onSaveMovmentHandler = () => {
+	const onEditMovmentHandler = () => {
 		if (
 			others.filter((el) => el.saved === false).length > 0 ||
 			creditSales.filter((el) => el.saved === false).length > 0
 		) {
-			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى ومسحوبات الفرع", {
+			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى والمبيعات الآجلة", {
 				position: "top-center",
 			});
 			return;
 		}
-		if (currStoresMovments.filter((el) => el.curr_value < 0).length > 0) {
-			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
-				position: "top-center",
-			});
-			return;
-		}
-		saveMutation.mutate({
+
+		editMutation.mutate({
 			dispensers,
 			station_id: info.state.station_id,
 			movment_id: info.state.movment_id,
 			shift: info.state.shift,
 			date: info.state.date,
-			others: others.filter((el) => el.type !== "settlement"),
-			currStoresMovments,
+			others,
 			creditSales,
+			currStoresMovments,
 			// coupons,
 			state: "saved",
 		});
@@ -703,26 +588,20 @@ const ShiftForm = () => {
 			others.filter((el) => el.saved === false).length > 0 ||
 			creditSales.filter((el) => el.saved === false).length > 0
 		) {
-			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى ومسحوبات الفرع", {
+			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى والمبيعات الآجلة", {
 				position: "top-center",
 			});
 			return;
 		}
-		if (currStoresMovments.filter((el) => el.curr_value < 0).length > 0) {
-			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
-				position: "top-center",
-			});
-			return;
-		}
-		saveMutation.mutate({
+		editMutation.mutate({
 			dispensers,
 			station_id: info.state.station_id,
 			movment_id: info.state.movment_id,
 			shift: info.state.shift,
 			date: info.state.date,
-			others: others.filter((el) => el.type !== "settlement"),
-			currStoresMovments,
+			others,
 			creditSales,
+			currStoresMovments,
 			// coupons,
 			state: "pending",
 		});
@@ -732,7 +611,7 @@ const ShiftForm = () => {
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
-					onSaveMovmentHandler();
+					onEditMovmentHandler();
 				}}
 			>
 				<TopBar
@@ -743,7 +622,7 @@ const ShiftForm = () => {
 								onPress={() => {
 									navigate("./..");
 								}}
-								disabled={saveMutation.isLoading}
+								disabled={editMutation.isLoading}
 							>
 								<X />
 								الغاء
@@ -753,15 +632,30 @@ const ShiftForm = () => {
 								onPress={() => {
 									onHoldMovmentHandler();
 								}}
-								disabled={saveMutation.isLoading}
+								disabled={editMutation.isLoading}
 							>
 								<Pause />
 								تعليق
 							</Button>
+
+							<Button
+								color="danger"
+								onPress={() => {
+									deleteMutation.mutate({
+										movment_id: info.state.movment_id,
+										shift_id: info.state.shift.id,
+										shift_number: info.state.shift.number,
+									});
+								}}
+								disabled={editMutation.isLoading}
+							>
+								<Trash />
+								حذف
+							</Button>
 							<Button
 								color="primary"
 								type="submit"
-								disabled={saveMutation.isLoading}
+								disabled={editMutation.isLoading}
 							>
 								<Save />
 								حفظ
@@ -842,7 +736,7 @@ const ShiftForm = () => {
 									<TableColumn>الرصيد السابق(لتر)</TableColumn>
 									<TableColumn>الوارد(لتر)</TableColumn>
 									<TableColumn>مبيعات نقدية(لتر)</TableColumn>
-									{/* <TableColumn>مسحوبات الفرع(لتر)</TableColumn> */}
+									<TableColumn>مسحوبات الفرع(لتر)</TableColumn>
 									<TableColumn>مبيعات آجلة(لتر)</TableColumn>
 									<TableColumn>الرصيد الحالي(لتر)</TableColumn>
 									<TableColumn>النقدية</TableColumn>
@@ -858,18 +752,18 @@ const ShiftForm = () => {
 													{(item.prev_value || 0) -
 														(item.curr_value || 0) +
 														(item.totalIncomes || 0) -
-														// (item.totalCoupons || 0) -
+														(item.totalCoupons || 0) -
 														(item.totalCreditSales || 0)}
 												</TableCell>
-												{/* <TableCell>{item.totalCoupons || 0}</TableCell> */}
+												<TableCell>{item.totalCoupons || 0}</TableCell>
 												<TableCell>{item.totalCreditSales || 0}</TableCell>
 												<TableCell>{item.curr_value || 0}</TableCell>
 												<TableCell>
 													{((item.prev_value || 0) -
 														(item.curr_value || 0) +
 														(item.totalIncomes || 0) -
-														(item.totalCreditSales || 0)) *
-														// (item.totalCoupons || 0)
+														(item.totalCreditSales || 0) -
+														(item.totalCoupons || 0)) *
 														(item.price || 0)}
 												</TableCell>
 											</TableRow>
@@ -1019,7 +913,7 @@ const ShiftForm = () => {
 														min={dispenser.prev_B}
 													/>
 												</TableCell>
-												<TableCell>{dispenser.totalLiters || 0}</TableCell>
+												<TableCell>{dispenser.totalLiters}</TableCell>
 												<TableCell>
 													<Select
 														label="اسم المستلم"
@@ -1028,7 +922,7 @@ const ShiftForm = () => {
 																if (el.id === dispenser.id) {
 																	return {
 																		...el,
-																		employee_id: e.target.value,
+																		employee_id: +e.target.value,
 																	};
 																}
 																return el;
@@ -1036,11 +930,13 @@ const ShiftForm = () => {
 
 															setDispensers(updatedDispensers);
 														}}
-														value={
-															dispensers.filter(
-																(el) => el.id === dispenser.id
-															)[0].employee_id
-														}
+														selectedKeys={[
+															`${
+																dispensers.filter(
+																	(el) => el.id === dispenser.id
+																)[0].employee_id
+															}`,
+														]}
 													>
 														{employees &&
 															employees.map((employee) => {
@@ -1059,198 +955,7 @@ const ShiftForm = () => {
 							</CardBody>
 						</Card>
 					)}
-					{/* {couponsIsChecked && (
-						<Card>
-							<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-								مسحوبات الفرع
-							</CardHeader>
-							<CardBody>
-								{coupons.length > 0 ? (
-									<Table aria-label="Default table">
-										<TableHeader>
-											<TableColumn className="w-1/5">الكمية</TableColumn>
-											<TableColumn className="w-1/5">المستودع</TableColumn>
-											<TableColumn className="w-1/5">النوع</TableColumn>
-											<TableColumn className="w-1/5">الموظف</TableColumn>
-											<TableColumn className="w-1/5">خيارات</TableColumn>
-										</TableHeader>
-										<TableBody>
-											{coupons.map((item, i) => (
-												<TableRow key={i}>
-													<TableCell>
-														<Input
-															value={
-																coupons.filter((el) => el.id === item.id)[0]
-																	.amount
-															}
-															isDisabled={item.saved}
-															onFocus={(e) => e.target.select()}
-															onWheel={(e) => e.target.blur()}
-															onKeyDown={(e) => {
-																if (
-																	e.key === "ArrowUp" ||
-																	e.key === "ArrowDown"
-																) {
-																	e.preventDefault();
-																}
-															}}
-															onChange={(e) => {
-																const updated = coupons.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			amount: e.target.value,
-																		};
-																	}
-																	return el;
-																});
-																setCoupons(updated);
-															}}
-															type="number"
-														/>
-													</TableCell>
-													<TableCell>
-														<Select
-															label="المستودع"
-															isDisabled={item.saved}
-															className="max-w-xs"
-															onChange={(e) => {
-																const updated = coupons.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			store: +e.target.value,
-																			substance: storesName.filter(
-																				(el) => el.id === +e.target.value
-																			)[0].substance,
-																		};
-																	}
-																	return el;
-																});
-																setCoupons(updated);
-															}}
-															value={
-																coupons.filter((el) => el.id === item.id)[0]
-																	.store
-															}
-														>
-															{storesName &&
-																storesName
-																	.filter((el) => el.type === "نقدي")
-																	.map((el) => {
-																		return (
-																			<SelectItem key={el.id}>
-																				{`${el.name} - ${el.substance.name}`}
-																			</SelectItem>
-																		);
-																	})}
-														</Select>
-													</TableCell>
-													<TableCell>
-														<Select
-															label="النوع"
-															isDisabled={item.saved}
-															className="max-w-xs"
-															onChange={(e) => {
-																const updated = coupons.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			type: e.target.value,
-																		};
-																	}
-																	return el;
-																});
-																setCoupons(updated);
-															}}
-															value={
-																coupons.filter((el) => el.id === item.id)[0]
-																	.store
-															}
-														>
-															<SelectItem key={1}>كوبونات</SelectItem>
-															<SelectItem key={2}>اخرى</SelectItem>
-														</Select>
-													</TableCell>
-													<TableCell>
-														<Select
-															label="اسم الموظف"
-															isDisabled={item.saved}
-															onChange={(e) => {
-																const updated = coupons.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			employee_id: e.target.value,
-																		};
-																	}
-																	return el;
-																});
-																setCoupons(updated);
-															}}
-															value={
-																coupons.filter((el) => el.id === item.id)[0]
-																	.employee_id
-															}
-														>
-															{employees &&
-																employees.map((employee) => {
-																	return (
-																		<SelectItem key={employee.key}>
-																			{employee.text}
-																		</SelectItem>
-																	);
-																})}
-														</Select>
-													</TableCell>
-													<TableCell>
-														<div style={{ display: "flex", gap: "5px" }}>
-															<Button
-																color="primary"
-																onPress={() => saveCouponsHandler(item)}
-																isDisabled={item.saved}
-															>
-																<Save />
-															</Button>
 
-															<Button
-																onPress={() =>
-																	setCoupons((prev) =>
-																		prev.filter((el) => el.id !== item.id)
-																	)
-																}
-																color="danger"
-															>
-																<Trash />
-															</Button>
-														</div>
-													</TableCell>
-												</TableRow>
-											))}
-										</TableBody>
-									</Table>
-								) : (
-									<EmptyContainer msg="لا توجد بيانات" />
-								)}
-								<Row>
-									<Button
-										color="primary"
-										onPress={() => {
-											addCouponsHandler();
-										}}
-										isDisabled={
-											others.filter((el) => el.saved === false).length > 0 ||
-											creditSales.filter((el) => el.saved === false).length >
-												0 ||
-											coupons.filter((el) => el.saved === false).length > 0
-										}
-									>
-										إضافة
-									</Button>
-								</Row>
-							</CardBody>
-						</Card>
-					)} */}
 					{othersIsChecked && (
 						<Card>
 							<CardHeader className="bg-primary text-default-50 font-bold text-medium">
@@ -1273,9 +978,7 @@ const ShiftForm = () => {
 													<TableCell>
 														<Select
 															label="المستودع"
-															isDisabled={item.saved}
 															onChange={(e) => {
-																console.log(`item`, item);
 																const updated = others.map((el) => {
 																	if (el.id === item.id) {
 																		return {
@@ -1290,12 +993,14 @@ const ShiftForm = () => {
 																});
 																setOthers(updated);
 															}}
+															isDisabled={item.saved}
 															selectedKeys={[
 																`${
 																	others.filter((el) => el.id === item.id)[0]
 																		.store
 																}`,
 															]}
+															// disabled={item.saved}
 														>
 															{storesName &&
 																storesName
@@ -1315,7 +1020,7 @@ const ShiftForm = () => {
 																others.filter((el) => el.id === item.id)[0]
 																	.title
 															}
-															isDisabled={item.saved}
+															disabled={item.saved}
 															onChange={(e) => {
 																e.stopPropagation();
 																const updated = others.map((el) => {
@@ -1339,6 +1044,7 @@ const ShiftForm = () => {
 																	e.preventDefault();
 																}
 															}}
+															isDisabled={item.saved}
 														/>
 													</TableCell>
 													<TableCell>
@@ -1347,7 +1053,7 @@ const ShiftForm = () => {
 																others.filter((el) => el.id === item.id)[0]
 																	.amount
 															}
-															isDisabled={item.saved}
+															disabled={item.saved}
 															onChange={(e) => {
 																const updated = others.map((other) => {
 																	if (other.id === item.id) {
@@ -1374,6 +1080,7 @@ const ShiftForm = () => {
 																	e.preventDefault();
 																}
 															}}
+															isDisabled={item.saved}
 															type="number"
 															min="1"
 														/>
@@ -1385,24 +1092,24 @@ const ShiftForm = () => {
 														<Select
 															label="اسم الموظف"
 															isDisabled={item.saved}
-															onChange={(e) => {
-																const updated = others.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			employee_id: e.target.value,
-																		};
-																	}
-																	return el;
-																});
-																setOthers(updated);
-															}}
 															selectedKeys={[
 																`${
 																	others.filter((el) => el.id === item.id)[0]
 																		.employee_id
 																}`,
 															]}
+															onChange={(e) => {
+																const updated = others.map((el) => {
+																	if (el.id === item.id) {
+																		return {
+																			...el,
+																			employee_id: +e.target.value,
+																		};
+																	}
+																	return el;
+																});
+																setOthers(updated);
+															}}
 														>
 															{employees &&
 																employees.map((employee) => {
@@ -1423,13 +1130,13 @@ const ShiftForm = () => {
 															>
 																<Save />
 															</Button>
+
 															<Button
 																onPress={() =>
 																	setOthers((prev) =>
 																		prev.filter((el) => el.id !== item.id)
 																	)
 																}
-																isDisabled={item.type === "settlement"}
 																color="danger"
 															>
 																<Trash />
@@ -1441,15 +1148,14 @@ const ShiftForm = () => {
 										</TableBody>
 									</Table>
 								) : (
-									""
+									<EmptyContainer msg="لا توجد بيانات" />
 								)}
 								<Row>
 									<Button
 										color="primary"
 										onPress={() => addOthersHandler()}
 										isDisabled={
-											others.filter((el) => el.saved === false).length > 0 ||
-											creditSales.filter((el) => el.saved === false).length > 0
+											others.filter((el) => el.saved === false).length > 0
 										}
 									>
 										إضافة
@@ -1521,7 +1227,7 @@ const ShiftForm = () => {
 																			...el,
 																			store: +e.target.value,
 																			substance: storesName.filter(
-																				(el) => el.id === +e.target.value
+																				(ele) => ele.id === +e.target.value
 																			)[0].substance,
 																		};
 																	}
@@ -1529,10 +1235,18 @@ const ShiftForm = () => {
 																});
 																setCreditSales(updated);
 															}}
-															value={
-																creditSales.filter((el) => el.id === item.id)[0]
-																	.store
-															}
+															// value={
+															// 	+creditSales.filter(
+															// 		(el) => el.id === item.id
+															// 	)[0].store
+															// }
+															selectedKeys={[
+																`${
+																	creditSales.filter(
+																		(el) => el.id === item.id
+																	)[0].store
+																}`,
+															]}
 														>
 															{storesName &&
 																storesName.map((el) => {
@@ -1548,10 +1262,10 @@ const ShiftForm = () => {
 														<Autocomplete
 															// key={color}
 															className="max-w-xs"
-															value={
+															selectedKey={`${
 																creditSales.filter((el) => el.id === item.id)[0]
 																	.client
-															}
+															}`}
 															onSelectionChange={(e) => {
 																const updated = creditSales.map((el) => {
 																	if (el.id === item.id) {
@@ -1577,36 +1291,6 @@ const ShiftForm = () => {
 																	);
 																})}
 														</Autocomplete>
-														{/* <Select
-															label="المستفيد"
-															className="max-w-xs"
-															isDisabled={item.saved}
-															onChange={(e) => {
-																const updated = creditSales.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			beneficiary: +e.target.value,
-																		};
-																	}
-																	return el;
-																});
-																setCreditSales(updated);
-															}}
-															value={
-																creditSales.filter((el) => el.id === item.id)[0]
-																	.beneficiary
-															}
-														>
-															{clients &&
-																clients.map((client) => {
-																	return (
-																		<SelectItem key={client.id}>
-																			{client["client.name"]}
-																		</SelectItem>
-																	);
-																})}
-														</Select> */}
 													</TableCell>
 													<TableCell>
 														<Input
@@ -1648,7 +1332,7 @@ const ShiftForm = () => {
 																	if (el.id === item.id) {
 																		return {
 																			...el,
-																			employee_id: e.target.value,
+																			employee_id: +e.target.value,
 																		};
 																	}
 																	return el;
@@ -1656,10 +1340,13 @@ const ShiftForm = () => {
 																setCreditSales(updated);
 															}}
 															isDisabled={item.saved}
-															value={
-																creditSales.filter((el) => el.id === item.id)[0]
-																	.employee_id
-															}
+															selectedKeys={[
+																`${
+																	creditSales.filter(
+																		(el) => el.id === item.id
+																	)[0].employee_id
+																}`,
+															]}
 														>
 															{employees &&
 																employees.map((employee) => {
@@ -1705,7 +1392,6 @@ const ShiftForm = () => {
 										color="primary"
 										onPress={() => addCreditSalesHandler()}
 										isDisabled={
-											others.filter((el) => el.saved === false).length > 0 ||
 											creditSales.filter((el) => el.saved === false).length > 0
 										}
 									>
@@ -1721,4 +1407,4 @@ const ShiftForm = () => {
 	);
 };
 
-export default ShiftForm;
+export default SpicialEditShiftForm;

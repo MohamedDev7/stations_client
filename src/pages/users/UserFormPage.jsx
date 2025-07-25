@@ -24,9 +24,7 @@ const UserFormPage = () => {
 	const [username, setUsername] = useState("");
 	const [firstname, setFirstname] = useState("");
 	const [lastname, setLastname] = useState("");
-	// const [password, setPassword] = useState("");
 	const [phone, setPhone] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
 	const [permissions, setPermissions] = useState({
 		addUser: false,
 		editUser: false,

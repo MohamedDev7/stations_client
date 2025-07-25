@@ -3,26 +3,25 @@ import TopBar from "../../components/TopBar/TopBar";
 import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
 import {
-	getShiftsByStationId,
 	getStoreByStationId,
-	addShiftMovment,
-	getStationMovmentByDate,
 	getSubstancesPricesByDate,
 	getEmployeeByStationId,
-	getStocktakingId,
 	getShiftData,
 	editShiftMovment,
 	deleteShiftBYMovmentIdAndShiftId,
 	getIncomesByMovmentIdAndShiftId,
 	getCalibrationsByMovmentIdAndShiftId,
 	getSurplusesByMovmentIdAndShiftId,
+	getClientsByStationId,
 } from "../../api/serverApi";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import TimeChange from "./../../utils/TimeChange";
 import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
-import { getPrevDate } from "../../utils/functions";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
 import {
+	Autocomplete,
+	AutocompleteItem,
 	Button,
 	Card,
 	CardBody,
@@ -42,7 +41,7 @@ import { Save, Trash, X, Pause } from "@mynaui/icons-react";
 
 const EditShiftForm = () => {
 	//hooks
-	const navigate = useNavigate();
+	const navigate = useNavigateWithQuery();
 	const info = useLocation();
 
 	//states
@@ -55,12 +54,12 @@ const EditShiftForm = () => {
 	const [others, setOthers] = useState([]);
 	const [othersCount, setOthersCount] = useState(0);
 	const [incomes, setIncomes] = useState([]);
-	const [coupons, setCoupons] = useState([]);
-	const [couponsCount, setCouponsCount] = useState(0);
+	// const [coupons, setCoupons] = useState([]);
+	// const [couponsCount, setCouponsCount] = useState(0);
 	const [surplus, setSurplus] = useState([]);
 	const [dispensers, setDispensers] = useState([]);
 	const [currStoresMovments, setCurrStoresMovments] = useState([]);
-	const [couponsIsChecked, setCouponsIsChecked] = useState(false);
+	// const [couponsIsChecked, setCouponsIsChecked] = useState(false);
 	const [othersIsChecked, setOthersIsChecked] = useState(false);
 	const [calibrations, setCalibrations] = useState([]);
 	const [creditSalesIsChecked, setCreditSalesIsChecked] = useState(false);
@@ -124,12 +123,11 @@ const EditShiftForm = () => {
 				creditSales = res.data.creditSales.map((el, i) => {
 					return {
 						...el,
-						store: el.store.id,
-						beneficiary_store: el.beneficiary_store,
+						store: el.store_id,
+						client: el.client_id,
 						db_id: el.id,
 						id: i + 1,
 						amount: el.amount,
-						substance: el.store.substance.id,
 						title: el.title,
 						saved: true,
 						employee_id: el.employee_id,
@@ -137,21 +135,21 @@ const EditShiftForm = () => {
 				});
 			}
 
-			let coupons = [];
-			if (res.data.coupons.length > 0) {
-				coupons = res.data.coupons.map((el, i) => {
-					return {
-						...el,
-						store: el.store_id,
-						db_id: el.id,
-						id: i + 1,
-						value: el.amount * el.price,
-						substance: el.store.substance,
-						saved: true,
-					};
-				});
-			}
-			return { dispensers, incomes, others, coupons, stores, creditSales };
+			// let coupons = [];
+			// if (res.data.coupons.length > 0) {
+			// 	coupons = res.data.coupons.map((el, i) => {
+			// 		return {
+			// 			...el,
+			// 			store: el.store_id,
+			// 			db_id: el.id,
+			// 			id: i + 1,
+			// 			value: el.amount * el.price,
+			// 			substance: el.store.substance,
+			// 			saved: true,
+			// 		};
+			// 	});
+			// }
+			return { dispensers, incomes, others, stores, creditSales };
 		},
 		onSuccess: (data) => {
 			setCurrStoresMovments(data.stores);
@@ -159,9 +157,9 @@ const EditShiftForm = () => {
 			setOthersCount(data.others.length);
 			setOthersIsChecked(data.others.length > 0 ? true : false);
 			setOthers(data.others);
-			setCouponsCount(data.coupons.length);
-			setCouponsIsChecked(data.coupons.length > 0 ? true : false);
-			setCoupons(data.coupons);
+			// setCouponsCount(data.coupons.length);
+			// setCouponsIsChecked(data.coupons.length > 0 ? true : false);
+			// setCoupons(data.coupons);
 			setCreditSalesCount(data.creditSales.length);
 			setCreditSalesIsChecked(data.creditSales.length > 0 ? true : false);
 			setCreditSales(data.creditSales);
@@ -214,6 +212,13 @@ const EditShiftForm = () => {
 		},
 		onSuccess: (data) => {
 			setCalibrations(data);
+		},
+	});
+	const { data: clients } = useQuery({
+		queryKey: ["clients", info.state.station_id],
+		queryFn: getClientsByStationId,
+		select: (res) => {
+			return res.data.clients;
 		},
 	});
 	useQuery({
@@ -308,30 +313,29 @@ const EditShiftForm = () => {
 				id: creditSalesCount + 1,
 				amount: 0,
 				store: null,
-				beneficiary: null,
-				substance: "",
+				client: null,
 				title: "",
 				employee_id: "",
 				saved: false,
 			},
 		]);
-		setCouponsCount((prev) => prev + 1);
+		setCreditSalesCount((prev) => prev + 1);
 	};
-	const addCouponsHandler = () => {
-		setCoupons((prev) => [
-			...prev,
-			{
-				id: couponsCount + 1,
-				amount: "",
-				store: null,
-				substance: null,
-				type: null,
-				employee_id: "",
-				saved: false,
-			},
-		]);
-		setCouponsCount((prev) => prev + 1);
-	};
+	// const addCouponsHandler = () => {
+	// 	setCoupons((prev) => [
+	// 		...prev,
+	// 		{
+	// 			id: couponsCount + 1,
+	// 			amount: "",
+	// 			store: null,
+	// 			substance: null,
+	// 			type: null,
+	// 			employee_id: "",
+	// 			saved: false,
+	// 		},
+	// 	]);
+	// 	setCouponsCount((prev) => prev + 1);
+	// };
 	const saveOtherHandler = (item) => {
 		let othersTotal = 0;
 		let dispensersTotal = 0;
@@ -373,57 +377,52 @@ const EditShiftForm = () => {
 		);
 	};
 
-	const saveCouponsHandler = (item) => {
-		let couponsTotal = 0;
-		let dispensersTotal = 0;
-		if (
-			coupons.filter(
-				(el) => !el.amount || !el.type || el.employee_id === "" || !el.store
-			).length > 0
-		) {
-			toast.error("يرجى التأكد من تعبئة جمبيع الحقول بشكل صحيح", {
-				position: "top-center",
-			});
-			return;
-		}
-		coupons
-			.filter((el) => el.substance.id === item.substance.id)
-			.forEach((el) => (couponsTotal = couponsTotal + +el.amount));
-		dispensers
-			.filter((el) => el.dispenser.tank.substance.id === item.substance.id)
-			.forEach((el) => (dispensersTotal = dispensersTotal + el.totalLiters));
-		const storeToUpdate = currStoresMovments.filter(
-			(el) => el.store.id === item.store
-		)[0];
+	// const saveCouponsHandler = (item) => {
+	// 	let couponsTotal = 0;
+	// 	let dispensersTotal = 0;
+	// 	if (
+	// 		coupons.filter(
+	// 			(el) => !el.amount || !el.type || el.employee_id === "" || !el.store
+	// 		).length > 0
+	// 	) {
+	// 		toast.error("يرجى التأكد من تعبئة جمبيع الحقول بشكل صحيح", {
+	// 			position: "top-center",
+	// 		});
+	// 		return;
+	// 	}
+	// 	coupons
+	// 		.filter((el) => el.substance.id === item.substance.id)
+	// 		.forEach((el) => (couponsTotal = couponsTotal + +el.amount));
+	// 	dispensers
+	// 		.filter((el) => el.dispenser.tank.substance.id === item.substance.id)
+	// 		.forEach((el) => (dispensersTotal = dispensersTotal + el.totalLiters));
+	// 	const storeToUpdate = currStoresMovments.filter(
+	// 		(el) => el.store.id === item.store
+	// 	)[0];
 
-		if (storeToUpdate.curr_value < item.amount) {
-			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
-				position: "top-center",
-			});
-			return;
-		}
-		if (couponsTotal > dispensersTotal) {
-			toast.error("القيمة المدخلة أكبر من مبيعات النوبة", {
-				position: "top-center",
-			});
-			return;
-		}
-		setCoupons((prev) =>
-			prev.filter((el) => el.id !== item.id).concat({ ...item, saved: true })
-		);
-	};
+	// 	if (storeToUpdate.curr_value < item.amount) {
+	// 		toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
+	// 			position: "top-center",
+	// 		});
+	// 		return;
+	// 	}
+	// 	if (couponsTotal > dispensersTotal) {
+	// 		toast.error("القيمة المدخلة أكبر من مبيعات النوبة", {
+	// 			position: "top-center",
+	// 		});
+	// 		return;
+	// 	}
+	// 	setCoupons((prev) =>
+	// 		prev.filter((el) => el.id !== item.id).concat({ ...item, saved: true })
+	// 	);
+	// };
 	const saveCreditSalesHandler = (item) => {
 		// let couponsTotal = 0;
 		// let dispensersTotal = 0;
-
+		console.log(`creditSales`, creditSales);
 		if (
 			creditSales.filter(
-				(el) =>
-					!el.amount ||
-					!el.title ||
-					!el.employee_id ||
-					!el.store ||
-					!el.beneficiary
+				(el) => el.amount === "" || !el.client || !el.store || el.title === ""
 			).length > 0
 		) {
 			toast.error("يرجى التأكد من تعبئة جمبيع الحقول بشكل صحيح", {
@@ -449,17 +448,12 @@ const EditShiftForm = () => {
 	const updateCurrStoresMovments = () => {
 		let updatedStoresMovments = [...shiftData.stores];
 
-		// if (prevData.has_stocktaking === 0) {
-		// 	updatedStoresMovments = [...prevStoresMovments];
-		// } else {
-		// 	updatedStoresMovments = [...stocktakingMovments];
-		// }
 		updatedStoresMovments.forEach((ele) => {
 			ele.totalIncomes = 0;
 			ele.totalCoupons = 0;
-			ele.otherSpends = 0;
+			ele.totalCreditSales = 0;
+			// ele.otherSpends = 0;
 		});
-
 		updatedStoresMovments.forEach((el) => {
 			incomes.forEach((ele) => {
 				if (el.store.id === ele.store) {
@@ -468,20 +462,19 @@ const EditShiftForm = () => {
 				}
 			});
 		});
-
 		updatedStoresMovments.forEach((el) => {
 			surplus.forEach((ele) => {
 				if (el.store.id === ele.store) {
 					el.curr_value = el.curr_value + +ele.amount;
 					el.totalIncomes = el.totalIncomes + +ele.amount;
-					// el.otherSpends = el.otherSpends + +ele.amount;
 				}
 			});
 		});
 		updatedStoresMovments.forEach((el) => {
 			creditSales.forEach((ele) => {
 				if (el.store.id === ele.store) {
-					el.curr_value = el.curr_value - +ele.amount;
+					// el.curr_value = el.curr_value - +ele.amount;
+					el.totalCreditSales = el.totalCreditSales + +ele.amount;
 				}
 			});
 		});
@@ -492,20 +485,19 @@ const EditShiftForm = () => {
 				}
 			});
 		});
-		updatedStoresMovments.forEach((el) => {
-			coupons.forEach((ele) => {
-				if (el.store.id === ele.store) {
-					el.totalCoupons = el.totalCoupons + +ele.amount;
-				}
-			});
-		});
-
+		// updatedStoresMovments.forEach((el) => {
+		// 	coupons.forEach((ele) => {
+		// 		if (el.store.id === ele.store) {
+		// 			el.totalCoupons = el.totalCoupons + +ele.amount;
+		// 		}
+		// 	});
+		// });
 		updatedStoresMovments.forEach((el) => {
 			calibrations.forEach((ele) => {
 				if (el.store.id === ele.store) {
 					el.curr_value = el.curr_value + +ele.amount;
 					el.totalIncomes = el.totalIncomes + +ele.amount;
-					el.otherSpends = el.otherSpends + +ele.amount;
+					// el.otherSpends = el.otherSpends + +ele.amount;
 				}
 			});
 		});
@@ -530,24 +522,20 @@ const EditShiftForm = () => {
 					totalDispensersLitersBySubstance[el.store.substance.id] || 0;
 				const totalOthersLiters =
 					totalOthersLitersBySubstance[el.store.substance.id] || 0;
+
 				incomes.filter((ele) => ele.store === el.store.id);
 
 				el.curr_value =
 					el.curr_value - totalDispensersLiters + totalOthersLiters;
 			}
 		});
-		// updatedStoresMovments.forEach((el) => {
-		// 	if (el.store.type === "مجنب") {
-		// 		el.price = 0;
-		// 	}
-		// });
 
 		setCurrStoresMovments(updatedStoresMovments);
 	};
 	useEffect(() => {
 		if (
 			others.filter((el) => !el.saved).length === 0 &&
-			coupons.filter((el) => !el.saved).length === 0 &&
+			// coupons.filter((el) => !el.saved).length === 0 &&
 			creditSales.filter((el) => !el.saved).length === 0 &&
 			incomes.filter((el) => !el.saved).length === 0 &&
 			surplus.filter((el) => !el.saved).length === 0 &&
@@ -566,20 +554,21 @@ const EditShiftForm = () => {
 		dispensers,
 		calibrations,
 		surplus,
-		coupons,
+		// coupons,
 		prices,
 		creditSales,
 	]);
 	const onEditMovmentHandler = () => {
 		if (
 			others.filter((el) => el.saved === false).length > 0 ||
-			coupons.filter((el) => el.saved === false).length > 0
+			creditSales.filter((el) => el.saved === false).length > 0
 		) {
-			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى ومسحوبات الفرع", {
+			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى والمبيعات الآجلة", {
 				position: "top-center",
 			});
 			return;
 		}
+
 		editMutation.mutate({
 			dispensers,
 			station_id: info.state.station_id,
@@ -589,16 +578,16 @@ const EditShiftForm = () => {
 			others,
 			creditSales,
 			currStoresMovments,
-			coupons,
+			// coupons,
 			state: "saved",
 		});
 	};
 	const onHoldMovmentHandler = () => {
 		if (
 			others.filter((el) => el.saved === false).length > 0 ||
-			coupons.filter((el) => el.saved === false).length > 0
+			creditSales.filter((el) => el.saved === false).length > 0
 		) {
-			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى ومسحوبات الفرع", {
+			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى والمبيعات الآجلة", {
 				position: "top-center",
 			});
 			return;
@@ -612,7 +601,7 @@ const EditShiftForm = () => {
 			others,
 			creditSales,
 			currStoresMovments,
-			coupons,
+			// coupons,
 			state: "pending",
 		});
 	};
@@ -702,7 +691,7 @@ const EditShiftForm = () => {
 								/>
 							</div>
 							<div className=" flex gap-5">
-								<Checkbox
+								{/* <Checkbox
 									isSelected={couponsIsChecked}
 									onChange={() => {
 										setCoupons([]);
@@ -711,7 +700,7 @@ const EditShiftForm = () => {
 									}}
 								>
 									مسحوبات الفرع
-								</Checkbox>
+								</Checkbox> */}
 								<Checkbox
 									isSelected={othersIsChecked}
 									onChange={() => {
@@ -743,34 +732,38 @@ const EditShiftForm = () => {
 							<Table removeWrapper aria-label="Default table">
 								<TableHeader>
 									<TableColumn>المخزن</TableColumn>
-									<TableColumn>الرصيد السابق</TableColumn>
-									<TableColumn>الوارد</TableColumn>
-									<TableColumn>المنصرف</TableColumn>
-									<TableColumn>مسحوبات الفرع</TableColumn>
-									<TableColumn>الرصيد الحالي</TableColumn>
-									<TableColumn>المبيعات النقدية</TableColumn>
+									<TableColumn>الرصيد السابق(لتر)</TableColumn>
+									<TableColumn>الوارد(لتر)</TableColumn>
+									<TableColumn>مبيعات نقدية(لتر)</TableColumn>
+									<TableColumn>مسحوبات الفرع(لتر)</TableColumn>
+									<TableColumn>مبيعات آجلة(لتر)</TableColumn>
+									<TableColumn>الرصيد الحالي(لتر)</TableColumn>
+									<TableColumn>النقدية</TableColumn>
 								</TableHeader>
 								<TableBody>
 									{currStoresMovments &&
 										currStoresMovments.map((item, i) => (
 											<TableRow key={i}>
 												<TableCell>{`${item.store.name} - ${item.store.substance.name}`}</TableCell>
-												<TableCell>{item.prev_value}</TableCell>
-												<TableCell>{item.totalIncomes}</TableCell>
+												<TableCell>{item.prev_value || 0}</TableCell>
+												<TableCell>{item.totalIncomes || 0}</TableCell>
 												<TableCell>
-													{item.prev_value -
-														item.curr_value +
-														item.totalIncomes}
+													{(item.prev_value || 0) -
+														(item.curr_value || 0) +
+														(item.totalIncomes || 0) -
+														(item.totalCoupons || 0) -
+														(item.totalCreditSales || 0)}
 												</TableCell>
-												<TableCell>{item.totalCoupons}</TableCell>
-												<TableCell>{item.curr_value}</TableCell>
+												<TableCell>{item.totalCoupons || 0}</TableCell>
+												<TableCell>{item.totalCreditSales || 0}</TableCell>
+												<TableCell>{item.curr_value || 0}</TableCell>
 												<TableCell>
-													{(item.prev_value -
-														item.curr_value +
-														item.totalIncomes -
-														item.otherSpends -
-														item.totalCoupons) *
-														item.price}
+													{((item.prev_value || 0) -
+														(item.curr_value || 0) +
+														(item.totalIncomes || 0) -
+														(item.totalCreditSales || 0) -
+														(item.totalCoupons || 0)) *
+														(item.price || 0)}
 												</TableCell>
 											</TableRow>
 										))}
@@ -961,208 +954,7 @@ const EditShiftForm = () => {
 							</CardBody>
 						</Card>
 					)}
-					{couponsIsChecked && (
-						<Card>
-							<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-								مسحوبات الفرع
-							</CardHeader>
-							<CardBody>
-								{coupons.length > 0 ? (
-									<Table aria-label="Default table">
-										<TableHeader>
-											<TableColumn className="w-1/5">الكمية</TableColumn>
-											<TableColumn className="w-1/5">المستودع</TableColumn>
-											<TableColumn className="w-1/5">النوع</TableColumn>
-											<TableColumn className="w-1/5">الموظف</TableColumn>
-											<TableColumn className="w-1/5">خيارات</TableColumn>
-										</TableHeader>
-										<TableBody>
-											{coupons.map((item, i) => (
-												<TableRow key={i}>
-													<TableCell>
-														<Input
-															value={
-																coupons.filter((el) => el.id === item.id)[0]
-																	.amount
-															}
-															onFocus={(e) => e.target.select()}
-															onWheel={(e) => e.target.blur()}
-															onKeyDown={(e) => {
-																if (
-																	e.key === "ArrowUp" ||
-																	e.key === "ArrowDown"
-																) {
-																	e.preventDefault();
-																}
-															}}
-															onChange={(e) => {
-																const updated = coupons.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			amount: +e.target.value,
-																		};
-																	}
-																	return el;
-																});
-																setCoupons(updated);
-															}}
-															type="number"
-														/>
-													</TableCell>
-													<TableCell>
-														<Select
-															label="المستودع"
-															className="max-w-xs"
-															onChange={(e) => {
-																const updated = coupons.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			store: +e.target.value,
-																			substance: storesName.filter(
-																				(el) => el.id === +e.target.value
-																			)[0].substance,
-																		};
-																	}
-																	return el;
-																});
-																setCoupons(updated);
-															}}
-															value={
-																coupons.filter((el) => el.id === item.id)[0]
-																	.store
-															}
-															selectedKeys={[
-																`${
-																	coupons.filter((el) => el.id === item.id)[0]
-																		.store
-																}`,
-															]}
-														>
-															{storesName &&
-																storesName
-																	.filter((el) => el.type === "نقدي")
-																	.map((el) => {
-																		return (
-																			<SelectItem key={el.id}>
-																				{`${el.name} - ${el.substance.name}`}
-																			</SelectItem>
-																		);
-																	})}
-														</Select>
-													</TableCell>
-													<TableCell>
-														<Select
-															label="النوع"
-															className="max-w-xs"
-															onChange={(e) => {
-																const updated = coupons.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			type: e.target.value,
-																		};
-																	}
-																	return el;
-																});
-																setCoupons(updated);
-															}}
-															selectedKeys={[
-																`${
-																	coupons.filter((el) => el.id === item.id)[0]
-																		.type
-																}`,
-															]}
-														>
-															<SelectItem key="1">كوبونات</SelectItem>
-															<SelectItem key="2">اخرى</SelectItem>
-														</Select>
-													</TableCell>
-													<TableCell>
-														<Select
-															label="اسم الموظف"
-															onChange={(e) => {
-																const updated = coupons.map((el) => {
-																	if (el.id === item.id) {
-																		return {
-																			...el,
-																			employee_id: +e.target.value,
-																		};
-																	}
-																	return el;
-																});
-																setCoupons(updated);
-															}}
-															selectedKeys={[
-																`${
-																	coupons.filter((el) => el.id === item.id)[0]
-																		.employee_id
-																}`,
-															]}
-														>
-															{employees &&
-																employees.map((employee) => {
-																	return (
-																		<SelectItem key={employee.key}>
-																			{employee.text}
-																		</SelectItem>
-																	);
-																})}
-														</Select>
-													</TableCell>
-													<TableCell>
-														<div style={{ display: "flex", gap: "5px" }}>
-															<Button
-																color="primary"
-																onPress={() => saveCouponsHandler(item)}
-															>
-																<Save />
-															</Button>
-															{/* <Button
-																className={styles.editBtn}
-																disabled={!item.saved}
-																onClick={() =>
-																	setCoupons((prev) =>
-																		prev.filter((el) => el.id !== item.id)
-																	)
-																}
-															>
-																<EditRegular s/>
-															</Button> */}
-															<Button
-																onPress={() =>
-																	setCoupons((prev) =>
-																		prev.filter((el) => el.id !== item.id)
-																	)
-																}
-																color="danger"
-															>
-																<Trash />
-															</Button>
-														</div>
-													</TableCell>
-												</TableRow>
-											))}
-										</TableBody>
-									</Table>
-								) : (
-									<EmptyContainer msg="لا توجد بيانات" />
-								)}
-								<Row>
-									<Button
-										color="primary"
-										onPress={() => addCouponsHandler()}
-										disabled={
-											coupons.filter((el) => el.saved === false).length > 0
-										}
-									>
-										إضافة
-									</Button>
-								</Row>
-							</CardBody>
-						</Card>
-					)}
+
 					{othersIsChecked && (
 						<Card>
 							<CardHeader className="bg-primary text-default-50 font-bold text-medium">
@@ -1200,6 +992,7 @@ const EditShiftForm = () => {
 																});
 																setOthers(updated);
 															}}
+															isDisabled={item.saved}
 															selectedKeys={[
 																`${
 																	others.filter((el) => el.id === item.id)[0]
@@ -1250,6 +1043,7 @@ const EditShiftForm = () => {
 																	e.preventDefault();
 																}
 															}}
+															isDisabled={item.saved}
 														/>
 													</TableCell>
 													<TableCell>
@@ -1285,6 +1079,7 @@ const EditShiftForm = () => {
 																	e.preventDefault();
 																}
 															}}
+															isDisabled={item.saved}
 															type="number"
 															min="1"
 														/>
@@ -1295,6 +1090,7 @@ const EditShiftForm = () => {
 													<TableCell>
 														<Select
 															label="اسم الموظف"
+															isDisabled={item.saved}
 															selectedKeys={[
 																`${
 																	others.filter((el) => el.id === item.id)[0]
@@ -1333,17 +1129,7 @@ const EditShiftForm = () => {
 															>
 																<Save />
 															</Button>
-															{/* <Button
-																className={styles.editBtn}
-																disabled={!item.saved}
-																onPress={() =>
-																	setOthers((prev) =>
-																		prev.filter((el) => el.id !== item.id)
-																	)
-																}
-															>
-																<EditRegular style={{ fontSize: "22px" }} />
-															</Button> */}
+
 															<Button
 																onPress={() =>
 																	setOthers((prev) =>
@@ -1440,7 +1226,7 @@ const EditShiftForm = () => {
 																			...el,
 																			store: +e.target.value,
 																			substance: storesName.filter(
-																				(el) => el.id === +e.target.value
+																				(ele) => ele.id === +e.target.value
 																			)[0].substance,
 																		};
 																	}
@@ -1448,10 +1234,18 @@ const EditShiftForm = () => {
 																});
 																setCreditSales(updated);
 															}}
-															value={
-																creditSales.filter((el) => el.id === item.id)[0]
-																	.store
-															}
+															// value={
+															// 	+creditSales.filter(
+															// 		(el) => el.id === item.id
+															// 	)[0].store
+															// }
+															selectedKeys={[
+																`${
+																	creditSales.filter(
+																		(el) => el.id === item.id
+																	)[0].store
+																}`,
+															]}
 														>
 															{storesName &&
 																storesName.map((el) => {
@@ -1464,36 +1258,38 @@ const EditShiftForm = () => {
 														</Select>
 													</TableCell>
 													<TableCell>
-														<Select
-															label="المستفيد"
+														<Autocomplete
+															// key={color}
 															className="max-w-xs"
-															isDisabled={item.saved}
-															onChange={(e) => {
+															selectedKey={`${
+																creditSales.filter((el) => el.id === item.id)[0]
+																	.client
+															}`}
+															onSelectionChange={(e) => {
 																const updated = creditSales.map((el) => {
 																	if (el.id === item.id) {
 																		return {
 																			...el,
-																			beneficiary: +e.target.value,
+																			client: e,
 																		};
 																	}
 																	return el;
 																});
 																setCreditSales(updated);
 															}}
-															value={
-																creditSales.filter((el) => el.id === item.id)[0]
-																	.beneficiary
-															}
+															label="المستفيد"
+															isDisabled={item.saved}
+															placeholder="قم بتحديد المستفيد"
 														>
-															{storesName &&
-																storesName.map((el) => {
+															{clients &&
+																clients.map((client) => {
 																	return (
-																		<SelectItem key={el.id}>
-																			{`${el.name} - ${el.substance.name}`}
-																		</SelectItem>
+																		<AutocompleteItem key={client.client.id}>
+																			{client.client.name}
+																		</AutocompleteItem>
 																	);
 																})}
-														</Select>
+														</Autocomplete>
 													</TableCell>
 													<TableCell>
 														<Input
@@ -1535,7 +1331,7 @@ const EditShiftForm = () => {
 																	if (el.id === item.id) {
 																		return {
 																			...el,
-																			employee_id: e.target.value,
+																			employee_id: +e.target.value,
 																		};
 																	}
 																	return el;
@@ -1543,10 +1339,13 @@ const EditShiftForm = () => {
 																setCreditSales(updated);
 															}}
 															isDisabled={item.saved}
-															value={
-																creditSales.filter((el) => el.id === item.id)[0]
-																	.employee_id
-															}
+															selectedKeys={[
+																`${
+																	creditSales.filter(
+																		(el) => el.id === item.id
+																	)[0].employee_id
+																}`,
+															]}
 														>
 															{employees &&
 																employees.map((employee) => {

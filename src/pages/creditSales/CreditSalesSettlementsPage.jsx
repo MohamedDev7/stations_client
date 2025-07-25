@@ -28,9 +28,12 @@ import {
 } from "@heroui/react";
 import { DotsVertical, Printer, Trash, Edit, Plus } from "@mynaui/icons-react";
 import { useNavigate } from "react-router-dom";
-import { getAllCreditSales } from "../../api/serverApi";
+import {
+	deleteCreditSalesSettlement,
+	getAllCreditSalesSettlements,
+} from "../../api/serverApi";
 import tafqeet from "@/utils/Tafqeet";
-const CreditSalesPage = () => {
+const CreditSalesSettlementsPage = () => {
 	//hooks
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
@@ -48,15 +51,15 @@ const CreditSalesPage = () => {
 	});
 	//queries
 	useQuery({
-		queryKey: ["creditSales", page - 1, rowsPerPage],
-		queryFn: getAllCreditSales,
+		queryKey: ["getAllCreditSalesSettlements", page - 1, rowsPerPage],
+		queryFn: getAllCreditSalesSettlements,
 		select: (res) => {
 			return res.data;
 		},
 		onSuccess: (data) => {
 			setPages(Math.ceil(data.total / rowsPerPage));
 			setTotal(data.total);
-			setCreditSales(data.creditSales);
+			setCreditSales(data.creditSalesSettlements);
 		},
 		onError: (err) => {
 			toast.error(err.response.data.message, {
@@ -64,7 +67,32 @@ const CreditSalesPage = () => {
 			});
 		},
 	});
-
+	const deleteMutation = useMutation({
+		mutationFn: deleteCreditSalesSettlement,
+		onSuccess: (res) => {
+			queryClient.invalidateQueries("getAllCreditSalesSettlements");
+			toast.success("تم الحذف بنجاح", {
+				position: "top-center",
+			});
+			setModal({
+				header: "",
+				body: "",
+				footer: "",
+			});
+			onClose();
+		},
+		onError: (err) => {
+			toast.error(err.response.data.message, {
+				position: "top-center",
+			});
+			setModal({
+				header: "",
+				body: "",
+				footer: "",
+			});
+			onClose();
+		},
+	});
 	//functions
 	const onRowsPerPageChange = React.useCallback((e) => {
 		setRowsPerPage(Number(e.target.value));
@@ -88,17 +116,15 @@ const CreditSalesPage = () => {
 			</Modal>
 			<TopBar
 				right={
-					<>
-						<Button
-							color="primary"
-							onPress={() => {
-								navigate("./add");
-							}}
-						>
-							<Plus />
-							إضافة
-						</Button>
-					</>
+					<Button
+						color="primary"
+						onPress={() => {
+							navigate("./add", { state: { type: "branch" } });
+						}}
+					>
+						<Plus />
+						إضافة
+					</Button>
 				}
 			/>
 			<div className="w-full p-5 pb-16">
@@ -143,12 +169,8 @@ const CreditSalesPage = () => {
 							<TableHeader>
 								<TableColumn>التاريخ</TableColumn>
 								<TableColumn>المحطة</TableColumn>
-								<TableColumn>الكمية</TableColumn>
-								<TableColumn>القيمة</TableColumn>
-								<TableColumn>الحالة</TableColumn>
-								<TableColumn>تاريخ السداد</TableColumn>
-								{/* <TableColumn>البيان</TableColumn> */}
-								{/* <TableColumn>خيارات</TableColumn> */}
+								<TableColumn>المبلغ</TableColumn>
+								<TableColumn>خيارات</TableColumn>
 							</TableHeader>
 							<TableBody>
 								{creditSales &&
@@ -157,22 +179,11 @@ const CreditSalesPage = () => {
 
 										return (
 											<TableRow key={creditSale.id}>
-												<TableCell>{creditSale.movment.date}</TableCell>
+												<TableCell>{creditSale.date}</TableCell>
 												<TableCell>{creditSale.station.name}</TableCell>
 												<TableCell>{creditSale.amount}</TableCell>
-												<TableCell>
-													{creditSale.amount * creditSale.price}
-												</TableCell>
-												<TableCell>
-													{creditSale.isSettled ? "تم التسديد" : "غير مسدد"}
-												</TableCell>
-												<TableCell>
-													{creditSale.settlement_date
-														? creditSale.settlement_date
-														: "-"}
-												</TableCell>
 
-												{/* <TableCell>
+												<TableCell>
 													<div className="relative flex justify-center items-center gap-2">
 														<Dropdown>
 															<DropdownTrigger>
@@ -190,7 +201,7 @@ const CreditSalesPage = () => {
 																				header: "حذف استلام",
 																				body: (
 																					<div>
-																						هل أنت متأكد من حذف الاستلام
+																						هل أنت متأكد من حذف السداد
 																						<span
 																							style={{
 																								fontWeight: "bold",
@@ -247,19 +258,8 @@ const CreditSalesPage = () => {
 																			},
 																		});
 																	}
-																	if (key === "edit") {
-																		navigate("./edit", {
-																			state: { id: creditSale.id },
-																		});
-																	}
 																}}
 															>
-																<DropdownItem
-																	key="edit"
-																	startContent={<Edit />}
-																>
-																	تعديل
-																</DropdownItem>
 																<DropdownItem
 																	key="print"
 																	startContent={<Printer />}
@@ -277,7 +277,7 @@ const CreditSalesPage = () => {
 															</DropdownMenu>
 														</Dropdown>
 													</div>
-												</TableCell> */}
+												</TableCell>
 											</TableRow>
 										);
 									})}
@@ -290,4 +290,4 @@ const CreditSalesPage = () => {
 	);
 };
 
-export default CreditSalesPage;
+export default CreditSalesSettlementsPage;

@@ -7,7 +7,7 @@ import {
 	addMovment,
 	getStationMovmentByDate,
 } from "../../api/serverApi";
-import { useLocation, useNavigate } from "react-router-dom";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
 import { Save, X } from "@mynaui/icons-react";
 import { toast } from "react-toastify";
 import { Button } from "@heroui/button";
@@ -22,8 +22,7 @@ import {
 } from "@heroui/react";
 const DailyMovmentForm = () => {
 	//hooks
-	const navigate = useNavigate();
-	const info = useLocation();
+	const navigate = useNavigateWithQuery();
 
 	//states
 	const [station, setStation] = useState("");
@@ -51,7 +50,7 @@ const DailyMovmentForm = () => {
 				return;
 			}
 			let movmentNumber = +res.data.movment.number.substring(4) + 1;
-			const movmentStr = `${movmentNumber}`.padStart(4, "0");
+			const movmentStr = `${movmentNumber}`.padStart(3, "0");
 			const fullNumber = `${res.data.movment.number.substring(
 				0,
 				4

@@ -36,45 +36,45 @@ const AuthContextProvider = ({ children }) => {
 		localStorage.setItem("version", JSON.stringify(newVersion));
 	};
 
-	useEffect(() => {
-		// Get motherboard ID
-		window.electron
-			.getMotherboardId()
-			.then((data) => {
-				setDeviceId(data);
-			})
-			.catch((error) => console.error("Error getting motherboard ID:", error));
+	// useEffect(() => {
+	// 	// Get motherboard ID
+	// 	window.electron
+	// 		.getMotherboardId()
+	// 		.then((data) => {
+	// 			setDeviceId(data);
+	// 		})
+	// 		.catch((error) => console.error("Error getting motherboard ID:", error));
 
-		// Get app version
-		window.electron
-			.getAppVersion()
-			.then((data) => {
-				updateVersion(data);
-			})
-			.catch((error) => console.error("Error getting app version:", error));
+	// Get app version
+	// 	window.electron
+	// 		.getAppVersion()
+	// 		.then((data) => {
+	// 			updateVersion(data);
+	// 		})
+	// 		.catch((error) => console.error("Error getting app version:", error));
 
-		// Set up event listeners for changes
-		window.electron.onMotherboardId((event, data) => {
-			setDeviceId(data);
-		});
+	// 	// Set up event listeners for changes
+	// 	window.electron.onMotherboardId((event, data) => {
+	// 		setDeviceId(data);
+	// 	});
 
-		window.electron.onAppVersion((event, data) => {
-			updateVersion(data);
-		});
+	// 	window.electron.onAppVersion((event, data) => {
+	// 		updateVersion(data);
+	// 	});
 
-		// Handle update progress and logout
-		if (window.electron?.onUpdateProgress) {
-			window.electron.onUpdateProgress((percent) => {
-				setUpdateProgress(percent);
-				logout();
-			});
-		}
+	// 	// Handle update progress and logout
+	// 	if (window.electron?.onUpdateProgress) {
+	// 		window.electron.onUpdateProgress((percent) => {
+	// 			setUpdateProgress(percent);
+	// 			logout();
+	// 		});
+	// 	}
 
-		// Cleanup listeners when the component unmounts
-		return () => {
-			window.electron.removeListeners();
-		};
-	}, []);
+	// 	// Cleanup listeners when the component unmounts
+	// 	return () => {
+	// 		window.electron.removeListeners();
+	// 	};
+	// }, []);
 
 	useEffect(() => {
 		localStorage.setItem("user", JSON.stringify(currUser));

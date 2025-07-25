@@ -1,5 +1,6 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
 import { changeMovmentState, getMovmentData } from "../../api/serverApi";
 import { useMutation, useQuery } from "react-query";
 import TopBar from "../../components/TopBar/TopBar";
@@ -21,7 +22,7 @@ import {
 const ConfirmMovmentPage = () => {
 	//hooks
 	const info = useLocation();
-	const navigate = useNavigate();
+	const navigate = useNavigateWithQuery();
 
 	//queries
 	const { data: movmentReport, isLoading } = useQuery({
@@ -280,7 +281,7 @@ const ConfirmMovmentPage = () => {
 								</CardBody>
 							</Card>
 						)}
-						{movmentReport && movmentReport.coupons.length > 0 && (
+						{/* {movmentReport && movmentReport.coupons.length > 0 && (
 							<Card>
 								<CardHeader className="bg-primary text-default-50 font-bold text-medium">
 									مسحوبات الفرع
@@ -306,7 +307,7 @@ const ConfirmMovmentPage = () => {
 									</Table>
 								</CardBody>
 							</Card>
-						)}
+						)} */}
 						{movmentReport && movmentReport.others.length > 0 && (
 							<Card>
 								<CardHeader className="bg-primary text-default-50 font-bold text-medium">
@@ -327,6 +328,35 @@ const ConfirmMovmentPage = () => {
 													</TableCell>
 													<TableCell>{item.title}</TableCell>
 													<TableCell>{item.amount}</TableCell>
+												</TableRow>
+											))}
+										</TableBody>
+									</Table>
+								</CardBody>
+							</Card>
+						)}
+						{movmentReport && movmentReport.creditSales.length > 0 && (
+							<Card>
+								<CardHeader className="bg-primary text-default-50 font-bold text-medium">
+									مبيعات آجلة
+								</CardHeader>
+								<CardBody>
+									<Table removeWrapper arial-label="Default table">
+										<TableHeader>
+											<TableColumn>المستودع</TableColumn>
+											<TableColumn>المستفيد</TableColumn>
+											<TableColumn>الكمية</TableColumn>
+											<TableColumn>البيان</TableColumn>
+										</TableHeader>
+										<TableBody>
+											{movmentReport.creditSales.map((item) => (
+												<TableRow key={item.id}>
+													<TableCell>
+														{`${item.store.name} - ${item.store.substance.name}`}
+													</TableCell>
+													<TableCell>{item.client.name}</TableCell>
+													<TableCell>{item.amount}</TableCell>
+													<TableCell>{item.title}</TableCell>
 												</TableRow>
 											))}
 										</TableBody>

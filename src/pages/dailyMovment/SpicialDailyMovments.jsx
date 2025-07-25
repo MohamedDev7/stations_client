@@ -4,11 +4,11 @@ import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
 import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
 import { AuthContext } from "../../store/auth-context";
 import {
-	changeMovmentState,
 	deleteMovment,
 	getAllMovments,
 	getAllStations,
 	getMovmentData,
+	spicialChangeMovmentState,
 } from "../../api/serverApi";
 
 import {
@@ -50,7 +50,7 @@ import {
 	CardHeader,
 } from "@heroui/react";
 import { useSearchParams } from "react-router-dom";
-const DailyMovments = () => {
+const SpicialDailyMovments = () => {
 	//hooks
 	const navigate = useNavigateWithQuery();
 	const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -276,7 +276,7 @@ const DailyMovments = () => {
 		},
 	});
 	const updateMovmentStateMutation = useMutation({
-		mutationFn: changeMovmentState,
+		mutationFn: spicialChangeMovmentState,
 		onSuccess: (res) => {
 			toast.success("تم فتح الحركة بنجاح", {
 				position: "top-center",
@@ -782,4 +782,4 @@ const DailyMovments = () => {
 	);
 };
 
-export default DailyMovments;
+export default SpicialDailyMovments;

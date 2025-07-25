@@ -4,6 +4,7 @@ import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
 import {
 	addIncome,
+	addSpicialIncome,
 	editIncome,
 	getAllStations,
 	getEmployeeByStationId,
@@ -26,7 +27,7 @@ import {
 	CardBody,
 } from "@heroui/react";
 import TimeChange from "./../../utils/TimeChange";
-const IncomePageForm = () => {
+const SpicialIncomePageForm = () => {
 	//hooks
 	const navigate = useNavigateWithQuery();
 	const info = useLocation();
@@ -126,7 +127,7 @@ const IncomePageForm = () => {
 		enabled: !!station,
 	});
 	const saveMutation = useMutation({
-		mutationFn: addIncome,
+		mutationFn: addSpicialIncome,
 		onSuccess: (res) => {
 			toast.success("تم إضافة الوارد بنجاح", {
 				position: "top-center",
@@ -381,4 +382,4 @@ const IncomePageForm = () => {
 	);
 };
 
-export default IncomePageForm;
+export default SpicialIncomePageForm;

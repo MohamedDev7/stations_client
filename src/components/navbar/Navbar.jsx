@@ -51,12 +51,23 @@ const Navbar = () => {
 						<Link to="/dailyMovment">
 							<MenubarItem className="justify-end">حركة المبيعات</MenubarItem>
 						</Link>
+						{/* <Link to="/spicialDailyMovment">
+							<MenubarItem className="justify-end">
+								حركة المبيعات السابقة
+							</MenubarItem>
+						</Link> */}
 						<Link to="/income">
 							<MenubarItem className="justify-end">الواردات</MenubarItem>
 						</Link>
+						{/* <Link to="/spicialIncome">
+							<MenubarItem className="justify-end">واردات سابقة</MenubarItem>
+						</Link> */}
 						<Link to="/surplus">
 							<MenubarItem className="justify-end">الفائض</MenubarItem>
 						</Link>
+						{/* <Link to="/spicialSurplus">
+							<MenubarItem className="justify-end">فائض سابق</MenubarItem>
+						</Link> */}
 					</MenubarContent>
 				</MenubarMenu>
 				<MenubarMenu>
@@ -110,14 +121,10 @@ const Navbar = () => {
 						<Link to="/depositsReport">
 							<MenubarItem className="justify-end">حركة الايداعات</MenubarItem>
 						</Link>
-
 						<Link to="/accountStatements">
 							<MenubarItem className="justify-end">
 								التقارير المالية
 							</MenubarItem>
-						</Link>
-						<Link to="/creditSalesReport">
-							<MenubarItem className="justify-end">مبيعات آجلة</MenubarItem>
 						</Link>
 					</MenubarContent>
 				</MenubarMenu>
@@ -140,17 +147,28 @@ const Navbar = () => {
 								<Link to="/stations">
 									<MenubarItem className="justify-end">المحطات</MenubarItem>
 								</Link>
+								<Link to="/clients">
+									<MenubarItem className="justify-end">عملاء</MenubarItem>
+								</Link>
 								<Link to="/substances">
 									<MenubarItem className="justify-end">المواد</MenubarItem>
 								</Link>
 								<Link to="/dispensers">
 									<MenubarItem className="justify-end">الطرمبات</MenubarItem>
 								</Link>
+								<Link to="/stores">
+									<MenubarItem className="justify-end">المخازن</MenubarItem>
+								</Link>
 								<Link to="/banks">
 									<MenubarItem className="justify-end">الصرافات</MenubarItem>
 								</Link>
 								<Link to="/employees">
 									<MenubarItem className="justify-end">الموظفين</MenubarItem>
+								</Link>
+								<Link to="/sendNotification">
+									<MenubarItem className="justify-end">
+										ارسال تنبية واتساب
+									</MenubarItem>
 								</Link>
 							</>
 						)}

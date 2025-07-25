@@ -1,46 +1,39 @@
 import React, { useState } from "react";
 import TopBar from "../../components/TopBar/TopBar";
+import { X, Save } from "@mynaui/icons-react";
 import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
 import {
-	addIncome,
-	editIncome,
+	addSpicialSurplus,
+	addSurplus,
+	editSurplus,
 	getAllStations,
-	getEmployeeByStationId,
 	getMovmentsShiftsByMovmentId,
 	getStationPendingMovment,
 	getStoreByStationId,
 	getSubstancesPricesByDate,
 } from "../../api/serverApi";
-import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { X, Save } from "@mynaui/icons-react";
+import TimeChange from "./../../utils/TimeChange";
 import {
 	Button,
-	Select,
-	SelectItem,
 	Card,
+	CardBody,
 	CardHeader,
 	Input,
-	CardBody,
+	Select,
+	SelectItem,
 } from "@heroui/react";
-import TimeChange from "./../../utils/TimeChange";
-const IncomePageForm = () => {
+const SpicialSurplusFormPage = () => {
 	//hooks
-	const navigate = useNavigateWithQuery();
+	const navigate = useNavigate();
 	const info = useLocation();
 	//states
 	const [station, setStation] = useState("");
 	const [shift, setShift] = useState("");
 	const [amount, setAmount] = useState(0);
 	const [store, setStore] = useState("");
-	const [employee, setEmployee] = useState("");
-	const [truckNumber, setTruckNumber] = useState("");
-	const [truckDriver, setTruckDriver] = useState("");
-	const [docAmount, setDocAmount] = useState(0);
-	const [docNumber, setDocNumber] = useState("");
-	const [from, setFrom] = useState("");
 	const [movment, setMovment] = useState("");
 	const [disabledShifts, setDisabledShifts] = useState([]);
 
@@ -61,7 +54,7 @@ const IncomePageForm = () => {
 		},
 		onSuccess: (data) => {
 			if (data.length === 0) {
-				toast.error("لايمكن إضافة وارد لعدم وجود حركة مفتوحة", {
+				toast.error("لايمكن إضافة فائض لعدم وجود حركة مفتوحة", {
 					position: "top-center",
 				});
 			}
@@ -92,7 +85,7 @@ const IncomePageForm = () => {
 		select: (res) => {
 			return res.data.prices;
 		},
-		enabled: !!movment && !!pendingMovments,
+		enabled: !!pendingMovments && !!movment,
 	});
 
 	const { data: stores } = useQuery({
@@ -115,20 +108,10 @@ const IncomePageForm = () => {
 		enabled: !!prices && !!station,
 	});
 
-	const { data: employees } = useQuery({
-		queryKey: ["employees", station],
-		queryFn: getEmployeeByStationId,
-		select: (res) => {
-			return res.data.employees.map((el) => {
-				return { text: el.name, key: el.id };
-			});
-		},
-		enabled: !!station,
-	});
 	const saveMutation = useMutation({
-		mutationFn: addIncome,
+		mutationFn: addSpicialSurplus,
 		onSuccess: (res) => {
-			toast.success("تم إضافة الوارد بنجاح", {
+			toast.success("تم إضافة الفائض بنجاح", {
 				position: "top-center",
 			});
 			navigate("./..");
@@ -140,9 +123,9 @@ const IncomePageForm = () => {
 		},
 	});
 	const editMutation = useMutation({
-		mutationFn: editIncome,
+		mutationFn: editSurplus,
 		onSuccess: (res) => {
-			toast.success("تم تعديل الصندوق بنجاح", {
+			toast.success("تم تعديل الفائض بنجاح", {
 				position: "top-center",
 			});
 			navigate("./..", {});
@@ -154,13 +137,10 @@ const IncomePageForm = () => {
 		},
 	});
 	//functions
-
 	return (
 		<div className="w-full h-full overflow-auto">
 			<form
 				onSubmit={(e) => {
-					e.preventDefault();
-
 					info.state
 						? editMutation.mutate({
 								name,
@@ -170,14 +150,8 @@ const IncomePageForm = () => {
 								station,
 								amount,
 								store: stores.filter((el) => el.id === store)[0],
-								truckDriver,
-								truckNumber,
-								employee,
-								docAmount,
-								docNumber,
-								from,
-								movmentId: movment,
 								shift: shifts.filter((el) => el.id === shift)[0],
+								movmentId: movment,
 						  });
 				}}
 			>
@@ -186,12 +160,15 @@ const IncomePageForm = () => {
 						<>
 							<Button
 								color="warning"
-								onPress={() => navigate("./..")}
+								onPress={() => {
+									navigate("./..");
+								}}
 								disabled={editMutation.isLoading || saveMutation.isLoading}
 							>
 								<X />
 								الغاء
 							</Button>
+
 							<Button
 								color="primary"
 								type="submit"
@@ -206,12 +183,12 @@ const IncomePageForm = () => {
 				<div className="w-full p-5 pb-16">
 					<Card>
 						<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-							بيانات الوارد
+							بيانات الفائض
 						</CardHeader>
 						<CardBody>
-							<Row flex={[2, 2, 2]}>
+							<Row flex={[2, 2, 1]}>
 								<Select
-									label="اسم المحطة"
+									label="المحطة"
 									onChange={(e) => {
 										setStation(+e.target.value);
 									}}
@@ -263,46 +240,10 @@ const IncomePageForm = () => {
 										})}
 								</Select>
 							</Row>
-							<Row flex={[2, 2, 2, 3]}>
+							<Row flex={[2, 1, 1, 2]}>
 								<Input
 									isRequired
-									label="رقم المستند"
-									value={docNumber}
-									onChange={(e) => {
-										setDocNumber(e.target.value);
-									}}
-									disabled={!shift && true}
-								/>
-								<Input
-									isRequired
-									label="الكمية حسب المستند"
-									value={docAmount}
-									onChange={(e) => {
-										setDocAmount(+e.target.value);
-									}}
-									disabled={!shift && true}
-									onFocus={(e) => e.target.select()}
-									type="number"
-								/>
-								<Select
-									label="الجهة الوارد منها"
-									onChange={(e) => {
-										setFrom(e.target.value);
-									}}
-									isRequired
-									value={from}
-								>
-									<SelectItem key="نشطون">نشطون</SelectItem>
-									<SelectItem key="عمان">عمان</SelectItem>
-									<SelectItem key="اخرى">اخرى</SelectItem>
-								</Select>
-
-								<></>
-							</Row>
-							<Row flex={[2, 1, 3]}>
-								<Input
-									isRequired
-									label="الكمية المستلمة"
+									label="كمية الفائض"
 									value={amount}
 									onChange={(e) => {
 										setAmount(+e.target.value);
@@ -333,45 +274,6 @@ const IncomePageForm = () => {
 											);
 										})}
 								</Select>
-								<></>
-							</Row>
-							<Row flex={[1, 2, 2]}>
-								<Input
-									isRequired
-									label="رقم الناقلة"
-									disabled={!shift && true}
-									value={truckNumber}
-									onChange={(e) => {
-										setTruckNumber(e.target.value);
-									}}
-								/>
-								<Input
-									isRequired
-									label="السائق"
-									disabled={!shift && true}
-									value={truckDriver}
-									onChange={(e) => {
-										setTruckDriver(e.target.value);
-									}}
-								/>
-								<Select
-									label="المستلم"
-									onChange={(e) => {
-										setEmployee(+e.target.value);
-									}}
-									disabled={!shift && true}
-									isRequired
-									value={employee}
-								>
-									{employees &&
-										employees.map((employee) => {
-											return (
-												<SelectItem key={employee.key}>
-													{employee.text}
-												</SelectItem>
-											);
-										})}
-								</Select>
 							</Row>
 						</CardBody>
 					</Card>
@@ -381,4 +283,4 @@ const IncomePageForm = () => {
 	);
 };
 
-export default IncomePageForm;
+export default SpicialSurplusFormPage;

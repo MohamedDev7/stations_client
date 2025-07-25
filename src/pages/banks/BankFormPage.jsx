@@ -4,27 +4,12 @@ import { Button } from "@fluentui/react-components";
 import { SaveRegular } from "@fluentui/react-icons";
 // import Card from "../../UI/card/Card";
 import { Card, CardBody, CardHeader, Input } from "@heroui/react";
-import Row from "../../UI/row/Row";
-import { useMutation, useQuery } from "react-query";
-import { addBank, getBank, updateBank } from "../../api/serverApi";
+
+import { useMutation } from "react-query";
+import { addBank, updateBank } from "../../api/serverApi";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Select, SelectItem } from "@heroui/react";
-export const animals = [
-	{ key: "cat", label: "Cat" },
-	{ key: "dog", label: "Dog" },
-	{ key: "elephant", label: "Elephant" },
-	{ key: "lion", label: "Lion" },
-	{ key: "tiger", label: "Tiger" },
-	{ key: "giraffe", label: "Giraffe" },
-	{ key: "dolphin", label: "Dolphin" },
-	{ key: "penguin", label: "Penguin" },
-	{ key: "zebra", label: "Zebra" },
-	{ key: "shark", label: "Shark" },
-	{ key: "whale", label: "Whale" },
-	{ key: "otter", label: "Otter" },
-	{ key: "crocodile", label: "Crocodile" },
-];
+
 const BankFormPage = () => {
 	//hooks
 	const navigate = useNavigate();
@@ -34,7 +19,7 @@ const BankFormPage = () => {
 	//queries
 	const addMutation = useMutation({
 		mutationFn: addBank,
-		onSuccess: (res) => {
+		onSuccess: () => {
 			toast.success("تمت الاضافة بنجاح", {
 				position: "top-center",
 			});

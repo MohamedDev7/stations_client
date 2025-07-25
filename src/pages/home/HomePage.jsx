@@ -59,7 +59,7 @@ const HomePage = () => {
 				station.stock = groupedSubstances;
 				station.capacity = groupedTanks;
 			});
-
+			console.log(`res.data.stations`, res.data.stations);
 			return res.data.stations;
 		},
 		onError: (err) => {
@@ -69,7 +69,7 @@ const HomePage = () => {
 		},
 	});
 	return (
-		<div className="w-full p-10 h-full overflow-auto bg-slate-600 grid grid-cols-4  gap-x-8 gap-y-4  grid-flow-row auto-rows-min">
+		<div className="w-full p-10 h-full  overflow-auto bg-slate-600 grid grid-cols-3  gap-x-8 gap-y-4  grid-flow-row auto-rows-min">
 			{!isLoading ? (
 				stations && stations.length > 0 ? (
 					stations.map((station) => (
@@ -150,7 +150,8 @@ const HomePage = () => {
 								<Table aria-label removeWrapper>
 									<TableHeader>
 										<TableColumn>المخزن</TableColumn>
-										<TableColumn>الكمية (لتر)</TableColumn>
+										<TableColumn>الرصيد الدفتري</TableColumn>
+										<TableColumn>الرصيد الفعلي</TableColumn>
 									</TableHeader>
 									<TableBody>
 										{station.stores &&
@@ -160,6 +161,11 @@ const HomePage = () => {
 													<TableCell>
 														{new Intl.NumberFormat("en-US").format(
 															store.curr_value
+														)}
+													</TableCell>
+													<TableCell>
+														{new Intl.NumberFormat("en-US").format(
+															store.curr_value - +store.deficit
 														)}
 													</TableCell>
 												</TableRow>

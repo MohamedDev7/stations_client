@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-	addReceive,
+	addCreditSalesSettlement,
 	getAllStations,
-	getEmployeeByStationId,
-	getReceive,
-	updateReceive,
+	getClientsByStationId,
+	getMovmentsShiftsByMovmentId,
+	getStationPendingMovment,
+	getStoreByStationId,
+	getStoreByStationIdAndClientId,
+	getSubstancesPricesByDate,
+	getUnPaidCreditSalesByStationIdAndStoreIdAndClientId,
 } from "../../api/serverApi";
-import { X, Save } from "@mynaui/icons-react";
+import { X, Contactless } from "@mynaui/icons-react";
 import { Button } from "@heroui/button";
+import TimeChange from "./../../utils/TimeChange";
 import {
 	Card,
 	CardBody,
@@ -20,18 +25,35 @@ import {
 	Input,
 	Select,
 	SelectItem,
-	Textarea,
+	Table,
+	TableHeader,
+	TableColumn,
+	TableBody,
+	TableRow,
+	TableCell,
 } from "@heroui/react";
+import EmptyContainer from "@/components/EmptyContainer/EmptyContainer";
 const SettleCreditSaleFormPage = () => {
 	//hooks
 	const navigate = useNavigate();
-	const info = useLocation();
+
 	//states
 	const [station, setStation] = useState("");
 	const [date, setDate] = useState("");
 	const [amount, setAmount] = useState("");
-	const [employee, setEmployee] = useState("");
-	const [title, setTitle] = useState("");
+	const [totalLitters, setTotalLitters] = useState("");
+	const [selectedStore, setSelectedStore] = useState("");
+	const [selectedClientStore, setSelectedClientStore] = useState("");
+	const [selectedClient, setSelectedClient] = useState("");
+	const [selectedItems, setSelectedItems] = useState(new Set());
+	const [selectedItemsArr, setSelectedItemsArr] = useState([]);
+	const [items, setItems] = useState([]);
+	const [type, setType] = useState("نقدي");
+	const [operationNumber, setOperationNumber] = useState("");
+	const [shift, setShift] = useState("");
+	const [movment, setMovment] = useState("");
+	const [disabledShifts, setDisabledShifts] = useState([]);
+
 	//queries
 	const { data: stations } = useQuery({
 		queryKey: ["stations"],
@@ -42,33 +64,97 @@ const SettleCreditSaleFormPage = () => {
 			});
 		},
 	});
-	const { data: employees } = useQuery({
-		queryKey: ["employees", station],
-		queryFn: getEmployeeByStationId,
+	const { data: pendingMovments } = useQuery({
+		queryKey: ["pendingMovments", station],
+		queryFn: getStationPendingMovment,
 		select: (res) => {
-			return res.data.employees.map((el) => {
-				return { ...el, key: el.id, label: el.name };
-			});
+			return res.data.pendingMovment;
 		},
 		enabled: !!station,
 	});
-	useQuery({
-		queryKey: ["receive", info.state?.id],
-		queryFn: getReceive,
-		select: (res) => res.data.receive,
-		onSuccess: (data) => {
-			setStation(data.station_id);
-			setAmount(data.amount);
-			setDate(data.date);
-			setEmployee(data.employee_id);
-			setTitle(data.title);
+	const { data: shifts } = useQuery({
+		queryKey: ["shifts", movment],
+		queryFn: getMovmentsShiftsByMovmentId,
+		select: (res) => {
+			return res.data.shifts;
 		},
-		enabled: !!info.state?.id,
+		onSuccess: (data) => {
+			const disabledShiftsArr = data
+				.filter((el) => el.state === "saved")
+				.map((el) => el.id.toString());
+
+			setDisabledShifts(disabledShiftsArr);
+		},
+		enabled: !!movment,
 	});
+	const { data: prices } = useQuery({
+		queryKey: [
+			"prices",
+			pendingMovments?.filter((el) => el.id === movment)[0]?.date,
+		],
+		queryFn: getSubstancesPricesByDate,
+		select: (res) => {
+			return res.data.prices;
+		},
+		enabled: !!movment && !!pendingMovments,
+	});
+	const { data: stores } = useQuery({
+		queryKey: ["stores", station],
+		queryFn: getStoreByStationId,
+		select: (res) => res.data.stores,
+		enabled: !!station,
+	});
+	const { data: clients } = useQuery({
+		queryKey: ["clients", station],
+		queryFn: getClientsByStationId,
+		select: (res) => {
+			return res.data.clients;
+		},
+		enabled: !!station,
+	});
+	const { data: clientsStores } = useQuery({
+		queryKey: ["clientsStores", station, selectedClient],
+		queryFn: getStoreByStationIdAndClientId,
+		select: (res) => {
+			return res.data.stores;
+		},
+		enabled: !!station && !!selectedClient,
+	});
+	useQuery({
+		queryKey: ["creditSales", station, selectedStore, selectedClient],
+		queryFn: getUnPaidCreditSalesByStationIdAndStoreIdAndClientId,
+		select: (res) => {
+			let data = null;
+			if (type === "خصم كمية" && !!prices) {
+				const price = prices.filter(
+					(el) => el.substance_id === res.data.creditSales[0].store.substance.id
+				)[0].price;
+				data = res.data.creditSales.map((el) => {
+					return {
+						...el,
+						newAmount: (el.amount * el.price) / price,
+						realPrice: price,
+					};
+				});
+			} else {
+				data = res.data.creditSales;
+			}
+			return data;
+		},
+		onSuccess: (data) => {
+			setItems(data);
+		},
+		enabled:
+			!!selectedStore &&
+			!!selectedClient &&
+			!!station &&
+			(type === "خصم كمية" ? !!prices : true),
+	});
+
 	const addMutation = useMutation({
-		mutationFn: addReceive,
+		mutationFn: addCreditSalesSettlement,
 		onSuccess: () => {
-			toast.success("تم اضافة الاستلام بنجاح", {
+			toast.success("تم التسديد بنجاح", {
 				position: "top-center",
 			});
 			navigate("./..");
@@ -79,35 +165,54 @@ const SettleCreditSaleFormPage = () => {
 			});
 		},
 	});
-	const editMutation = useMutation({
-		mutationFn: updateReceive,
-		onSuccess: (res) => {
-			toast.success("تم التعديل بنجاح", {
-				position: "top-center",
+
+	//functions
+	useEffect(() => {
+		let total = 0;
+		const arrayOfIds = Array.from(selectedItems);
+		setSelectedItemsArr(arrayOfIds.map((el) => +el));
+		if (items && items.length > 0) {
+			const filterdItems = items.filter((el) =>
+				arrayOfIds.includes(`${el.id}`)
+			);
+			filterdItems.forEach((el) => {
+				total = total + el.price * el.amount;
 			});
-			navigate("./..", {});
-		},
-		onError: (err) => {
-			toast.error(err.response.data.message, {
-				position: "top-center",
-			});
-		},
-	});
+		} else {
+			total = 0;
+		}
+		let price = 0;
+
+		if (stores && selectedStore && prices && stores.length > 0) {
+			const substanceId = stores?.filter((el) => el.id === +selectedStore)[0]
+				.substance.id;
+			price = prices.filter((el) => el.substance_id === substanceId)[0].price;
+		}
+		setAmount(total);
+		setTotalLitters(+total / +price);
+	}, [selectedItems, items, prices, selectedStore, stores]);
 	return (
 		<div className="w-full h-full overflow-auto">
 			<form
 				onSubmit={(e) => {
 					e.stopPropagation();
-					info.state
-						? editMutation.mutate({
-								date,
-								station,
-								amount,
-								title,
-								employee,
-								id: info.state.id,
-						  })
-						: addMutation.mutate({ date, station, amount, employee, title });
+
+					addMutation.mutate({
+						date,
+						station,
+						client: selectedClient,
+						store: selectedStore,
+						amount,
+						items: selectedItemsArr,
+						itemsArr: items.filter((item) =>
+							selectedItemsArr.includes(item.id)
+						),
+						type,
+						operationNumber,
+						movment,
+						shift,
+						selectedClientStore,
+					});
 				}}
 			>
 				<TopBar
@@ -116,7 +221,7 @@ const SettleCreditSaleFormPage = () => {
 							<Button
 								color="warning"
 								onPress={() => navigate("./..")}
-								disabled={addMutation.isLoading || editMutation.isLoading}
+								disabled={addMutation.isLoading}
 							>
 								<X />
 								الغاء
@@ -124,10 +229,10 @@ const SettleCreditSaleFormPage = () => {
 							<Button
 								color="primary"
 								type="submit"
-								disabled={addMutation.isLoading || editMutation.isLoading}
+								disabled={addMutation.isLoading}
 							>
-								<Save />
-								حفظ
+								<Contactless />
+								سداد
 							</Button>
 						</>
 					}
@@ -135,15 +240,16 @@ const SettleCreditSaleFormPage = () => {
 				<div className="w-full p-5 pb-16">
 					<Card>
 						<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-							بيانات الاستلام
+							بيانات السداد
 						</CardHeader>
 						<CardBody>
-							<Row flex={[3, 2, 3, 2]}>
+							<Row flex={[3, 2, 3]}>
 								<Select
 									label="المحطة"
 									selectedKeys={[station.toString()]}
 									onChange={(e) => {
 										setStation(+e.target.value);
+										setSelectedStore("");
 									}}
 									isRequired
 								>
@@ -162,44 +268,188 @@ const SettleCreditSaleFormPage = () => {
 									onChange={(e) => setDate(e.target.value)}
 								/>
 								<Select
-									label="الموظف"
-									selectedKeys={[employee.toString()]}
+									label="المخزن"
 									onChange={(e) => {
-										setEmployee(+e.target.value);
+										setSelectedStore(e.target.value);
 									}}
+									selectedKeys={[selectedStore]}
 									isRequired
 								>
-									{employees &&
-										employees.map((employee) => {
+									{stores &&
+										stores.map((store) => {
 											return (
-												<SelectItem key={employee.id}>
-													{employee.name}
+												<SelectItem key={store.id}>
+													{`${store.name} - ${store.substance.name}`}
 												</SelectItem>
 											);
 										})}
 								</Select>
+							</Row>
+							<div className="flex gap-4">
+								<Select
+									label="العميل"
+									onChange={(e) => {
+										setSelectedClient(e.target.value);
+									}}
+									className="max-w-md"
+									selectedKeys={[selectedClient]}
+									isRequired
+								>
+									{clients &&
+										clients.map((client) => {
+											return (
+												<SelectItem key={client.client.id}>
+													{`${client.client.name}`}
+												</SelectItem>
+											);
+										})}
+								</Select>
+								<Select
+									label="نوع السداد"
+									onChange={(e) => {
+										setOperationNumber("");
+										setType(e.target.value);
+									}}
+									className="max-w-md"
+									selectedKeys={[type]}
+									isRequired
+								>
+									<SelectItem key="نقدي">نقدي</SelectItem>
+									<SelectItem key="قيد مالي">قيد مالي</SelectItem>
+									{clientsStores && clientsStores.length > 0 && (
+										<SelectItem key="خصم كمية">خصم كمية</SelectItem>
+									)}
+								</Select>
+								{type === "خصم كمية" && (
+									<Select
+										label="من مخزن"
+										onChange={(e) => {
+											setSelectedClientStore(e.target.value);
+										}}
+										className="max-w-md"
+										selectedKeys={[selectedClientStore]}
+										isRequired
+									>
+										{clientsStores &&
+											clientsStores.map((store) => {
+												return (
+													<SelectItem key={store.id}>
+														{`${store.name} - ${store.substance.name}`}
+													</SelectItem>
+												);
+											})}
+									</Select>
+								)}
+								{type === "قيد مالي" && (
+									<Input
+										isRequired
+										label="رقم القيد المالي"
+										onChange={(e) => {
+											setOperationNumber(e.target.value);
+										}}
+										className="max-w-md"
+										value={operationNumber}
+									/>
+								)}
+							</div>
+							<div className="flex gap-4 mt-1">
+								{type === "خصم كمية" && (
+									<>
+										<Select
+											label="الحركة"
+											onChange={(e) => {
+												setMovment(+e.target.value);
+											}}
+											isRequired
+											className="max-w-md"
+											value={movment}
+										>
+											{pendingMovments &&
+												pendingMovments.map((movment) => {
+													return (
+														<SelectItem
+															key={movment.id}
+														>{`الحركة رقم ${movment.number} بتاريخ ${movment.date}`}</SelectItem>
+													);
+												})}
+										</Select>
+										<Select
+											label="المناوبة"
+											onChange={(e) => {
+												setShift(+e.target.value);
+											}}
+											isRequired
+											className="max-w-md"
+											disabledKeys={disabledShifts}
+											value={shift}
+										>
+											{shifts &&
+												shifts.map((shift) => {
+													return (
+														<SelectItem key={shift.id}>{`${
+															shift.number
+														}- من ${TimeChange(shift.start)} الى ${TimeChange(
+															shift.end
+														)}`}</SelectItem>
+													);
+												})}
+										</Select>
+									</>
+								)}
 
 								<Input
 									isRequired
 									label="المبلغ"
+									isDisabled
+									readOnly
 									value={amount}
-									onChange={(e) => {
-										setAmount(+e.target.value);
-									}}
+									className="max-w-md"
 									type="number"
 								/>
-							</Row>
-							<Row flex={[4, 1]}>
-								<Textarea
-									isRequired
-									label="البيان"
-									value={title}
-									onChange={(e) => {
-										setTitle(e.target.value);
-									}}
-								/>
 								<></>
-							</Row>
+							</div>
+						</CardBody>
+					</Card>
+					<Card>
+						<CardHeader className="bg-primary text-default-50 font-bold text-medium">
+							المبيعات الآجلة
+						</CardHeader>
+						<CardBody>
+							{items.length > 0 ? (
+								<Table
+									aria-label="Example static collection table"
+									selectionMode="multiple"
+									selectedKeys={selectedItems}
+									onSelectionChange={(keys) => {
+										if (typeof keys === "string" && keys === "all") {
+											setSelectedItems(
+												new Set(items.map((item) => `${item.id}`))
+											);
+										} else {
+											setSelectedItems(new Set(keys));
+										}
+									}}
+								>
+									<TableHeader>
+										<TableColumn>التاريخ</TableColumn>
+										<TableColumn>الكمية</TableColumn>
+										<TableColumn>سعر اللتر</TableColumn>
+										<TableColumn>المبلغ</TableColumn>
+									</TableHeader>
+									<TableBody>
+										{items.map((item) => (
+											<TableRow key={item.id}>
+												<TableCell>{item.movment.date}</TableCell>
+												<TableCell>{item.amount}</TableCell>
+												<TableCell>{item.price}</TableCell>
+												<TableCell>{item.price * item.amount}</TableCell>
+											</TableRow>
+										))}
+									</TableBody>
+								</Table>
+							) : (
+								<EmptyContainer msg="لا توجد مبيعات غير مسددة" />
+							)}
 						</CardBody>
 					</Card>
 				</div>

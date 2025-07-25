@@ -3,42 +3,43 @@
   <Dictionary Ref="1" type="Dictionary" isKey="true">
     <BusinessObjects isList="true" count="0" />
     <Databases isList="true" count="1">
-      <Demo Ref="2" type="Stimulsoft.Report.Dictionary.StiJsonDatabase" isKey="true">
-        <Alias>Demo</Alias>
+      <_x0032_ Ref="2" type="Stimulsoft.Report.Dictionary.StiJsonDatabase" isKey="true">
+        <Alias>2</Alias>
         <Key />
-        <Name>Demo</Name>
-        <PathData>G:\stations\Client\public\reportsTemplates\Demo.json</PathData>
-      </Demo>
+        <Name>2</Name>
+        <PathData>D:\projects\stations\Client\public\reportsTemplates\2.json</PathData>
+      </_x0032_>
     </Databases>
     <DataSources isList="true" count="5">
       <dispensers Ref="3" type="DataTableSource" isKey="true">
         <Alias>dispensers</Alias>
         <Columns isList="true" count="3">
           <value>title,System.String</value>
-          <value>substance_id,System.String</value>
+          <value>substance_id,System.Decimal</value>
           <value>data,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>677bc3bee22e4adfb2e9fb31e940f467</Key>
+        <Key>abed1c3326464fceabf119aa2db064f0</Key>
         <Name>dispensers</Name>
-        <NameInSource>Demo.dispensers</NameInSource>
+        <NameInSource>2.dispensers</NameInSource>
       </dispensers>
       <dispensers_data Ref="4" type="DataTableSource" isKey="true">
         <Alias>dispensers_data</Alias>
-        <Columns isList="true" count="8">
-          <value>number,System.String</value>
-          <value>substance_id,System.String</value>
+        <Columns isList="true" count="9">
+          <value>number,System.Decimal</value>
           <value>prev_A,System.Decimal</value>
           <value>curr_A,System.Decimal</value>
           <value>prev_B,System.Decimal</value>
           <value>curr_B,System.Decimal</value>
           <value>total,System.Decimal</value>
+          <value>substance_id,System.Decimal</value>
+          <value>substance,System.String</value>
           <value>relationId,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>44b44708303646d0978823c30ba5bdb0</Key>
+        <Key>d358ad1b0bc646698b233c3e7153640a</Key>
         <Name>dispensers_data</Name>
-        <NameInSource>Demo.dispensers_data</NameInSource>
+        <NameInSource>2.dispensers_data</NameInSource>
       </dispensers_data>
       <info Ref="5" type="DataTableSource" isKey="true">
         <Alias>info</Alias>
@@ -48,26 +49,25 @@
           <value>movment_number,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>e0b3c711d5ef4c54b4d00a3f9426599d</Key>
+        <Key>7cf040cf6c20427eb94aad84b7b6e576</Key>
         <Name>info</Name>
-        <NameInSource>Demo.info</NameInSource>
+        <NameInSource>2.info</NameInSource>
       </info>
       <stores Ref="6" type="DataTableSource" isKey="true">
         <Alias>stores</Alias>
         <Columns isList="true" count="3">
           <value>title,System.String</value>
-          <value>substance_id,System.String</value>
+          <value>substance_id,System.Decimal</value>
           <value>data,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>858a905db1a34539bafd6cdfd12f133c</Key>
+        <Key>d1f89324574949febb28815b8fcd2c8a</Key>
         <Name>stores</Name>
-        <NameInSource>Demo.stores</NameInSource>
+        <NameInSource>2.stores</NameInSource>
       </stores>
       <stores_data Ref="7" type="DataTableSource" isKey="true">
         <Alias>stores_data</Alias>
-        <Columns isList="true" count="10">
-          <value>substance_id,System.String</value>
+        <Columns isList="true" count="13">
           <value>name,System.String</value>
           <value>prev_value,System.Decimal</value>
           <value>curr_value,System.Decimal</value>
@@ -75,13 +75,17 @@
           <value>total_spent,System.Decimal</value>
           <value>price,System.Decimal</value>
           <value>total_value,System.Decimal</value>
+          <value>type,System.String</value>
+          <value>substance_id,System.Decimal</value>
+          <value>substance,System.String</value>
+          <value>totalCreditSales,System.Decimal</value>
+          <value>totalCashSales,System.Decimal</value>
           <value>relationId,System.String</value>
-          <value>totalCoupons,System.Decimal</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>bdeebf68dcfe4a899595fe22a7a083e6</Key>
+        <Key>bc90cd69e8874930aeb632ead8633d0e</Key>
         <Name>stores_data</Name>
-        <NameInSource>Demo.stores_data</NameInSource>
+        <NameInSource>2.stores_data</NameInSource>
       </stores_data>
     </DataSources>
     <Relations isList="true" count="2">
@@ -5800,12 +5804,12 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                   <Brush>Transparent</Brush>
                   <BusinessObjectGuid isNull="true" />
                   <ClientRectangle>0,0.4,18.96,2.4</ClientRectangle>
-                  <ColumnCount>8</ColumnCount>
-                  <Components isList="true" count="24">
+                  <ColumnCount>9</ColumnCount>
+                  <Components isList="true" count="27">
                     <Table2_Cell1 Ref="71" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>0,0,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>0,0,2.2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,12,Bold</Font>
@@ -5824,7 +5828,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                     <Table2_Cell2 Ref="72" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>2.4,0,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>2.2,0,1.95,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,12,Bold</Font>
@@ -5843,7 +5847,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                     <Table2_Cell3 Ref="73" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>4.8,0,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>4.15,0,2.28,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,12,Bold</Font>
@@ -5862,7 +5866,26 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                     <Table2_Cell4 Ref="74" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>7.2,0,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>6.43,0,2.11,0.8</ClientRectangle>
+                      <Conditions isList="true" count="0" />
+                      <Expressions isList="true" count="0" />
+                      <Font>Arial,12,Bold</Font>
+                      <HorAlignment>Center</HorAlignment>
+                      <ID>49</ID>
+                      <JoinCells isList="true" count="0" />
+                      <Margins>0,0,0,0</Margins>
+                      <Name>Table2_Cell4</Name>
+                      <Page isRef="10" />
+                      <Parent isRef="70" />
+                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+                      <Text>الوارد</Text>
+                      <TextBrush>Black</TextBrush>
+                      <VertAlignment>Center</VertAlignment>
+                    </Table2_Cell4>
+                    <Table2_Cell5 Ref="75" type="TableCell" isKey="true">
+                      <Border>All;Black;2;Solid;False;4;Black</Border>
+                      <Brush>White</Brush>
+                      <ClientRectangle>8.54,0,2.26,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,12,Bold</Font>
@@ -5870,37 +5893,19 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>3</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell4</Name>
-                      <Page isRef="10" />
-                      <Parent isRef="70" />
-                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-                      <Text>المنصرف</Text>
-                      <TextBrush>Black</TextBrush>
-                      <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell4>
-                    <Table2_Cell5 Ref="75" type="TableCell" isKey="true">
-                      <Border>All;Black;2;Solid;False;4;Black</Border>
-                      <Brush>White</Brush>
-                      <ClientRectangle>9.6,0,2.4,0.8</ClientRectangle>
-                      <Conditions isList="true" count="0" />
-                      <Expressions isList="true" count="0" />
-                      <Font>Arial,12,Bold</Font>
-                      <HorAlignment>Center</HorAlignment>
-                      <ID>4</ID>
-                      <JoinCells isList="true" count="0" />
-                      <Margins>0,0,0,0</Margins>
                       <Name>Table2_Cell5</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-                      <Text>الوارد</Text>
+                      <Text>اجمالي المبيعات</Text>
                       <TextBrush>Black</TextBrush>
+                      <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table2_Cell5>
                     <Table2_Cell6 Ref="76" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>12,0,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>10.8,0,2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,12,Bold</Font>
@@ -5912,14 +5917,34 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-                      <Text>مسحوبات الفرع</Text>
+                      <Text>مبيعات آجلة</Text>
                       <TextBrush>Black</TextBrush>
+                      <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table2_Cell6>
                     <Table2_Cell7 Ref="77" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>14.4,0,2.2,0.8</ClientRectangle>
+                      <ClientRectangle>12.8,0,2,0.8</ClientRectangle>
+                      <Conditions isList="true" count="0" />
+                      <Expressions isList="true" count="0" />
+                      <Font>Arial,12,Bold</Font>
+                      <HorAlignment>Center</HorAlignment>
+                      <ID>46</ID>
+                      <JoinCells isList="true" count="0" />
+                      <Margins>0,0,0,0</Margins>
+                      <Name>Table2_Cell7</Name>
+                      <Page isRef="10" />
+                      <Parent isRef="70" />
+                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+                      <Text>مبيعات نقدية</Text>
+                      <TextBrush>Black</TextBrush>
+                      <VertAlignment>Center</VertAlignment>
+                    </Table2_Cell7>
+                    <Table2_Cell8 Ref="78" type="TableCell" isKey="true">
+                      <Border>All;Black;2;Solid;False;4;Black</Border>
+                      <Brush>White</Brush>
+                      <ClientRectangle>14.8,0,2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,12,Bold</Font>
@@ -5927,18 +5952,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>25</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell7</Name>
+                      <Name>Table2_Cell8</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>رصيد سابق</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell7>
-                    <Table2_Cell8 Ref="78" type="TableCell" isKey="true">
+                    </Table2_Cell8>
+                    <Table2_Cell9 Ref="79" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>16.6,0,2.36,0.8</ClientRectangle>
+                      <ClientRectangle>16.8,0,2.16,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,12,Bold</Font>
@@ -5946,18 +5971,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>30</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell8</Name>
+                      <Name>Table2_Cell9</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>المخزن</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell8>
-                    <Table2_Cell9 Ref="79" type="TableCell" isKey="true">
+                    </Table2_Cell9>
+                    <Table2_Cell10 Ref="80" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>0,0.8,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>0,0.8,2.2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -5965,39 +5990,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>41</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell9</Name>
+                      <Name>Table2_Cell10</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stores_data.total_value}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="80" type="NumberFormat" isKey="true">
-                        <DecimalDigits>2</DecimalDigits>
-                        <GroupSeparator>,</GroupSeparator>
-                        <NegativePattern>1</NegativePattern>
-                        <UseLocalSetting>False</UseLocalSetting>
-                      </TextFormat>
-                      <Type>DataColumn</Type>
-                      <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell9>
-                    <Table2_Cell10 Ref="81" type="TableCell" isKey="true">
-                      <Border>All;Black;2;Solid;False;4;Black</Border>
-                      <Brush>White</Brush>
-                      <ClientRectangle>2.4,0.8,2.4,0.8</ClientRectangle>
-                      <Conditions isList="true" count="0" />
-                      <Expressions isList="true" count="0" />
-                      <Font>Arial,9</Font>
-                      <HorAlignment>Center</HorAlignment>
-                      <ID>38</ID>
-                      <JoinCells isList="true" count="0" />
-                      <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell10</Name>
-                      <Page isRef="10" />
-                      <Parent isRef="70" />
-                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-                      <Text>{stores_data.price}</Text>
-                      <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="82" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="81" type="NumberFormat" isKey="true">
                         <DecimalDigits>2</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -6006,10 +6005,36 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table2_Cell10>
-                    <Table2_Cell11 Ref="83" type="TableCell" isKey="true">
+                    <Table2_Cell11 Ref="82" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>4.8,0.8,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>2.2,0.8,1.95,0.8</ClientRectangle>
+                      <Conditions isList="true" count="0" />
+                      <Expressions isList="true" count="0" />
+                      <Font>Arial,9</Font>
+                      <HorAlignment>Center</HorAlignment>
+                      <ID>38</ID>
+                      <JoinCells isList="true" count="0" />
+                      <Margins>0,0,0,0</Margins>
+                      <Name>Table2_Cell11</Name>
+                      <Page isRef="10" />
+                      <Parent isRef="70" />
+                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+                      <Text>{stores_data.price}</Text>
+                      <TextBrush>Black</TextBrush>
+                      <TextFormat Ref="83" type="NumberFormat" isKey="true">
+                        <DecimalDigits>2</DecimalDigits>
+                        <GroupSeparator>,</GroupSeparator>
+                        <NegativePattern>1</NegativePattern>
+                        <UseLocalSetting>False</UseLocalSetting>
+                      </TextFormat>
+                      <Type>DataColumn</Type>
+                      <VertAlignment>Center</VertAlignment>
+                    </Table2_Cell11>
+                    <Table2_Cell12 Ref="84" type="TableCell" isKey="true">
+                      <Border>All;Black;2;Solid;False;4;Black</Border>
+                      <Brush>White</Brush>
+                      <ClientRectangle>4.15,0.8,2.28,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -6017,39 +6042,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>7</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell11</Name>
+                      <Name>Table2_Cell12</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stores_data.curr_value}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="84" type="NumberFormat" isKey="true">
-                        <DecimalDigits>0</DecimalDigits>
-                        <GroupSeparator>,</GroupSeparator>
-                        <NegativePattern>1</NegativePattern>
-                        <UseLocalSetting>False</UseLocalSetting>
-                      </TextFormat>
-                      <Type>Expression</Type>
-                      <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell11>
-                    <Table2_Cell12 Ref="85" type="TableCell" isKey="true">
-                      <Border>All;Black;2;Solid;False;4;Black</Border>
-                      <Brush>White</Brush>
-                      <ClientRectangle>7.2,0.8,2.4,0.8</ClientRectangle>
-                      <Conditions isList="true" count="0" />
-                      <Expressions isList="true" count="0" />
-                      <Font>Arial,9</Font>
-                      <HorAlignment>Center</HorAlignment>
-                      <ID>8</ID>
-                      <JoinCells isList="true" count="0" />
-                      <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell12</Name>
-                      <Page isRef="10" />
-                      <Parent isRef="70" />
-                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-                      <Text>{stores_data.total_spent}</Text>
-                      <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="86" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="85" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -6058,15 +6057,15 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Table2_Cell12>
-                    <Table2_Cell13 Ref="87" type="TableCell" isKey="true">
+                    <Table2_Cell13 Ref="86" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>9.6,0.8,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>6.43,0.8,2.11,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
                       <HorAlignment>Center</HorAlignment>
-                      <ID>9</ID>
+                      <ID>50</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
                       <Name>Table2_Cell13</Name>
@@ -6074,6 +6073,26 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stores_data.income}</Text>
+                      <TextBrush>Black</TextBrush>
+                      <Type>Expression</Type>
+                      <VertAlignment>Center</VertAlignment>
+                    </Table2_Cell13>
+                    <Table2_Cell14 Ref="87" type="TableCell" isKey="true">
+                      <Border>All;Black;2;Solid;False;4;Black</Border>
+                      <Brush>White</Brush>
+                      <ClientRectangle>8.54,0.8,2.26,0.8</ClientRectangle>
+                      <Conditions isList="true" count="0" />
+                      <Expressions isList="true" count="0" />
+                      <Font>Arial,9</Font>
+                      <HorAlignment>Center</HorAlignment>
+                      <ID>8</ID>
+                      <JoinCells isList="true" count="0" />
+                      <Margins>0,0,0,0</Margins>
+                      <Name>Table2_Cell14</Name>
+                      <Page isRef="10" />
+                      <Parent isRef="70" />
+                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+                      <Text>{stores_data.total_spent}</Text>
                       <TextBrush>Black</TextBrush>
                       <TextFormat Ref="88" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
@@ -6083,11 +6102,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       </TextFormat>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell13>
-                    <Table2_Cell14 Ref="89" type="TableCell" isKey="true">
+                    </Table2_Cell14>
+                    <Table2_Cell15 Ref="89" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>12,0.8,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>10.8,0.8,2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -6095,19 +6114,39 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>44</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell14</Name>
+                      <Name>Table2_Cell15</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-                      <Text>{stores_data.totalCoupons}</Text>
+                      <Text>{stores_data.totalCreditSales}</Text>
                       <TextBrush>Black</TextBrush>
-                      <Type>DataColumn</Type>
+                      <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell14>
-                    <Table2_Cell15 Ref="90" type="TableCell" isKey="true">
+                    </Table2_Cell15>
+                    <Table2_Cell16 Ref="90" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>14.4,0.8,2.2,0.8</ClientRectangle>
+                      <ClientRectangle>12.8,0.8,2,0.8</ClientRectangle>
+                      <Conditions isList="true" count="0" />
+                      <Expressions isList="true" count="0" />
+                      <Font>Arial,9</Font>
+                      <HorAlignment>Center</HorAlignment>
+                      <ID>47</ID>
+                      <JoinCells isList="true" count="0" />
+                      <Margins>0,0,0,0</Margins>
+                      <Name>Table2_Cell16</Name>
+                      <Page isRef="10" />
+                      <Parent isRef="70" />
+                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+                      <Text>{stores_data.totalCashSales}</Text>
+                      <TextBrush>Black</TextBrush>
+                      <Type>Expression</Type>
+                      <VertAlignment>Center</VertAlignment>
+                    </Table2_Cell16>
+                    <Table2_Cell17 Ref="91" type="TableCell" isKey="true">
+                      <Border>All;Black;2;Solid;False;4;Black</Border>
+                      <Brush>White</Brush>
+                      <ClientRectangle>14.8,0.8,2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -6115,13 +6154,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>26</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell15</Name>
+                      <Name>Table2_Cell17</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{stores_data.prev_value}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="91" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="92" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -6129,11 +6168,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       </TextFormat>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell15>
-                    <Table2_Cell16 Ref="92" type="TableCell" isKey="true">
+                    </Table2_Cell17>
+                    <Table2_Cell18 Ref="93" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>16.6,0.8,2.36,0.8</ClientRectangle>
+                      <ClientRectangle>16.8,0.8,2.16,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -6141,7 +6180,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>31</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell16</Name>
+                      <Name>Table2_Cell18</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
@@ -6149,11 +6188,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell16>
-                    <Table2_Cell17 Ref="93" type="TableCell" isKey="true">
+                    </Table2_Cell18>
+                    <Table2_Cell19 Ref="94" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>0,1.6,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>0,1.6,2.2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -6161,13 +6200,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>42</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell17</Name>
+                      <Name>Table2_Cell19</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{SumIf(Table2,stores_data.total_value,dispensers.substance_id==dispensers_data.substance_id)}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="94" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="95" type="NumberFormat" isKey="true">
                         <DecimalDigits>2</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -6175,11 +6214,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       </TextFormat>
                       <Type>Totals</Type>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell17>
-                    <Table2_Cell18 Ref="95" type="TableCell" isKey="true">
+                    </Table2_Cell19>
+                    <Table2_Cell20 Ref="96" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>2.4,1.6,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>2.2,1.6,1.95,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,10</Font>
@@ -6187,18 +6226,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>39</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell18</Name>
+                      <Name>Table2_Cell20</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>-</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell18>
-                    <Table2_Cell19 Ref="96" type="TableCell" isKey="true">
+                    </Table2_Cell20>
+                    <Table2_Cell21 Ref="97" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>4.8,1.6,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>4.15,1.6,2.28,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -6206,13 +6245,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>32</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell19</Name>
+                      <Name>Table2_Cell21</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{SumIf(Table2,stores_data.curr_value,dispensers.substance_id==dispensers_data.substance_id)}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="97" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="98" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -6220,11 +6259,31 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       </TextFormat>
                       <Type>Totals</Type>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell19>
-                    <Table2_Cell20 Ref="98" type="TableCell" isKey="true">
+                    </Table2_Cell21>
+                    <Table2_Cell22 Ref="99" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>7.2,1.6,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>6.43,1.6,2.11,0.8</ClientRectangle>
+                      <Conditions isList="true" count="0" />
+                      <Expressions isList="true" count="0" />
+                      <Font>Arial,9</Font>
+                      <HorAlignment>Center</HorAlignment>
+                      <ID>51</ID>
+                      <JoinCells isList="true" count="0" />
+                      <Margins>0,0,0,0</Margins>
+                      <Name>Table2_Cell22</Name>
+                      <Page isRef="10" />
+                      <Parent isRef="70" />
+                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+                      <Text>{SumIf(Table2,stores_data.income,dispensers.substance_id==dispensers_data.substance_id)}</Text>
+                      <TextBrush>Black</TextBrush>
+                      <Type>Totals</Type>
+                      <VertAlignment>Center</VertAlignment>
+                    </Table2_Cell22>
+                    <Table2_Cell23 Ref="100" type="TableCell" isKey="true">
+                      <Border>All;Black;2;Solid;False;4;Black</Border>
+                      <Brush>White</Brush>
+                      <ClientRectangle>8.54,1.6,2.26,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -6232,37 +6291,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>33</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell20</Name>
+                      <Name>Table2_Cell23</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{SumIf(Table2,stores_data.total_spent,dispensers.substance_id==dispensers_data.substance_id)}</Text>
-                      <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="99" type="NumberFormat" isKey="true">
-                        <DecimalDigits>0</DecimalDigits>
-                        <GroupSeparator>,</GroupSeparator>
-                        <NegativePattern>1</NegativePattern>
-                        <UseLocalSetting>False</UseLocalSetting>
-                      </TextFormat>
-                      <Type>Totals</Type>
-                      <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell20>
-                    <Table2_Cell21 Ref="100" type="TableCell" isKey="true">
-                      <Border>All;Black;2;Solid;False;4;Black</Border>
-                      <Brush>White</Brush>
-                      <ClientRectangle>9.6,1.6,2.4,0.8</ClientRectangle>
-                      <Conditions isList="true" count="0" />
-                      <Expressions isList="true" count="0" />
-                      <Font>Arial,9</Font>
-                      <HorAlignment>Center</HorAlignment>
-                      <ID>34</ID>
-                      <JoinCells isList="true" count="0" />
-                      <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell21</Name>
-                      <Page isRef="10" />
-                      <Parent isRef="70" />
-                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-                      <Text>{SumIf(Table2,stores_data.income,dispensers.substance_id==dispensers_data.substance_id)}</Text>
                       <TextBrush>Black</TextBrush>
                       <TextFormat Ref="101" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
@@ -6272,11 +6305,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       </TextFormat>
                       <Type>Totals</Type>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell21>
-                    <Table2_Cell22 Ref="102" type="TableCell" isKey="true">
+                    </Table2_Cell23>
+                    <Table2_Cell24 Ref="102" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>12,1.6,2.4,0.8</ClientRectangle>
+                      <ClientRectangle>10.8,1.6,2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -6284,19 +6317,39 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>45</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell22</Name>
+                      <Name>Table2_Cell24</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-                      <Text>{SumIf(Table2,stores_data.totalCoupons,dispensers.substance_id==dispensers_data.substance_id)}</Text>
+                      <Text>{SumIf(Table2,stores_data.totalCreditSales,dispensers.substance_id==dispensers_data.substance_id)}</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>Totals</Type>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell22>
-                    <Table2_Cell23 Ref="103" type="TableCell" isKey="true">
+                    </Table2_Cell24>
+                    <Table2_Cell25 Ref="103" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>14.4,1.6,2.2,0.8</ClientRectangle>
+                      <ClientRectangle>12.8,1.6,2,0.8</ClientRectangle>
+                      <Conditions isList="true" count="0" />
+                      <Expressions isList="true" count="0" />
+                      <Font>Arial,9</Font>
+                      <HorAlignment>Center</HorAlignment>
+                      <ID>48</ID>
+                      <JoinCells isList="true" count="0" />
+                      <Margins>0,0,0,0</Margins>
+                      <Name>Table2_Cell25</Name>
+                      <Page isRef="10" />
+                      <Parent isRef="70" />
+                      <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+                      <Text>{SumIf(Table2,stores_data.totalCashSales,dispensers.substance_id==dispensers_data.substance_id)}</Text>
+                      <TextBrush>Black</TextBrush>
+                      <Type>Totals</Type>
+                      <VertAlignment>Center</VertAlignment>
+                    </Table2_Cell25>
+                    <Table2_Cell26 Ref="104" type="TableCell" isKey="true">
+                      <Border>All;Black;2;Solid;False;4;Black</Border>
+                      <Brush>White</Brush>
+                      <ClientRectangle>14.8,1.6,2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,9</Font>
@@ -6304,13 +6357,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>35</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell23</Name>
+                      <Name>Table2_Cell26</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>{SumIf(Table2,stores_data.prev_value,dispensers.substance_id==dispensers_data.substance_id)}</Text>
                       <TextBrush>Black</TextBrush>
-                      <TextFormat Ref="104" type="NumberFormat" isKey="true">
+                      <TextFormat Ref="105" type="NumberFormat" isKey="true">
                         <DecimalDigits>0</DecimalDigits>
                         <GroupSeparator>,</GroupSeparator>
                         <NegativePattern>1</NegativePattern>
@@ -6318,11 +6371,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       </TextFormat>
                       <Type>Totals</Type>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell23>
-                    <Table2_Cell24 Ref="105" type="TableCell" isKey="true">
+                    </Table2_Cell26>
+                    <Table2_Cell27 Ref="106" type="TableCell" isKey="true">
                       <Border>All;Black;2;Solid;False;4;Black</Border>
                       <Brush>White</Brush>
-                      <ClientRectangle>16.6,1.6,2.36,0.8</ClientRectangle>
+                      <ClientRectangle>16.8,1.6,2.16,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
                       <Expressions isList="true" count="0" />
                       <Font>Arial,14,Bold</Font>
@@ -6330,14 +6383,14 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                       <ID>36</ID>
                       <JoinCells isList="true" count="0" />
                       <Margins>0,0,0,0</Margins>
-                      <Name>Table2_Cell24</Name>
+                      <Name>Table2_Cell27</Name>
                       <Page isRef="10" />
                       <Parent isRef="70" />
                       <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
                       <Text>الاجمالي</Text>
                       <TextBrush>Black</TextBrush>
                       <VertAlignment>Center</VertAlignment>
-                    </Table2_Cell24>
+                    </Table2_Cell27>
                   </Components>
                   <Conditions isList="true" count="0" />
                   <DataRelationName isNull="true" />
@@ -6350,7 +6403,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                   <HeaderRowsCount>1</HeaderRowsCount>
                   <MinHeight>0.60000000000000009</MinHeight>
                   <Name>Table2</Name>
-                  <NumberID>46</NumberID>
+                  <NumberID>52</NumberID>
                   <Page isRef="10" />
                   <Parent isRef="69" />
                   <RowCount>3</RowCount>
@@ -6363,7 +6416,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Page isRef="10" />
               <Parent isRef="68" />
             </Panel2>
-            <Text9 Ref="106" type="Text" isKey="true">
+            <Text9 Ref="107" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>13.03,0.38,5.99,0.51</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -6389,11 +6442,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
           <Parent isRef="10" />
           <Sort isList="true" count="0" />
         </DataBand2>
-        <DataBand3 Ref="107" type="DataBand" isKey="true">
+        <DataBand3 Ref="108" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,15.86,19,1.33</ClientRectangle>
           <Components isList="true" count="1">
-            <Text6 Ref="108" type="Text" isKey="true">
+            <Text6 Ref="109" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>1.88,0.66,2.54,0.57</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -6402,7 +6455,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Margins>0,0,0,0</Margins>
               <Name>Text6</Name>
               <Page isRef="10" />
-              <Parent isRef="107" />
+              <Parent isRef="108" />
               <Text>مشرف المحطة</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -6439,10 +6492,10 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>4/26/2025 6:31:20 PM</ReportChanged>
+  <ReportChanged>6/23/2025 9:33:28 AM</ReportChanged>
   <ReportCreated>12/9/2024 7:27:44 PM</ReportCreated>
   <ReportFile>D:\projects\stations\Client\public\reportsTemplates\dailyMovmentReport.mrt</ReportFile>
-  <ReportGuid>a9ea57e5a3294f8587192a154a33892e</ReportGuid>
+  <ReportGuid>76e66fbad6fd49798074849bce727908</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2022.1.1.0</ReportVersion>

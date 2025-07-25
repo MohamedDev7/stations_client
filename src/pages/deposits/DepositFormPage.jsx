@@ -97,7 +97,17 @@ const DepositFormPage = () => {
 		<div className="w-full h-full overflow-auto">
 			<form
 				onSubmit={(e) => {
-					e.stopPropagation();
+					e.preventDefault();
+					console.log(
+						`foo`,
+						station,
+						amount,
+						bank,
+						invoiceDate,
+						number,
+						date,
+						statement
+					);
 					info.state
 						? editMutation.mutate({
 								station,

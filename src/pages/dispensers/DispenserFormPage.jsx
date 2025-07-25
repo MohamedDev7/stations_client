@@ -38,7 +38,6 @@ const DispenserFormPage = () => {
 	//states
 	const [station, setStation] = useState("");
 	const [date, setDate] = useState("");
-	const [dispensers, setDispensers] = useState([]);
 	const [number, setNumber] = useState("");
 	const [tank, setTank] = useState("");
 	const [A, setA] = useState("");
