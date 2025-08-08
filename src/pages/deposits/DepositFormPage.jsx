@@ -10,7 +10,7 @@ import {
 	getAllStations,
 	getDeposit,
 	updateDeposit,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import { X, Save } from "@mynaui/icons-react";
 import { Button } from "@heroui/button";
 import {
@@ -98,16 +98,7 @@ const DepositFormPage = () => {
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
-					console.log(
-						`foo`,
-						station,
-						amount,
-						bank,
-						invoiceDate,
-						number,
-						date,
-						statement
-					);
+
 					info.state
 						? editMutation.mutate({
 								station,

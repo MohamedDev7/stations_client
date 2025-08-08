@@ -21,7 +21,7 @@ import {
 	addDispenser,
 	getAllStations,
 	getTanksByStationId,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import {
 	DefaultButton,
 	Dropdown,

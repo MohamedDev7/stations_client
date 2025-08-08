@@ -5,29 +5,42 @@ import {
 	getAllStations,
 	getStoreByStationId,
 	getStoresMovmentSummaryReport,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import {
 	Card,
 	CardBody,
 	CardHeader,
-	Input,
 	Select,
 	SelectItem,
 	Button,
 	SelectSection,
+	DatePicker,
 } from "@heroui/react";
 import { Desktop } from "@mynaui/icons-react";
-import { useNavigate } from "react-router-dom";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
+import { useSearchParams } from "react-router-dom";
+import { parseDate } from "@internationalized/date";
 
 const StoresMovmentSummaryReport = () => {
 	//hooks
-	const navigate = useNavigate();
-	//states
-	const [station, setStation] = useState("");
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
-	const [selectedStores, setSelectedStores] = useState([]);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const navigate = useNavigateWithQuery();
+	const rawEndDate = searchParams.get("endDate");
+	const rawStartDate = searchParams.get("startDate");
 
+	//states
+	const [station, setStation] = useState(searchParams.get("station") || "");
+	const [startDate, setStartDate] = useState(
+		rawStartDate && rawStartDate !== "null" ? parseDate(rawStartDate) : null
+	);
+	const [endDate, setEndDate] = useState(
+		rawEndDate && rawEndDate !== "null" ? parseDate(rawEndDate) : null
+	);
+	const [selectedStores, setSelectedStores] = useState(
+		searchParams.get("selectedStores")
+			? searchParams.get("selectedStores").split(",")
+			: []
+	);
 	//queries
 	const { data: stations } = useQuery({
 		queryKey: ["stations"],
@@ -90,6 +103,15 @@ const StoresMovmentSummaryReport = () => {
 		enabled: false,
 	});
 	//functions
+	const updateParams = (params) => {
+		setSearchParams({
+			startDate,
+			endDate,
+			station,
+			selectedStores,
+			...params, // overwrite changed
+		});
+	};
 
 	return (
 		<div className="w-full h-full overflow-auto">
@@ -111,6 +133,7 @@ const StoresMovmentSummaryReport = () => {
 									selectedKeys={[station.toString()]}
 									onChange={(e) => {
 										setStation(+e.target.value);
+										updateParams({ station: +e.target.value });
 									}}
 									isRequired
 								>
@@ -121,7 +144,25 @@ const StoresMovmentSummaryReport = () => {
 											);
 										})}
 								</Select>
-								<Input
+								<DatePicker
+									label="من تاريخ"
+									required
+									value={startDate}
+									onChange={(date) => {
+										setStartDate(date);
+										updateParams({ startDate: date });
+									}}
+								/>
+								<DatePicker
+									label="الى تاريخ "
+									required
+									value={endDate}
+									onChange={(date) => {
+										setEndDate(date);
+										updateParams({ endDate: date });
+									}}
+								/>
+								{/* <Input
 									label="من تاريخ"
 									required
 									placeholder="تاريخ الوارد"
@@ -140,7 +181,7 @@ const StoresMovmentSummaryReport = () => {
 									onChange={(e) => {
 										setEndDate(e.target.value);
 									}}
-								/>
+								/> */}
 							</Row>
 							<Row flex={[1, 1]}>
 								<Select
@@ -148,6 +189,7 @@ const StoresMovmentSummaryReport = () => {
 									onChange={(e) => {
 										const selectedSet = new Set(e.target.value.split(","));
 										setSelectedStores(Array.from(selectedSet));
+										updateParams({ selectedStores: e.target.value });
 									}}
 									selectedKeys={selectedStores}
 									selectionMode="multiple"
@@ -158,7 +200,7 @@ const StoresMovmentSummaryReport = () => {
 												<SelectSection
 													showDivider
 													title={store.text}
-													key={store.key}
+													key={store.text}
 												>
 													{store.items.map((el) => (
 														<SelectItem key={el.id}>{el.name}</SelectItem>

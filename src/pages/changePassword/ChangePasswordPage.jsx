@@ -4,7 +4,7 @@ import { Field, Input } from "@fluentui/react-components";
 import { SaveRegular } from "@fluentui/react-icons";
 import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
-import { editPassword } from "../../api/serverApi";
+import { editPassword } from "@/api/serverApi";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 

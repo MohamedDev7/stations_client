@@ -8,30 +8,34 @@ import {
 	Input,
 	Select,
 	SelectItem,
+	Button,
+	SelectSection,
 	RadioGroup,
 	Radio,
-	Button,
+	DatePicker,
 } from "@heroui/react";
 import { Desktop } from "@mynaui/icons-react";
 
 import { useNavigate } from "react-router-dom";
 import {
 	getAllStations,
-	getBoxAccountStatementReport,
+	getClientsByStationId,
+	getCreditSalesByStoreIdAndClientsIds,
 	getCreditSalesStatementReport,
 	getStoreByStationId,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
+const headingClasses =
+	"flex py-1.5 px-2 bg-primary-100  rounded-small text-lg font-bold";
 const CreditSalesReport = () => {
 	//hooks
 	const navigate = useNavigate();
 	//states
 	const [station, setStation] = useState("");
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
-	const [date, setDate] = useState("");
-	const [selectedStores, setSelectedStores] = useState("");
-	const [type, setType] = useState("");
-
+	const [startDate, setStartDate] = useState(null);
+	const [endDate, setEndDate] = useState(null);
+	const [selectedStore, setSelectedStore] = useState("");
+	const [selectedClients, setSelectedClients] = useState([]);
+	const [type, setType] = useState("حسب المحطة");
 	//queries
 	const { data: stations } = useQuery({
 		queryKey: ["stations"],
@@ -40,23 +44,45 @@ const CreditSalesReport = () => {
 			return res.data.stations;
 		},
 	});
-	const { data: stores } = useQuery({
-		queryKey: ["employees", station],
-		queryFn: getStoreByStationId,
+	const { data: clients } = useQuery({
+		queryKey: ["clients", station],
+		queryFn: getClientsByStationId,
 		select: (res) => {
-			return res.data.stores;
+			return res.data.clients;
 		},
 		enabled: !!station,
 	});
-	const { refetch: creditSales, isLoading } = useQuery({
+	const { data: stores } = useQuery({
+		queryKey: ["stores", station],
+		queryFn: getStoreByStationId,
+		select: (res) => {
+			const substancessSet = new Set(
+				res.data.stores.map((el) => el.substance.id)
+			);
+			const substances = Array.from(substancessSet);
+			const substancesArr = substances.map((el) => {
+				const text = res.data.stores.filter((ele) => ele.substance_id === el)[0]
+					.substance.name;
+				return { key: el, text };
+			});
+			substancesArr.forEach((el) => {
+				el.items = res.data.stores.filter((ele) => ele.substance.id === el.key);
+			});
+			return substancesArr;
+		},
+		enabled: !!station,
+	});
+	const { refetch, isLoading } = useQuery({
 		queryKey: [
 			"creditSalesStatement",
 			startDate,
 			endDate,
 			station,
-			selectedStores,
+			selectedStore,
+			selectedClients,
+			type,
 		],
-		queryFn: getCreditSalesStatementReport,
+		queryFn: getCreditSalesByStoreIdAndClientsIds,
 		onSuccess: (data) => {
 			const fromDataToPrint = `${data.data.data.info.startDate
 				.split("T")[0]
@@ -64,6 +90,7 @@ const CreditSalesReport = () => {
 			const toDataToPrint = `${data.data.data.info.endDate
 				.split("T")[0]
 				.replace(/-/g, "/")}`;
+
 			navigate("./print", {
 				state: {
 					data: {
@@ -74,7 +101,7 @@ const CreditSalesReport = () => {
 							endDate: toDataToPrint,
 						},
 					},
-					reportTemplate: "accountStatement",
+					reportTemplate: "creditSalesReport",
 				},
 			});
 		},
@@ -87,7 +114,7 @@ const CreditSalesReport = () => {
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
-						refetchBox();
+						refetch();
 					}}
 				>
 					<Card>
@@ -96,23 +123,23 @@ const CreditSalesReport = () => {
 						</CardHeader>
 						<CardBody>
 							<Row flex={[1, 1, 1]}>
-								<Select
-									label="المحطة"
-									selectedKeys={[station.toString()]}
-									onChange={(e) => {
-										setStation(+e.target.value);
+								<DatePicker
+									label="من تاريخ"
+									required
+									value={startDate}
+									onChange={(date) => {
+										setStartDate(date);
 									}}
-									isRequired
-								>
-									{stations &&
-										stations.map((station) => {
-											return (
-												<SelectItem key={station.id}>{station.name}</SelectItem>
-											);
-										})}
-								</Select>
-
-								<Input
+								/>
+								<DatePicker
+									label="الى تاريخ "
+									required
+									value={endDate}
+									onChange={(date) => {
+										setEndDate(date);
+									}}
+								/>
+								{/* <Input
 									label="من تاريخ"
 									required
 									placeholder="تاريخ الوارد"
@@ -131,34 +158,76 @@ const CreditSalesReport = () => {
 									onChange={(e) => {
 										setEndDate(e.target.value);
 									}}
-								/>
+								/> */}
+								<RadioGroup
+									label="نوع التقرير"
+									orientation="horizontal"
+									className="text-right"
+									onValueChange={setType}
+									value={type}
+								>
+									<Radio value="حسب المحطة">حسب المحطة</Radio>
+									<Radio value="حسب العميل">حسب العميل</Radio>
+								</RadioGroup>
 							</Row>
-							<Select
-								label="المخزن"
-								selectedKeys={selectedStores ? [selectedStores.toString()] : []}
-								onChange={(e) => {
-									setSelectedStores(+e.target.value);
-								}}
-								isRequired
-							>
-								{stores && stores.length > 0 ? (
-									stores.map((store) => {
-										const displayText = `${store.name}${
-											store.substance ? `-${store.substance.name}` : ""
-										}`;
-										return (
-											<SelectItem key={store.id} textValue={displayText}>
-												{displayText}
+							<Row flex={[1, 1, 1, 1]}>
+								<Select
+									label="المحطة"
+									selectedKeys={[station.toString()]}
+									onChange={(e) => {
+										setStation(+e.target.value);
+									}}
+									isRequired
+								>
+									{stations &&
+										stations.map((station) => {
+											return (
+												<SelectItem key={station.id}>{station.name}</SelectItem>
+											);
+										})}
+								</Select>
+								<Select
+									label="المستودع"
+									onChange={(e) => setSelectedStore(e.target.value)}
+									value
+								>
+									{stores &&
+										stores.map((store) => {
+											return (
+												<SelectSection
+													showDivider
+													title={store.text}
+													key={store.key}
+													classNames={{
+														heading: headingClasses,
+													}}
+												>
+													{store.items.map((el) => (
+														<SelectItem key={el.id}>{el.name}</SelectItem>
+													))}
+												</SelectSection>
+											);
+										})}
+								</Select>
+								<Select
+									label="العملاء"
+									onChange={(e) => {
+										const selectedSet = new Set(e.target.value.split(","));
+										setSelectedClients(Array.from(selectedSet));
+									}}
+									selectedKeys={selectedClients}
+									selectionMode="multiple"
+								>
+									{clients &&
+										clients.map((client) => (
+											<SelectItem key={client.client.id}>
+												{client.client.name}
 											</SelectItem>
-										);
-									})
-								) : (
-									<SelectItem textValue="No stores available">
-										No stores available
-									</SelectItem>
-								)}
-							</Select>
-							<Row>
+										))}
+								</Select>
+								<></>
+							</Row>
+							<Row flex={[1, 1]}>
 								<Button color="primary" type="submit" disabled={isLoading}>
 									{isLoading ? (
 										<div>جاري معالجة البيانات...</div>

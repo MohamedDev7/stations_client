@@ -13,7 +13,7 @@ import {
 	getCalibrationsByMovmentIdAndShiftId,
 	getSurplusesByMovmentIdAndShiftId,
 	getClientsByStationId,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import TimeChange from "./../../utils/TimeChange";
@@ -420,7 +420,7 @@ const SpicialEditShiftForm = () => {
 	const saveCreditSalesHandler = (item) => {
 		// let couponsTotal = 0;
 		// let dispensersTotal = 0;
-		console.log(`creditSales`, creditSales);
+
 		if (
 			creditSales.filter(
 				(el) => el.amount === "" || !el.client || !el.store || el.title === ""

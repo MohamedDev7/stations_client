@@ -26,7 +26,7 @@ import {
 	addStation,
 	getAllSubstances,
 	getSubstancesPricesByDate,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import { toast } from "react-toastify";
 import { getPrevDate } from "../../utils/functions";
 
@@ -249,6 +249,8 @@ const StationFormPage = () => {
 									<option value="حوف">حوف</option>
 									<option value="سيحوت">سيحوت</option>
 									<option value="قشن">قشن</option>
+									<option value="المسيلة">المسيلة</option>
+									<option value="حات">حات</option>
 								</Select>
 							</Field>
 							<Field label="مشرف المحطة" required>

@@ -6,29 +6,41 @@ import {
 	SelectItem,
 	SelectSection,
 	Button,
-	Input,
+	DatePicker,
 } from "@heroui/react";
 import { Desktop } from "@mynaui/icons-react";
 import React, { useState } from "react";
 import Row from "../../UI/row/Row";
 import { useRestoreFocusTarget } from "@fluentui/react-components";
-import { useNavigate } from "react-router-dom";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
+import { useSearchParams } from "react-router-dom";
+import { parseDate } from "@internationalized/date";
 import { useQuery } from "react-query";
 import {
 	getAllStations,
 	getIncomesMovmentReport,
 	getStoreByStationId,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 
 const IncomesReportPage = () => {
 	//hooks
-	const restoreFocusTargetAttribute = useRestoreFocusTarget();
-	const navigate = useNavigate();
+	const navigate = useNavigateWithQuery();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const rawEndDate = searchParams.get("endDate");
+	const rawStartDate = searchParams.get("startDate");
 	//states
-	const [station, setStation] = useState("");
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
-	const [selectedStores, setSelectedStores] = useState([]);
+	const [startDate, setStartDate] = useState(
+		rawStartDate && rawStartDate !== "null" ? parseDate(rawStartDate) : null
+	);
+	const [endDate, setEndDate] = useState(
+		rawEndDate && rawEndDate !== "null" ? parseDate(rawEndDate) : null
+	);
+	const [station, setStation] = useState(searchParams.get("station") || "");
+	const [selectedStores, setSelectedStores] = useState(
+		searchParams.get("selectedStores")
+			? searchParams.get("selectedStores").split(",")
+			: []
+	);
 
 	//queries
 	const { data: stations } = useQuery({
@@ -92,6 +104,16 @@ const IncomesReportPage = () => {
 		},
 		enabled: false,
 	});
+	//functions
+	const updateParams = (params) => {
+		setSearchParams({
+			startDate,
+			endDate,
+			station,
+			selectedStores,
+			...params, // overwrite changed
+		});
+	};
 	return (
 		<div className="w-full h-full overflow-auto">
 			<div className="w-full p-5 pb-16">
@@ -112,6 +134,7 @@ const IncomesReportPage = () => {
 									selectedKeys={[station.toString()]}
 									onChange={(e) => {
 										setStation(+e.target.value);
+										updateParams({ station: +e.target.value });
 									}}
 									isRequired
 								>
@@ -122,24 +145,22 @@ const IncomesReportPage = () => {
 											);
 										})}
 								</Select>
-								<Input
+								<DatePicker
 									label="من تاريخ"
 									required
-									placeholder="تاريخ الوارد"
 									value={startDate}
-									type="date"
-									onChange={(e) => {
-										setStartDate(e.target.value);
+									onChange={(date) => {
+										setStartDate(date);
+										updateParams({ startDate: date });
 									}}
 								/>
-								<Input
+								<DatePicker
 									label="الى تاريخ "
 									required
-									placeholder="تاريخ الوارد"
 									value={endDate}
-									type="date"
-									onChange={(e) => {
-										setEndDate(e.target.value);
+									onChange={(date) => {
+										setEndDate(date);
+										updateParams({ endDate: date });
 									}}
 								/>
 							</Row>
@@ -149,6 +170,7 @@ const IncomesReportPage = () => {
 									onChange={(e) => {
 										const selectedSet = new Set(e.target.value.split(","));
 										setSelectedStores(Array.from(selectedSet));
+										updateParams({ selectedStores: e.target.value });
 									}}
 									selectedKeys={selectedStores}
 									selectionMode="multiple"

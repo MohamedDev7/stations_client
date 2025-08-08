@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
-import { changeMovmentState, getMovmentData } from "../../api/serverApi";
+import { changeMovmentState, getMovmentData } from "@/api/serverApi";
 import { useMutation, useQuery } from "react-query";
 import TopBar from "../../components/TopBar/TopBar";
 import { Save, X } from "@mynaui/icons-react";

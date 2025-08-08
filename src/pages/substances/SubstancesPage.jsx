@@ -13,7 +13,7 @@ import {
 import React, { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { deleteSubstance, getAllSubstances } from "../../api/serverApi";
+import { deleteSubstance, getAllSubstances } from "@/api/serverApi";
 import { toast } from "react-toastify";
 import TopBar from "../../components/TopBar/TopBar";
 import Table from "../../UI/table/Table";

@@ -11,7 +11,7 @@ import {
 	getStationPendingMovment,
 	getStoreByStationId,
 	getSubstancesPricesByDate,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";

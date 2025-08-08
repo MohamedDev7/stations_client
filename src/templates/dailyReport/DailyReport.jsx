@@ -6,7 +6,7 @@ import TopBar from "../../components/TopBar/TopBar";
 import ReactToPrint from "react-to-print";
 import Card from "../../UI/card/Card";
 import { PrintRegular } from "@fluentui/react-icons";
-// import { getRemittancesByDueId } from "../../api/serverApi";
+// import { getRemittancesByDueId } from "@/api/serverApi";
 import TemplateTable from "./../../UI/templateTable/TemplateTable";
 // import { useQuery } from "react-query";
 import { Button } from "@fluentui/react-components";

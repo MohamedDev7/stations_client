@@ -1,9 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-	deleteUser,
-	editPasswordByAdmin,
-	getAllUsers,
-} from "../../api/serverApi";
+import { deleteUser, editPasswordByAdmin, getAllUsers } from "@/api/serverApi";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import Table from "./../../UI/table/Table";
 import Card from "../../UI/card/Card";

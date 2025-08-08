@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
-import { getAllUsers, sendNotifications } from "../../api/serverApi";
+import { getAllUsers, sendNotifications } from "@/api/serverApi";
 import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
-import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { X, Send } from "@mynaui/icons-react";
 import {
@@ -19,7 +18,6 @@ import {
 	TableBody,
 	TableRow,
 	TableCell,
-	Input,
 } from "@heroui/react";
 
 const SendNotificationFormPage = () => {
@@ -36,14 +34,13 @@ const SendNotificationFormPage = () => {
 		queryKey: ["users"],
 		queryFn: getAllUsers,
 		select: (res) => {
-			console.log(`res`, res);
 			return res.data.users;
 		},
 	});
 
 	const sendMutation = useMutation({
 		mutationFn: sendNotifications,
-		onSuccess: (res) => {
+		onSuccess: () => {
 			toast.success("تم  ارسال التنبيه بنجاح", {
 				position: "top-center",
 			});

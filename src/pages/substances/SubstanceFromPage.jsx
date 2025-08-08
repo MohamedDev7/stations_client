@@ -6,7 +6,7 @@ import { Button, Card, Field, Input } from "@fluentui/react-components";
 import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
-import { addSubstance, editSubstance, getSubstance } from "../../api/serverApi";
+import { addSubstance, editSubstance, getSubstance } from "@/api/serverApi";
 const SubstanceFromPage = () => {
 	//hooks
 	const navigate = useNavigate();

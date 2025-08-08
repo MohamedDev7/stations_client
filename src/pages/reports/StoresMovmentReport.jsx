@@ -7,30 +7,39 @@ import {
 	getAllStations,
 	getAllSubstances,
 	getStoresMovmentReport,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 
-import { useNavigate } from "react-router-dom";
 import {
 	Card,
 	CardBody,
-	CardHeader,
-	Input,
 	Select,
 	SelectItem,
 	Button,
 	RadioGroup,
 	Radio,
+	DatePicker,
 } from "@heroui/react";
 import { Desktop } from "@mynaui/icons-react";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
+import { useSearchParams } from "react-router-dom";
+import { parseDate } from "@internationalized/date";
 const StoresMovmentReport = () => {
 	//hooks
-	const navigate = useNavigate();
+	const navigate = useNavigateWithQuery();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const rawEndDate = searchParams.get("endDate");
+	const rawStartDate = searchParams.get("startDate");
 	//states
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
-	const [station, setStation] = useState("");
-	const [substance, setSubstance] = useState("");
-
+	const [startDate, setStartDate] = useState(
+		rawStartDate && rawStartDate !== "null" ? parseDate(rawStartDate) : null
+	);
+	const [endDate, setEndDate] = useState(
+		rawEndDate && rawEndDate !== "null" ? parseDate(rawEndDate) : null
+	);
+	const [station, setStation] = useState(searchParams.get("station") || "");
+	const [substance, setSubstance] = useState(
+		+searchParams.get("substance") || ""
+	);
 	//queries
 	const { data: stations } = useQuery({
 		queryKey: ["stations"],
@@ -56,6 +65,7 @@ const StoresMovmentReport = () => {
 			const toDataToPrint = `${data.data.info.toDate
 				.split("T")[0]
 				.replace(/-/g, "/")}`;
+
 			navigate("./print", {
 				state: {
 					data: {
@@ -72,6 +82,16 @@ const StoresMovmentReport = () => {
 		},
 		enabled: false,
 	});
+	//functions
+	const updateParams = (params) => {
+		setSearchParams({
+			startDate,
+			endDate,
+			station,
+			substance,
+			...params, // overwrite changed
+		});
+	};
 	return (
 		<div className="w-full h-full overflow-auto">
 			<div className="w-full p-5 pb-16">
@@ -89,6 +109,7 @@ const StoresMovmentReport = () => {
 									selectedKeys={[station.toString()]}
 									onChange={(e) => {
 										setStation(+e.target.value);
+										updateParams({ station: +e.target.value });
 									}}
 									isRequired
 								>
@@ -99,24 +120,22 @@ const StoresMovmentReport = () => {
 											);
 										})}
 								</Select>
-								<Input
+								<DatePicker
 									label="من تاريخ"
 									required
-									placeholder="تاريخ الوارد"
 									value={startDate}
-									type="date"
-									onChange={(e) => {
-										setStartDate(e.target.value);
+									onChange={(date) => {
+										setStartDate(date);
+										updateParams({ startDate: date });
 									}}
 								/>
-								<Input
+								<DatePicker
 									label="الى تاريخ "
 									required
-									placeholder="تاريخ الوارد"
 									value={endDate}
-									type="date"
-									onChange={(e) => {
-										setEndDate(e.target.value);
+									onChange={(date) => {
+										setEndDate(date);
+										updateParams({ endDate: date });
 									}}
 								/>
 							</Row>
@@ -129,6 +148,7 @@ const StoresMovmentReport = () => {
 									label="المادة"
 									onChange={(e) => {
 										setSubstance(+e.target.value);
+										updateParams({ substance: +e.target.value });
 									}}
 								>
 									{substances &&

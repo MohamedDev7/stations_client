@@ -10,7 +10,7 @@ import {
 	editEmployee,
 	getAllStations,
 	getEmployee,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import { Dropdown, TextField } from "@fluentui/react";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";

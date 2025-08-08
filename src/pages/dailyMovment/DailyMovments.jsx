@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
 import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
@@ -9,7 +9,7 @@ import {
 	getAllMovments,
 	getAllStations,
 	getMovmentData,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 
 import {
 	Check,
@@ -32,7 +32,6 @@ import {
 	useDisclosure,
 	Select,
 	SelectItem,
-	DateRangePicker,
 	Table,
 	TableHeader,
 	TableColumn,
@@ -48,11 +47,16 @@ import {
 	Card,
 	CardBody,
 	CardHeader,
+	DatePicker,
 } from "@heroui/react";
 import { useSearchParams } from "react-router-dom";
+import { parseDate } from "@internationalized/date";
 const DailyMovments = () => {
 	//hooks
+	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigateWithQuery();
+	const rawEndDate = searchParams.get("endDate");
+	const rawStartDate = searchParams.get("startDate");
 	const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 	const authCtx = useContext(AuthContext);
 	const queryClient = useQueryClient();
@@ -64,17 +68,22 @@ const DailyMovments = () => {
 		footer: "",
 	});
 
-	const [searchParams, setSearchParams] = useSearchParams();
 	const page = parseInt(searchParams.get("page")) || 1;
 	const rowsPerPage = parseInt(searchParams.get("rowsPerPage")) || 5;
 	const [pages, setPages] = useState(1);
 	const [total, setTotal] = useState("");
 	const [movmentToFetch, setMovmentToFetch] = useState(null);
-
-	const [filters, setFilters] = useState({
-		stations: [],
-		date: { start: null, end: null },
-	});
+	const [selectedStations, setSelectedStations] = useState(
+		searchParams.get("selectedStations")
+			? searchParams.get("selectedStations").split(",")
+			: []
+	);
+	const [startDate, setStartDate] = useState(
+		rawStartDate && rawStartDate !== "null" ? parseDate(rawStartDate) : null
+	);
+	const [endDate, setEndDate] = useState(
+		rawEndDate && rawEndDate !== "null" ? parseDate(rawEndDate) : null
+	);
 
 	//queries
 	const { data: stations } = useQuery({
@@ -86,7 +95,7 @@ const DailyMovments = () => {
 			});
 		},
 	});
-	const { data: movmentReport } = useQuery({
+	useQuery({
 		queryKey: ["movmentReport", movmentToFetch?.movment_id],
 		queryFn: getMovmentData,
 		select: (res) => {
@@ -186,13 +195,14 @@ const DailyMovments = () => {
 					type: el.type,
 					substance_id: el.substance_id,
 					substance: el.substance,
-					totalCreditSales: totalCreditSales + totalCoupons,
+					totalCreditSales: totalCreditSales + totalCoupons + totalCalibrations,
 					totalCashSales:
 						el.prev_value +
 						totalIncome -
 						el.curr_value -
 						totalCreditSales -
-						totalCoupons,
+						totalCoupons -
+						totalCalibrations,
 				};
 			});
 
@@ -237,8 +247,15 @@ const DailyMovments = () => {
 		},
 		enabled: !!movmentToFetch?.movment_id,
 	});
-	const { data: movments, isLoading } = useQuery({
-		queryKey: ["movments", page - 1, rowsPerPage, JSON.stringify(filters)],
+	const { data: movments } = useQuery({
+		queryKey: [
+			"movments",
+			page - 1,
+			rowsPerPage,
+			selectedStations,
+			startDate,
+			endDate,
+		],
 		queryFn: getAllMovments,
 		select: (res) => {
 			return res.data;
@@ -251,7 +268,7 @@ const DailyMovments = () => {
 
 	const deleteMutation = useMutation({
 		mutationFn: deleteMovment,
-		onSuccess: (res) => {
+		onSuccess: () => {
 			toast.success("تم الحذف بنجاح", {
 				position: "top-center",
 			});
@@ -277,7 +294,7 @@ const DailyMovments = () => {
 	});
 	const updateMovmentStateMutation = useMutation({
 		mutationFn: changeMovmentState,
-		onSuccess: (res) => {
+		onSuccess: () => {
 			toast.success("تم فتح الحركة بنجاح", {
 				position: "top-center",
 			});
@@ -302,35 +319,38 @@ const DailyMovments = () => {
 		},
 	});
 	//functions
-	const onRowsPerPageChange = React.useCallback(
-		(e) => {
-			const newRowsPerPage = Number(e.target.value);
-			setSearchParams({
-				page: "1", // Reset to first page when changing rows per page
-				rowsPerPage: newRowsPerPage.toString(),
-			});
-		},
-		[setSearchParams]
-	);
+	const onRowsPerPageChange = (e) => {
+		const newRowsPerPage = Number(e.target.value);
+		updateParams({ rowsPerPage: newRowsPerPage.toString(), page: "1" });
+	};
 	const handlePageChange = (newPage) => {
-		setSearchParams({
+		updateParams({
 			page: newPage.toString(),
 			rowsPerPage: rowsPerPage.toString(),
 		});
 	};
-	useEffect(() => {
-		const urlPage = parseInt(searchParams.get("page")) || 1;
-		if (urlPage !== page) {
-			// This ensures the pagination component updates when URL changes
-			setPages((prev) => prev); // Force re-render if needed
-		}
-	}, [searchParams, page]);
-
+	// useEffect(() => {
+	// 	const urlPage = parseInt(searchParams.get("page")) || 1;
+	// 	if (urlPage !== page) {
+	// 		// This ensures the pagination component updates when URL changes
+	// 		setPages((prev) => prev); // Force re-render if needed
+	// 	}
+	// }, [searchParams, page]);
+	const updateParams = (params) => {
+		setSearchParams({
+			startDate,
+			endDate,
+			selectedStations,
+			page,
+			rowsPerPage,
+			...params, // overwrite changed
+		});
+	};
 	return (
 		<div className="w-full h-full overflow-auto ">
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange}>
 				<ModalContent>
-					{(onClose) => (
+					{() => (
 						<>
 							<ModalHeader className="flex flex-col gap-1">
 								{modal.header}
@@ -368,18 +388,12 @@ const DailyMovments = () => {
 								multiple
 								className="max-w-xs"
 								onChange={(e) => {
-									if (!e.target.value) {
-										setFilters((prev) => {
-											return { ...prev, stations: [] };
-										});
-									} else {
-										const selectedSet = new Set(e.target.value.split(","));
-										setFilters((prev) => {
-											return { ...prev, stations: Array.from(selectedSet) };
-										});
-									}
+									const selectedSet = new Set(e.target.value.split(","));
+									setSelectedStations(Array.from(selectedSet));
+									updateParams({ selectedStations: e.target.value });
 								}}
-								selectedKeys={filters.stations}
+								size="sm"
+								selectedKeys={selectedStations}
 								selectionMode="multiple"
 							>
 								{stations &&
@@ -389,16 +403,27 @@ const DailyMovments = () => {
 										);
 									})}
 							</Select>
-							<DateRangePicker
-								value={filters.date}
+							<DatePicker
+								label="من تاريخ"
+								required
+								value={startDate}
 								className="max-w-xs"
-								onChange={(e) => {
-									setFilters((prev) => {
-										return { ...prev, date: { start: e.start, end: e.end } };
-									});
+								size="sm"
+								onChange={(date) => {
+									setStartDate(date);
+									updateParams({ startDate: date });
 								}}
-								label="الفترة"
-								aria-labelledby="الفترة"
+							/>
+							<DatePicker
+								label="الى تاريخ "
+								required
+								value={endDate}
+								className="max-w-xs"
+								size="sm"
+								onChange={(date) => {
+									setEndDate(date);
+									updateParams({ endDate: date });
+								}}
 							/>
 						</div>
 						{movments && movments.movments.length > 0 ? (

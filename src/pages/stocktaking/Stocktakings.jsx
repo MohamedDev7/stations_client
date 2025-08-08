@@ -8,7 +8,7 @@ import {
 	deleteStocktaking,
 	getAllStocktaking,
 	getStocktakingPriceReport,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import {
 	Modal,
 	ModalContent,

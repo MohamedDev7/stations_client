@@ -51,23 +51,14 @@ const Navbar = () => {
 						<Link to="/dailyMovment">
 							<MenubarItem className="justify-end">حركة المبيعات</MenubarItem>
 						</Link>
-						{/* <Link to="/spicialDailyMovment">
-							<MenubarItem className="justify-end">
-								حركة المبيعات السابقة
-							</MenubarItem>
-						</Link> */}
+
 						<Link to="/income">
 							<MenubarItem className="justify-end">الواردات</MenubarItem>
 						</Link>
-						{/* <Link to="/spicialIncome">
-							<MenubarItem className="justify-end">واردات سابقة</MenubarItem>
-						</Link> */}
+
 						<Link to="/surplus">
 							<MenubarItem className="justify-end">الفائض</MenubarItem>
 						</Link>
-						{/* <Link to="/spicialSurplus">
-							<MenubarItem className="justify-end">فائض سابق</MenubarItem>
-						</Link> */}
 					</MenubarContent>
 				</MenubarMenu>
 				<MenubarMenu>
@@ -126,6 +117,9 @@ const Navbar = () => {
 								التقارير المالية
 							</MenubarItem>
 						</Link>
+						<Link to="/creditSalesReport">
+							<MenubarItem className="justify-end">المبيعات الآجلة</MenubarItem>
+						</Link>
 					</MenubarContent>
 				</MenubarMenu>
 				<MenubarMenu>
@@ -165,9 +159,19 @@ const Navbar = () => {
 								<Link to="/employees">
 									<MenubarItem className="justify-end">الموظفين</MenubarItem>
 								</Link>
+								<Link to="/monthlyClosing">
+									<MenubarItem className="justify-end">
+										الاغلاق الشهري
+									</MenubarItem>
+								</Link>
 								<Link to="/sendNotification">
 									<MenubarItem className="justify-end">
 										ارسال تنبية واتساب
+									</MenubarItem>
+								</Link>
+								<Link to="/quantityDeduction">
+									<MenubarItem className="justify-end">
+										استنزال كمية
 									</MenubarItem>
 								</Link>
 							</>

@@ -28,7 +28,7 @@ import {
 } from "@heroui/react";
 import { DotsVertical, Printer, Trash, Edit, Plus } from "@mynaui/icons-react";
 import { useNavigate } from "react-router-dom";
-import { deleteReceive, getAllReceives } from "../../api/serverApi";
+import { deleteReceive, getAllReceives } from "@/api/serverApi";
 import tafqeet from "@/utils/Tafqeet";
 const ReceivesPage = () => {
 	//hooks

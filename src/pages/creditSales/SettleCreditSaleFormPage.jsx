@@ -14,7 +14,7 @@ import {
 	getStoreByStationIdAndClientId,
 	getSubstancesPricesByDate,
 	getUnPaidCreditSalesByStationIdAndStoreIdAndClientId,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import { X, Contactless } from "@mynaui/icons-react";
 import { Button } from "@heroui/button";
 import TimeChange from "./../../utils/TimeChange";

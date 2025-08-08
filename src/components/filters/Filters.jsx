@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Dropdown } from "@fluentui/react/lib/Dropdown";
 
-import { getAllStations } from "../../api/serverApi";
+import { getAllStations } from "@/api/serverApi";
 import Card from "../../UI/card/Card";
 
 const Filters = ({ options, onChange }) => {

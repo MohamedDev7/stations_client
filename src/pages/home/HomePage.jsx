@@ -15,7 +15,7 @@ import {
 	Spinner,
 } from "@heroui/react";
 import { toast } from "react-toastify";
-import React from "react";
+
 import { useQuery } from "react-query";
 
 const HomePage = () => {
@@ -59,7 +59,7 @@ const HomePage = () => {
 				station.stock = groupedSubstances;
 				station.capacity = groupedTanks;
 			});
-			console.log(`res.data.stations`, res.data.stations);
+
 			return res.data.stations;
 		},
 		onError: (err) => {

@@ -27,7 +27,7 @@ import {
 	deleteCalibrationReport,
 	getAllCalibrationsReports,
 	getCalibrationReport,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 
 const CalibrationsPage = () => {
 	//hooks

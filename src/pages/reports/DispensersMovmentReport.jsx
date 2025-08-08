@@ -1,29 +1,35 @@
 import React, { useState } from "react";
 import Row from "../../UI/row/Row";
 import { useQuery } from "react-query";
-import {
-	getAllStations,
-	getDispensersMovmentReport,
-} from "../../api/serverApi";
-import { useNavigate } from "react-router-dom";
+import { getAllStations, getDispensersMovmentReport } from "@/api/serverApi";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
+import { useSearchParams } from "react-router-dom";
+import { parseDate } from "@internationalized/date";
 import { toast } from "react-toastify";
 import {
 	Card,
 	CardBody,
 	CardHeader,
-	Input,
 	Select,
 	SelectItem,
 	Button,
+	DatePicker,
 } from "@heroui/react";
 import { Desktop } from "@mynaui/icons-react";
 const DispensersMovmentReport = () => {
 	//hooks
-	const navigate = useNavigate();
+	const navigate = useNavigateWithQuery();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const rawEndDate = searchParams.get("endDate");
+	const rawStartDate = searchParams.get("startDate");
 	//states
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
-	const [station, setStation] = useState("");
+	const [startDate, setStartDate] = useState(
+		rawStartDate && rawStartDate !== "null" ? parseDate(rawStartDate) : null
+	);
+	const [endDate, setEndDate] = useState(
+		rawEndDate && rawEndDate !== "null" ? parseDate(rawEndDate) : null
+	);
+	const [station, setStation] = useState(searchParams.get("station") || "");
 
 	//queries
 	const { data: stations } = useQuery({
@@ -66,6 +72,14 @@ const DispensersMovmentReport = () => {
 		retry: 0,
 		enabled: false,
 	});
+	const updateParams = (params) => {
+		setSearchParams({
+			startDate,
+			endDate,
+			station,
+			...params, // overwrite changed
+		});
+	};
 	return (
 		<div className="w-full h-full overflow-auto">
 			<div className="w-full p-5 pb-16">
@@ -86,6 +100,7 @@ const DispensersMovmentReport = () => {
 									selectedKeys={[station.toString()]}
 									onChange={(e) => {
 										setStation(+e.target.value);
+										updateParams({ station: +e.target.value });
 									}}
 									isRequired
 								>
@@ -96,8 +111,25 @@ const DispensersMovmentReport = () => {
 											);
 										})}
 								</Select>
-
-								<Input
+								<DatePicker
+									label="من تاريخ"
+									required
+									value={startDate}
+									onChange={(date) => {
+										setStartDate(date);
+										updateParams({ startDate: date });
+									}}
+								/>
+								<DatePicker
+									label="الى تاريخ "
+									required
+									value={endDate}
+									onChange={(date) => {
+										setEndDate(date);
+										updateParams({ endDate: date });
+									}}
+								/>
+								{/* <Input
 									label="من تاريخ"
 									required
 									placeholder="تاريخ الوارد"
@@ -116,7 +148,7 @@ const DispensersMovmentReport = () => {
 									onChange={(e) => {
 										setEndDate(e.target.value);
 									}}
-								/>
+								/> */}
 							</Row>
 							<Row>
 								<Button color="primary" type="submit" disabled={isLoading}>

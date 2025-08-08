@@ -3,12 +3,12 @@
   <Dictionary Ref="1" type="Dictionary" isKey="true">
     <BusinessObjects isList="true" count="0" />
     <Databases isList="true" count="1">
-      <_x0032_ Ref="2" type="Stimulsoft.Report.Dictionary.StiJsonDatabase" isKey="true">
-        <Alias>2</Alias>
+      <storesReport Ref="2" type="Stimulsoft.Report.Dictionary.StiJsonDatabase" isKey="true">
+        <Alias>storesReport</Alias>
         <Key />
-        <Name>2</Name>
-        <PathData>D:\projects\stations\Client\public\reportsTemplates\2.json</PathData>
-      </_x0032_>
+        <Name>storesReport</Name>
+        <PathData>D:\projects\stations\Client\public\reportsTemplates\storesReport.json</PathData>
+      </storesReport>
     </Databases>
     <DataSources isList="true" count="2">
       <info Ref="3" type="DataTableSource" isKey="true">
@@ -20,13 +20,13 @@
           <value>toDate,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>08b1d0a128744cd6826c151b17d5015f</Key>
+        <Key>cb04d8be1ef349ae93d29c287f64eb7d</Key>
         <Name>info</Name>
-        <NameInSource>2.info</NameInSource>
+        <NameInSource>storesReport.info</NameInSource>
       </info>
       <movments Ref="4" type="DataTableSource" isKey="true">
         <Alias>movments</Alias>
-        <Columns isList="true" count="29">
+        <Columns isList="true" count="23">
           <value>id,System.Decimal</value>
           <value>date,System.String</value>
           <value>number,System.String</value>
@@ -34,33 +34,27 @@
           <value>state,System.String</value>
           <value>shifts,System.Decimal</value>
           <value>has_stocktaking,System.Decimal</value>
-          <value>stocktaking_id,System.String</value>
           <value>createdAt,System.DateTime</value>
           <value>updatedAt,System.DateTime</value>
-          <value>price,System.Decimal</value>
           <value>prev_value,System.Decimal</value>
+          <value>curr_value,System.Decimal</value>
+          <value>price,System.Decimal</value>
           <value>income,System.Decimal</value>
           <value>others,System.Decimal</value>
-          <value>calibrations,System.Decimal</value>
-          <value>creditSalesAmount,System.Decimal</value>
           <value>branchWithdrawals,System.Decimal</value>
           <value>incomeAndPrevValue,System.Decimal</value>
-          <value>totalCreditSalesAmount,System.Decimal</value>
-          <value>totalCreditSalesValue,System.Decimal</value>
-          <value>othersValue,System.Decimal</value>
-          <value>calibrationsValue,System.Decimal</value>
-          <value>branchWithdrawalsValue,System.Decimal</value>
-          <value>stockTakingValue,System.Decimal</value>
-          <value>curr_value,System.Decimal</value>
-          <value>final_value,System.Decimal</value>
           <value>cashSalesAmount,System.Decimal</value>
           <value>cashSalesValue,System.Decimal</value>
+          <value>othersValue,System.Decimal</value>
+          <value>branchWithdrawalsValue,System.Decimal</value>
           <value>totalSpend,System.Decimal</value>
+          <value>stockTakingValue,System.Decimal</value>
+          <value>final_value,System.Decimal</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>574c1d1a4d9840d4b64dd331549e758b</Key>
+        <Key>41bebf142d274d83b798ec9405fb7db5</Key>
         <Name>movments</Name>
-        <NameInSource>2.movments</NameInSource>
+        <NameInSource>storesReport.movments</NameInSource>
       </movments>
     </DataSources>
     <Relations isList="true" count="0" />
@@ -5021,12 +5015,12 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,5.2,27.7,4.8</ClientRectangle>
-          <ColumnCount>13</ColumnCount>
-          <Components isList="true" count="78">
+          <ColumnCount>14</ColumnCount>
+          <Components isList="true" count="84">
             <Table1_Cell1 Ref="20" type="TableCell" isKey="true">
               <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>0,0,2.2,0.8</ClientRectangle>
+              <ClientRectangle>0,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5044,12 +5038,12 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
             <Table1_Cell2 Ref="21" type="TableCell" isKey="true">
               <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>2.2,0,2.2,0.8</ClientRectangle>
+              <ClientRectangle>2,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>3</ID>
+              <ID>2</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell2</Name>
@@ -5057,24 +5051,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
+              <Type>Expression</Type>
+              <VertAlignment>Bottom</VertAlignment>
             </Table1_Cell2>
             <Table1_Cell3 Ref="22" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>4.4,0,3.63,0.8</ClientRectangle>
+              <ClientRectangle>4,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>4</ID>
+              <ID>3</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell3</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>29</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
@@ -5082,13 +5075,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
             <Table1_Cell4 Ref="23" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>8.03,0,0.77,0.8</ClientRectangle>
+              <ClientRectangle>6,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>25</ID>
+              <ID>4</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell4</Name>
@@ -5102,13 +5095,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
             <Table1_Cell5 Ref="24" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>8.8,0,2.2,0.8</ClientRectangle>
+              <ClientRectangle>8,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>26</ID>
+              <ID>25</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell5</Name>
@@ -5122,13 +5115,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
             <Table1_Cell6 Ref="25" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>11,0,2.2,0.8</ClientRectangle>
+              <ClientRectangle>10,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>27</ID>
+              <ID>26</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell6</Name>
@@ -5142,13 +5135,13 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
             <Table1_Cell7 Ref="26" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>13.2,0,1.44,0.8</ClientRectangle>
+              <ClientRectangle>12,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>28</ID>
+              <ID>27</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell7</Name>
@@ -5160,9 +5153,29 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell7>
             <Table1_Cell8 Ref="27" type="TableCell" isKey="true">
-              <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
+              <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>4.4,0,13.2,0.8</ClientRectangle>
+              <ClientRectangle>14,0,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Enabled>False</Enabled>
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>28</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell8</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <ParentJoin>29</ParentJoin>
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell8>
+            <Table1_Cell9 Ref="28" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>6,0,12,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5180,20 +5193,19 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <JoinHeight>1</JoinHeight>
               <JoinWidth>6</JoinWidth>
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell8</Name>
+              <Name>Table1_Cell9</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <ParentJoin>29</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>المنصرف</Text>
               <TextBrush>Black</TextBrush>
-              <Type>Expression</Type>
-              <VertAlignment>Bottom</VertAlignment>
-            </Table1_Cell8>
-            <Table1_Cell9 Ref="28" type="TableCell" isKey="true">
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell9>
+            <Table1_Cell10 Ref="29" type="TableCell" isKey="true">
               <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>17.6,0,2,0.8</ClientRectangle>
+              <ClientRectangle>18,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5201,18 +5213,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>30</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell9</Name>
+              <Name>Table1_Cell10</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>اجمالي</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell9>
-            <Table1_Cell10 Ref="29" type="TableCell" isKey="true">
+            </Table1_Cell10>
+            <Table1_Cell11 Ref="30" type="TableCell" isKey="true">
               <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>19.6,0,2,0.8</ClientRectangle>
+              <ClientRectangle>20,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5220,18 +5232,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>31</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell10</Name>
+              <Name>Table1_Cell11</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell10>
-            <Table1_Cell11 Ref="30" type="TableCell" isKey="true">
+            </Table1_Cell11>
+            <Table1_Cell12 Ref="31" type="TableCell" isKey="true">
               <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>21.6,0,2,0.8</ClientRectangle>
+              <ClientRectangle>22,0,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5239,41 +5251,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>32</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell11</Name>
+              <Name>Table1_Cell12</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>رصيد</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Bottom</VertAlignment>
-            </Table1_Cell11>
-            <Table1_Cell12 Ref="31" type="TableCell" isKey="true">
+            </Table1_Cell12>
+            <Table1_Cell13 Ref="32" type="TableCell" isKey="true">
               <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>23.6,0,2,0.8</ClientRectangle>
+              <ClientRectangle>24,0,1.8,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
               <ID>33</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell12</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell12>
-            <Table1_Cell13 Ref="32" type="TableCell" isKey="true">
-              <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>25.6,0,2.1,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>34</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell13</Name>
@@ -5284,9 +5278,27 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell13>
             <Table1_Cell14 Ref="33" type="TableCell" isKey="true">
+              <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>25.8,0,1.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>34</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell14</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell14>
+            <Table1_Cell15 Ref="34" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>0,0.8,2.2,0.8</ClientRectangle>
+              <ClientRectangle>0,0.8,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5294,18 +5306,37 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>5</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell14</Name>
+              <Name>Table1_Cell15</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>الرصيد</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Bottom</VertAlignment>
-            </Table1_Cell14>
-            <Table1_Cell15 Ref="34" type="TableCell" isKey="true">
+            </Table1_Cell15>
+            <Table1_Cell16 Ref="35" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>2.2,0.8,2.2,0.8</ClientRectangle>
+              <ClientRectangle>2,0.8,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>7</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell16</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>فوارق</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Bottom</VertAlignment>
+            </Table1_Cell16>
+            <Table1_Cell17 Ref="36" type="TableCell" isKey="true">
+              <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>4,0.8,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5313,18 +5344,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>8</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell15</Name>
+              <Name>Table1_Cell17</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>اجمالي</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell15>
-            <Table1_Cell16 Ref="35" type="TableCell" isKey="true">
+            </Table1_Cell17>
+            <Table1_Cell18 Ref="37" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>4.4,0.8,3.63,0.8</ClientRectangle>
+              <ClientRectangle>6,0.8,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
@@ -5333,18 +5364,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>9</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell16</Name>
+              <Name>Table1_Cell18</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>39</ParentJoin>
+              <ParentJoin>37</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell16>
-            <Table1_Cell17 Ref="36" type="TableCell" isKey="true">
+            </Table1_Cell18>
+            <Table1_Cell19 Ref="38" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>8.03,0.8,0.77,0.8</ClientRectangle>
+              <ClientRectangle>8,0.8,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
@@ -5353,18 +5384,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>35</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell17</Name>
+              <Name>Table1_Cell19</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>39</ParentJoin>
+              <ParentJoin>37</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell17>
-            <Table1_Cell18 Ref="37" type="TableCell" isKey="true">
+            </Table1_Cell19>
+            <Table1_Cell20 Ref="39" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>8.8,0.8,2.2,0.8</ClientRectangle>
+              <ClientRectangle>10,0.8,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
@@ -5373,39 +5404,46 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>36</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell18</Name>
+              <Name>Table1_Cell20</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>39</ParentJoin>
+              <ParentJoin>37</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell18>
-            <Table1_Cell19 Ref="38" type="TableCell" isKey="true">
+            </Table1_Cell20>
+            <Table1_Cell21 Ref="40" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>11,0.8,2.2,0.8</ClientRectangle>
+              <ClientRectangle>6,0.8,8,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
               <ID>37</ID>
-              <JoinCells isList="true" count="0" />
+              <Join>True</Join>
+              <JoinCells isList="true" count="4">
+                <value>9</value>
+                <value>35</value>
+                <value>36</value>
+                <value>37</value>
+              </JoinCells>
+              <JoinHeight>1</JoinHeight>
+              <JoinWidth>4</JoinWidth>
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell19</Name>
+              <Name>Table1_Cell21</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>39</ParentJoin>
+              <ParentJoin>37</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>مبيعات آجلة</Text>
               <TextBrush>Black</TextBrush>
-              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell19>
-            <Table1_Cell20 Ref="39" type="TableCell" isKey="true">
+            </Table1_Cell21>
+            <Table1_Cell22 Ref="41" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>13.2,0.8,1.44,0.8</ClientRectangle>
+              <ClientRectangle>14,0.8,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
@@ -5414,48 +5452,44 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>38</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell20</Name>
+              <Name>Table1_Cell22</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <ParentJoin>39</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell20>
-            <Table1_Cell21 Ref="40" type="TableCell" isKey="true">
-              <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
+            </Table1_Cell22>
+            <Table1_Cell23 Ref="42" type="TableCell" isKey="true">
+              <Border>Top, Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>4.4,0.8,13.2,0.8</ClientRectangle>
+              <ClientRectangle>14,0.8,4,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
               <ID>39</ID>
               <Join>True</Join>
-              <JoinCells isList="true" count="6">
-                <value>9</value>
-                <value>35</value>
-                <value>36</value>
-                <value>37</value>
+              <JoinCells isList="true" count="2">
                 <value>38</value>
                 <value>39</value>
               </JoinCells>
               <JoinHeight>1</JoinHeight>
-              <JoinWidth>6</JoinWidth>
+              <JoinWidth>2</JoinWidth>
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell21</Name>
+              <Name>Table1_Cell23</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <ParentJoin>39</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>مبيعات</Text>
               <TextBrush>Black</TextBrush>
-              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell21>
-            <Table1_Cell22 Ref="41" type="TableCell" isKey="true">
+            </Table1_Cell23>
+            <Table1_Cell24 Ref="43" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>17.6,0.8,2,0.8</ClientRectangle>
+              <ClientRectangle>18,0.8,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5463,18 +5497,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>40</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell22</Name>
+              <Name>Table1_Cell24</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>الوارد</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell22>
-            <Table1_Cell23 Ref="42" type="TableCell" isKey="true">
+            </Table1_Cell24>
+            <Table1_Cell25 Ref="44" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>19.6,0.8,2,0.8</ClientRectangle>
+              <ClientRectangle>20,0.8,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5482,18 +5516,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>41</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell23</Name>
+              <Name>Table1_Cell25</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>الوارد</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Bottom</VertAlignment>
-            </Table1_Cell23>
-            <Table1_Cell24 Ref="43" type="TableCell" isKey="true">
+            </Table1_Cell25>
+            <Table1_Cell26 Ref="45" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>21.6,0.8,2,0.8</ClientRectangle>
+              <ClientRectangle>22,0.8,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5501,18 +5535,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>42</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell24</Name>
+              <Name>Table1_Cell26</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>اول</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Bottom</VertAlignment>
-            </Table1_Cell24>
-            <Table1_Cell25 Ref="44" type="TableCell" isKey="true">
+            </Table1_Cell26>
+            <Table1_Cell27 Ref="46" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>23.6,0.8,2,0.8</ClientRectangle>
+              <ClientRectangle>24,0.8,1.8,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5520,18 +5554,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>43</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell25</Name>
+              <Name>Table1_Cell27</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>سعر</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell25>
-            <Table1_Cell26 Ref="45" type="TableCell" isKey="true">
+            </Table1_Cell27>
+            <Table1_Cell28 Ref="47" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>25.6,0.8,2.1,0.8</ClientRectangle>
+              <ClientRectangle>25.8,0.8,1.9,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5539,18 +5573,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>44</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell26</Name>
+              <Name>Table1_Cell28</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>التاريخ</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Bottom</VertAlignment>
-            </Table1_Cell26>
-            <Table1_Cell27 Ref="46" type="TableCell" isKey="true">
+            </Table1_Cell28>
+            <Table1_Cell29 Ref="48" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>0,1.6,2.2,0.8</ClientRectangle>
+              <ClientRectangle>0,1.6,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5558,17 +5592,36 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>10</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell27</Name>
+              <Name>Table1_Cell29</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell27>
-            <Table1_Cell28 Ref="47" type="TableCell" isKey="true">
+            </Table1_Cell29>
+            <Table1_Cell30 Ref="49" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>2.2,1.6,2.2,0.8</ClientRectangle>
+              <ClientRectangle>2,1.6,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>12</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell30</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>الجرد</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell30>
+            <Table1_Cell31 Ref="50" type="TableCell" isKey="true">
+              <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>4,1.6,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5576,18 +5629,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>13</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell28</Name>
+              <Name>Table1_Cell31</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>المنصرف</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell28>
-            <Table1_Cell29 Ref="48" type="TableCell" isKey="true">
+            </Table1_Cell31>
+            <Table1_Cell32 Ref="51" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>4.4,1.6,3.63,0.8</ClientRectangle>
+              <ClientRectangle>6,1.6,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
@@ -5596,87 +5649,90 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>14</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell29</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <ParentJoin>46</ParentJoin>
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell29>
-            <Table1_Cell30 Ref="49" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>8.03,1.6,0.77,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>45</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell30</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <ParentJoin>46</ParentJoin>
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <TextBrush>Black</TextBrush>
-              <Type>Expression</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell30>
-            <Table1_Cell31 Ref="50" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>4.4,1.6,6.6,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>46</ID>
-              <Join>True</Join>
-              <JoinCells isList="true" count="3">
-                <value>14</value>
-                <value>45</value>
-                <value>46</value>
-              </JoinCells>
-              <JoinHeight>1</JoinHeight>
-              <JoinWidth>3</JoinWidth>
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell31</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <ParentJoin>46</ParentJoin>
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>مبيعات آجلة</Text>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell31>
-            <Table1_Cell32 Ref="51" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>11,1.6,2.2,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>47</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell32</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>49</ParentJoin>
+              <ParentJoin>45</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
-              <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell32>
             <Table1_Cell33 Ref="52" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>13.2,1.6,1.44,0.8</ClientRectangle>
+              <ClientRectangle>6,1.6,4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>45</ID>
+              <Join>True</Join>
+              <JoinCells isList="true" count="2">
+                <value>14</value>
+                <value>45</value>
+              </JoinCells>
+              <JoinHeight>1</JoinHeight>
+              <JoinWidth>2</JoinWidth>
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell33</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <ParentJoin>45</ParentJoin>
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>مسحوبات اخرى</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell33>
+            <Table1_Cell34 Ref="53" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>10,1.6,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Enabled>False</Enabled>
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>46</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell34</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <ParentJoin>47</ParentJoin>
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell34>
+            <Table1_Cell35 Ref="54" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>10,1.6,4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>47</ID>
+              <Join>True</Join>
+              <JoinCells isList="true" count="2">
+                <value>46</value>
+                <value>47</value>
+              </JoinCells>
+              <JoinHeight>1</JoinHeight>
+              <JoinWidth>2</JoinWidth>
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell35</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <ParentJoin>47</ParentJoin>
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>مسحوبات الفرع</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell35>
+            <Table1_Cell36 Ref="55" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>14,1.6,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
@@ -5685,33 +5741,32 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>48</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell33</Name>
+              <Name>Table1_Cell36</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <ParentJoin>49</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell33>
-            <Table1_Cell34 Ref="53" type="TableCell" isKey="true">
+            </Table1_Cell36>
+            <Table1_Cell37 Ref="56" type="TableCell" isKey="true">
               <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>11,1.6,6.6,0.8</ClientRectangle>
+              <ClientRectangle>14,1.6,4,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
               <ID>49</ID>
               <Join>True</Join>
-              <JoinCells isList="true" count="3">
-                <value>47</value>
+              <JoinCells isList="true" count="2">
                 <value>48</value>
                 <value>49</value>
               </JoinCells>
               <JoinHeight>1</JoinHeight>
-              <JoinWidth>3</JoinWidth>
+              <JoinWidth>2</JoinWidth>
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell34</Name>
+              <Name>Table1_Cell37</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <ParentJoin>49</ParentJoin>
@@ -5719,11 +5774,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Text>نقدية</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell34>
-            <Table1_Cell35 Ref="54" type="TableCell" isKey="true">
+            </Table1_Cell37>
+            <Table1_Cell38 Ref="57" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>17.6,1.6,2,0.8</ClientRectangle>
+              <ClientRectangle>18,1.6,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5731,79 +5786,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>50</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell35</Name>
+              <Name>Table1_Cell38</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>مع</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell35>
-            <Table1_Cell36 Ref="55" type="TableCell" isKey="true">
+            </Table1_Cell38>
+            <Table1_Cell39 Ref="58" type="TableCell" isKey="true">
               <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>19.6,1.6,2,0.8</ClientRectangle>
+              <ClientRectangle>20,1.6,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
               <ID>51</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell36</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell36>
-            <Table1_Cell37 Ref="56" type="TableCell" isKey="true">
-              <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>21.6,1.6,2,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>52</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell37</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>المدة</Text>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Bottom</VertAlignment>
-            </Table1_Cell37>
-            <Table1_Cell38 Ref="57" type="TableCell" isKey="true">
-              <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>23.6,1.6,2,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>53</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell38</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>اللتر</Text>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell38>
-            <Table1_Cell39 Ref="58" type="TableCell" isKey="true">
-              <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>25.6,1.6,2.1,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>54</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell39</Name>
@@ -5814,9 +5813,65 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell39>
             <Table1_Cell40 Ref="59" type="TableCell" isKey="true">
+              <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>22,1.6,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>52</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell40</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>المدة</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Bottom</VertAlignment>
+            </Table1_Cell40>
+            <Table1_Cell41 Ref="60" type="TableCell" isKey="true">
+              <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>24,1.6,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>53</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell41</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>اللتر</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell41>
+            <Table1_Cell42 Ref="61" type="TableCell" isKey="true">
+              <Border>Left, Right;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>25.8,1.6,1.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>54</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell42</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell42>
+            <Table1_Cell43 Ref="62" type="TableCell" isKey="true">
               <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>0,2.4,2.2,0.8</ClientRectangle>
+              <ClientRectangle>0,2.4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5824,17 +5879,36 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>15</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell40</Name>
+              <Name>Table1_Cell43</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell40>
-            <Table1_Cell41 Ref="60" type="TableCell" isKey="true">
+            </Table1_Cell43>
+            <Table1_Cell44 Ref="63" type="TableCell" isKey="true">
+              <Border>Right, Bottom;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>2,2.4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>17</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell44</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell44>
+            <Table1_Cell45 Ref="64" type="TableCell" isKey="true">
               <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>2.2,2.4,2.2,0.8</ClientRectangle>
+              <ClientRectangle>4,2.4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5842,17 +5916,17 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>18</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell41</Name>
+              <Name>Table1_Cell45</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell41>
-            <Table1_Cell42 Ref="61" type="TableCell" isKey="true">
+            </Table1_Cell45>
+            <Table1_Cell46 Ref="65" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>4.4,2.4,3.63,0.8</ClientRectangle>
+              <ClientRectangle>6,2.4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5860,103 +5934,9 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>19</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell42</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>قيمة</Text>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell42>
-            <Table1_Cell43 Ref="62" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>8.03,2.4,0.77,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>55</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell43</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <ParentJoin>56</ParentJoin>
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>كمية</Text>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell43>
-            <Table1_Cell44 Ref="63" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>8.03,2.4,2.97,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>56</ID>
-              <Join>True</Join>
-              <JoinCells isList="true" count="2">
-                <value>55</value>
-                <value>56</value>
-              </JoinCells>
-              <JoinHeight>1</JoinHeight>
-              <JoinWidth>2</JoinWidth>
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell44</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <ParentJoin>56</ParentJoin>
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>كمية</Text>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell44>
-            <Table1_Cell45 Ref="64" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>11,2.4,2.2,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>57</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell45</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <ParentJoin>58</ParentJoin>
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>كمية</Text>
-              <TextBrush>Black</TextBrush>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell45>
-            <Table1_Cell46 Ref="65" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>11,2.4,3.64,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,11,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>58</ID>
-              <Join>True</Join>
-              <JoinCells isList="true" count="2">
-                <value>57</value>
-                <value>58</value>
-              </JoinCells>
-              <JoinHeight>1</JoinHeight>
-              <JoinWidth>2</JoinWidth>
-              <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell46</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>58</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>قيمة</Text>
               <TextBrush>Black</TextBrush>
@@ -5965,12 +5945,12 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
             <Table1_Cell47 Ref="66" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>14.64,2.4,2.96,0.8</ClientRectangle>
+              <ClientRectangle>8,2.4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>59</ID>
+              <ID>55</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell47</Name>
@@ -5982,9 +5962,85 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell47>
             <Table1_Cell48 Ref="67" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>10,2.4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>56</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell48</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>قيمة</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell48>
+            <Table1_Cell49 Ref="68" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>12,2.4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>57</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell49</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>كمية</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell49>
+            <Table1_Cell50 Ref="69" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>14,2.4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>58</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell50</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>قيمة</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell50>
+            <Table1_Cell51 Ref="70" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>16,2.4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,11,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>59</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell51</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>كمية</Text>
+              <TextBrush>Black</TextBrush>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell51>
+            <Table1_Cell52 Ref="71" type="TableCell" isKey="true">
               <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>17.6,2.4,2,0.8</ClientRectangle>
+              <ClientRectangle>18,2.4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -5992,18 +6048,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>60</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell48</Name>
+              <Name>Table1_Cell52</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>الرصيد</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell48>
-            <Table1_Cell49 Ref="68" type="TableCell" isKey="true">
+            </Table1_Cell52>
+            <Table1_Cell53 Ref="72" type="TableCell" isKey="true">
               <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>19.6,2.4,2,0.8</ClientRectangle>
+              <ClientRectangle>20,2.4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -6011,17 +6067,17 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>61</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell49</Name>
+              <Name>Table1_Cell53</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell49>
-            <Table1_Cell50 Ref="69" type="TableCell" isKey="true">
+            </Table1_Cell53>
+            <Table1_Cell54 Ref="73" type="TableCell" isKey="true">
               <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>21.6,2.4,2,0.8</ClientRectangle>
+              <ClientRectangle>22,2.4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -6029,17 +6085,17 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>62</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell50</Name>
+              <Name>Table1_Cell54</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell50>
-            <Table1_Cell51 Ref="70" type="TableCell" isKey="true">
+            </Table1_Cell54>
+            <Table1_Cell55 Ref="74" type="TableCell" isKey="true">
               <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>23.6,2.4,2,0.8</ClientRectangle>
+              <ClientRectangle>24,2.4,1.8,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -6047,17 +6103,17 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>63</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell51</Name>
+              <Name>Table1_Cell55</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell51>
-            <Table1_Cell52 Ref="71" type="TableCell" isKey="true">
+            </Table1_Cell55>
+            <Table1_Cell56 Ref="75" type="TableCell" isKey="true">
               <Border>Left, Right, Bottom;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>25.6,2.4,2.1,0.8</ClientRectangle>
+              <ClientRectangle>25.8,2.4,1.9,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -6065,17 +6121,17 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>64</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell52</Name>
+              <Name>Table1_Cell56</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell52>
-            <Table1_Cell53 Ref="72" type="TableCell" isKey="true">
+            </Table1_Cell56>
+            <Table1_Cell57 Ref="76" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>0,3.2,2.2,0.8</ClientRectangle>
+              <ClientRectangle>0,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
@@ -6083,63 +6139,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>20</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell53</Name>
+              <Name>Table1_Cell57</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>{movments.final_value}</Text>
-              <TextBrush>Black</TextBrush>
-              <TextFormat Ref="73" type="NumberFormat" isKey="true">
-                <DecimalDigits>0</DecimalDigits>
-                <GroupSeparator>,</GroupSeparator>
-                <NegativePattern>1</NegativePattern>
-                <UseLocalSetting>False</UseLocalSetting>
-              </TextFormat>
-              <Type>DataColumn</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell53>
-            <Table1_Cell54 Ref="74" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>White</Brush>
-              <ClientRectangle>2.2,3.2,2.2,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,9,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>23</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell54</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.totalSpend}</Text>
-              <TextBrush>Black</TextBrush>
-              <TextFormat Ref="75" type="NumberFormat" isKey="true">
-                <DecimalDigits>0</DecimalDigits>
-                <GroupSeparator>,</GroupSeparator>
-                <NegativePattern>1</NegativePattern>
-                <UseLocalSetting>False</UseLocalSetting>
-              </TextFormat>
-              <Type>DataColumn</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell54>
-            <Table1_Cell55 Ref="76" type="TableCell" isKey="true">
-              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
-              <Brush>White</Brush>
-              <ClientRectangle>4.4,3.2,3.63,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,9,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>24</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell55</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.totalCreditSalesValue}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="77" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6149,25 +6153,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell55>
-            <Table1_Cell56 Ref="78" type="TableCell" isKey="true">
+            </Table1_Cell57>
+            <Table1_Cell58 Ref="78" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>8.03,3.2,0.77,0.8</ClientRectangle>
+              <ClientRectangle>2,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>65</ID>
+              <ID>22</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell56</Name>
+              <Name>Table1_Cell58</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>66</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.totalCreditSalesAmount}</Text>
+              <Text>{movments.stockTakingValue}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="79" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6177,30 +6179,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell56>
-            <Table1_Cell57 Ref="80" type="TableCell" isKey="true">
-              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
+            </Table1_Cell58>
+            <Table1_Cell59 Ref="80" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>8.03,3.2,2.97,0.8</ClientRectangle>
+              <ClientRectangle>4,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>66</ID>
-              <Join>True</Join>
-              <JoinCells isList="true" count="2">
-                <value>65</value>
-                <value>66</value>
-              </JoinCells>
-              <JoinHeight>1</JoinHeight>
-              <JoinWidth>2</JoinWidth>
+              <ID>23</ID>
+              <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell57</Name>
+              <Name>Table1_Cell59</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>66</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.totalCreditSalesAmount}</Text>
+              <Text>{movments.totalSpend}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="81" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6208,27 +6203,25 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
                 <NegativePattern>1</NegativePattern>
                 <UseLocalSetting>False</UseLocalSetting>
               </TextFormat>
-              <Type>Expression</Type>
+              <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell57>
-            <Table1_Cell58 Ref="82" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
+            </Table1_Cell59>
+            <Table1_Cell60 Ref="82" type="TableCell" isKey="true">
+              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>11,3.2,2.2,0.8</ClientRectangle>
+              <ClientRectangle>6,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>67</ID>
+              <ID>24</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell58</Name>
+              <Name>Table1_Cell60</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>68</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>0</Text>
+              <Text>{movments.othersValue}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="83" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6238,30 +6231,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell58>
-            <Table1_Cell59 Ref="84" type="TableCell" isKey="true">
-              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
+            </Table1_Cell60>
+            <Table1_Cell61 Ref="84" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>11,3.2,3.64,0.8</ClientRectangle>
+              <ClientRectangle>8,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>68</ID>
-              <Join>True</Join>
-              <JoinCells isList="true" count="2">
-                <value>67</value>
-                <value>68</value>
-              </JoinCells>
-              <JoinHeight>1</JoinHeight>
-              <JoinWidth>2</JoinWidth>
+              <ID>65</ID>
+              <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell59</Name>
+              <Name>Table1_Cell61</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>68</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.cashSalesValue}</Text>
+              <Text>{movments.others}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="85" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6271,23 +6257,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell59>
-            <Table1_Cell60 Ref="86" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
+            </Table1_Cell61>
+            <Table1_Cell62 Ref="86" type="TableCell" isKey="true">
+              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>14.64,3.2,2.96,0.8</ClientRectangle>
+              <ClientRectangle>10,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>69</ID>
+              <ID>66</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell60</Name>
+              <Name>Table1_Cell62</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.cashSalesAmount}</Text>
+              <Text>{movments.branchWithdrawalsValue}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="87" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6297,23 +6283,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell60>
-            <Table1_Cell61 Ref="88" type="TableCell" isKey="true">
+            </Table1_Cell62>
+            <Table1_Cell63 Ref="88" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>17.6,3.2,2,0.8</ClientRectangle>
+              <ClientRectangle>12,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>70</ID>
+              <ID>67</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell61</Name>
+              <Name>Table1_Cell63</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.incomeAndPrevValue}</Text>
+              <Text>{movments.branchWithdrawals}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="89" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6323,23 +6309,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell61>
-            <Table1_Cell62 Ref="90" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
+            </Table1_Cell63>
+            <Table1_Cell64 Ref="90" type="TableCell" isKey="true">
+              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>19.6,3.2,2,0.8</ClientRectangle>
+              <ClientRectangle>14,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>71</ID>
+              <ID>68</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell62</Name>
+              <Name>Table1_Cell64</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.income}</Text>
+              <Text>{movments.cashSalesValue}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="91" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6349,23 +6335,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell62>
-            <Table1_Cell63 Ref="92" type="TableCell" isKey="true">
+            </Table1_Cell64>
+            <Table1_Cell65 Ref="92" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>21.6,3.2,2,0.8</ClientRectangle>
+              <ClientRectangle>16,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>72</ID>
+              <ID>69</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell63</Name>
+              <Name>Table1_Cell65</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.prev_value}</Text>
+              <Text>{movments.cashSalesAmount}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="93" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6375,23 +6361,23 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell63>
-            <Table1_Cell64 Ref="94" type="TableCell" isKey="true">
+            </Table1_Cell65>
+            <Table1_Cell66 Ref="94" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>23.6,3.2,2,0.8</ClientRectangle>
+              <ClientRectangle>18,3.2,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>73</ID>
+              <ID>70</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell64</Name>
+              <Name>Table1_Cell66</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{movments.price}</Text>
+              <Text>{movments.incomeAndPrevValue}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="95" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6401,11 +6387,89 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell64>
-            <Table1_Cell65 Ref="96" type="TableCell" isKey="true">
+            </Table1_Cell66>
+            <Table1_Cell67 Ref="96" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>White</Brush>
-              <ClientRectangle>25.6,3.2,2.1,0.8</ClientRectangle>
+              <ClientRectangle>20,3.2,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>71</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell67</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{movments.income}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="97" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell67>
+            <Table1_Cell68 Ref="98" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>22,3.2,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>72</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell68</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{movments.prev_value}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="99" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell68>
+            <Table1_Cell69 Ref="100" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>24,3.2,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>73</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell69</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{movments.price}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="101" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell69>
+            <Table1_Cell70 Ref="102" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>White</Brush>
+              <ClientRectangle>25.8,3.2,1.9,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
@@ -6413,7 +6477,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>74</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell65</Name>
+              <Name>Table1_Cell70</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
@@ -6421,11 +6485,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <TextBrush>Black</TextBrush>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell65>
-            <Table1_Cell66 Ref="97" type="TableCell" isKey="true">
+            </Table1_Cell70>
+            <Table1_Cell71 Ref="103" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>0,4,2.2,0.8</ClientRectangle>
+              <ClientRectangle>0,4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
@@ -6433,91 +6497,11 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>75</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell66</Name>
+              <Name>Table1_Cell71</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>{Last(Table1,movments.final_value)}</Text>
-              <TextBrush>Black</TextBrush>
-              <TextFormat Ref="98" type="NumberFormat" isKey="true">
-                <DecimalDigits>0</DecimalDigits>
-                <GroupSeparator>,</GroupSeparator>
-                <NegativePattern>1</NegativePattern>
-                <UseLocalSetting>False</UseLocalSetting>
-              </TextFormat>
-              <Type>Totals</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell66>
-            <Table1_Cell67 Ref="99" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>2.2,4,2.2,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,9,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>78</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell67</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{Sum(Table1,movments.totalSpend)}</Text>
-              <TextBrush>Black</TextBrush>
-              <TextFormat Ref="100" type="NumberFormat" isKey="true">
-                <DecimalDigits>0</DecimalDigits>
-                <GroupSeparator>,</GroupSeparator>
-                <NegativePattern>1</NegativePattern>
-                <UseLocalSetting>False</UseLocalSetting>
-              </TextFormat>
-              <Type>Totals</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell67>
-            <Table1_Cell68 Ref="101" type="TableCell" isKey="true">
-              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>4.4,4,3.63,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,9,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>79</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell68</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{Sum(Table1,movments.totalCreditSalesValue)}</Text>
-              <TextBrush>Black</TextBrush>
-              <TextFormat Ref="102" type="NumberFormat" isKey="true">
-                <DecimalDigits>0</DecimalDigits>
-                <GroupSeparator>,</GroupSeparator>
-                <NegativePattern>1</NegativePattern>
-                <UseLocalSetting>False</UseLocalSetting>
-              </TextFormat>
-              <Type>Totals</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell68>
-            <Table1_Cell69 Ref="103" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>8.03,4,0.77,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
-              <Expressions isList="true" count="0" />
-              <Font>Arial,9,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>80</ID>
-              <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell69</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <ParentJoin>81</ParentJoin>
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{Sum(Table1,movments.totalCreditSalesAmount)}</Text>
               <TextBrush>Black</TextBrush>
               <TextFormat Ref="104" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
@@ -6527,119 +6511,45 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               </TextFormat>
               <Type>Totals</Type>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell69>
-            <Table1_Cell70 Ref="105" type="TableCell" isKey="true">
-              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>8.03,4,2.97,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,9,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>81</ID>
-              <Join>True</Join>
-              <JoinCells isList="true" count="2">
-                <value>80</value>
-                <value>81</value>
-              </JoinCells>
-              <JoinHeight>1</JoinHeight>
-              <JoinWidth>2</JoinWidth>
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell70</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <ParentJoin>81</ParentJoin>
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{Sum(Table1,movments.totalCreditSalesAmount)}</Text>
-              <TextBrush>Black</TextBrush>
-              <TextFormat Ref="106" type="NumberFormat" isKey="true">
-                <DecimalDigits>0</DecimalDigits>
-                <GroupSeparator>,</GroupSeparator>
-                <NegativePattern>1</NegativePattern>
-                <UseLocalSetting>False</UseLocalSetting>
-              </TextFormat>
-              <Type>Expression</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell70>
-            <Table1_Cell71 Ref="107" type="TableCell" isKey="true">
+            </Table1_Cell71>
+            <Table1_Cell72 Ref="105" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>11,4,2.2,0.8</ClientRectangle>
+              <ClientRectangle>2,4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
-              <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>82</ID>
+              <ID>77</ID>
               <JoinCells isList="true" count="0" />
-              <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell71</Name>
-              <Page isRef="5" />
-              <Parent isRef="19" />
-              <ParentJoin>83</ParentJoin>
-              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>0</Text>
-              <TextBrush>Black</TextBrush>
-              <TextFormat Ref="108" type="NumberFormat" isKey="true">
-                <DecimalDigits>0</DecimalDigits>
-                <GroupSeparator>,</GroupSeparator>
-                <NegativePattern>1</NegativePattern>
-                <UseLocalSetting>False</UseLocalSetting>
-              </TextFormat>
-              <Type>Totals</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Table1_Cell71>
-            <Table1_Cell72 Ref="109" type="TableCell" isKey="true">
-              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
-              <Brush>[141:179:226]</Brush>
-              <ClientRectangle>11,4,3.64,0.8</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Expressions isList="true" count="0" />
-              <Font>Arial,9,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <ID>83</ID>
-              <Join>True</Join>
-              <JoinCells isList="true" count="2">
-                <value>82</value>
-                <value>83</value>
-              </JoinCells>
-              <JoinHeight>1</JoinHeight>
-              <JoinWidth>2</JoinWidth>
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell72</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
-              <ParentJoin>83</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{Sum(Table1,movments.cashSalesValue)}</Text>
+              <Text>{Last(movments.stockTakingValue)}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="110" type="NumberFormat" isKey="true">
-                <DecimalDigits>0</DecimalDigits>
-                <GroupSeparator>,</GroupSeparator>
-                <NegativePattern>1</NegativePattern>
-                <UseLocalSetting>False</UseLocalSetting>
-              </TextFormat>
               <Type>Totals</Type>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell72>
-            <Table1_Cell73 Ref="111" type="TableCell" isKey="true">
+            <Table1_Cell73 Ref="106" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>14.64,4,2.96,0.8</ClientRectangle>
+              <ClientRectangle>4,4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>84</ID>
+              <ID>78</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell73</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{Sum(Table1,movments.cashSalesAmount)}</Text>
+              <Text>{Sum(Table1,movments.totalSpend)}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="112" type="NumberFormat" isKey="true">
+              <TextFormat Ref="107" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>1</NegativePattern>
@@ -6648,50 +6558,50 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Type>Totals</Type>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell73>
-            <Table1_Cell74 Ref="113" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
+            <Table1_Cell74 Ref="108" type="TableCell" isKey="true">
+              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>17.6,4,2,0.8</ClientRectangle>
+              <ClientRectangle>6,4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>85</ID>
+              <ID>79</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell74</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{First(movments.prev_value)+Sum(Table1,movments.income)}</Text>
+              <Text>{Sum(Table1,movments.othersValue)}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="114" type="NumberFormat" isKey="true">
+              <TextFormat Ref="109" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>1</NegativePattern>
                 <UseLocalSetting>False</UseLocalSetting>
               </TextFormat>
-              <Type>Expression</Type>
+              <Type>Totals</Type>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell74>
-            <Table1_Cell75 Ref="115" type="TableCell" isKey="true">
+            <Table1_Cell75 Ref="110" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>19.6,4,2,0.8</ClientRectangle>
+              <ClientRectangle>8,4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>86</ID>
+              <ID>80</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell75</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{Sum(Table1,movments.income)}</Text>
+              <Text>{Sum(Table1,movments.others)}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="116" type="NumberFormat" isKey="true">
+              <TextFormat Ref="111" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>1</NegativePattern>
@@ -6700,24 +6610,24 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Type>Totals</Type>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell75>
-            <Table1_Cell76 Ref="117" type="TableCell" isKey="true">
-              <Border>All;Black;2;Solid;False;4;Black</Border>
+            <Table1_Cell76 Ref="112" type="TableCell" isKey="true">
+              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>21.6,4,2,0.8</ClientRectangle>
+              <ClientRectangle>10,4,2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,9,Bold</Font>
               <HorAlignment>Center</HorAlignment>
-              <ID>87</ID>
+              <ID>81</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
               <Name>Table1_Cell76</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{First(Table1,movments.prev_value)}</Text>
+              <Text>{Sum(Table1,movments.branchWithdrawalsValue)}</Text>
               <TextBrush>Black</TextBrush>
-              <TextFormat Ref="118" type="NumberFormat" isKey="true">
+              <TextFormat Ref="113" type="NumberFormat" isKey="true">
                 <DecimalDigits>0</DecimalDigits>
                 <GroupSeparator>,</GroupSeparator>
                 <NegativePattern>1</NegativePattern>
@@ -6726,10 +6636,166 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Type>Totals</Type>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell76>
-            <Table1_Cell77 Ref="119" type="TableCell" isKey="true">
+            <Table1_Cell77 Ref="114" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>23.6,4,2,0.8</ClientRectangle>
+              <ClientRectangle>12,4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>82</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell77</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Sum(Table1,movments.branchWithdrawals)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="115" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell77>
+            <Table1_Cell78 Ref="116" type="TableCell" isKey="true">
+              <Border>AdvBlack;2;Solid;Black;2;Solid;Black;2;Solid;Black;2;Dash;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>14,4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>83</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell78</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Sum(Table1,movments.cashSalesValue)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="117" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell78>
+            <Table1_Cell79 Ref="118" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>16,4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>84</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell79</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Sum(Table1,movments.cashSalesAmount)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="119" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell79>
+            <Table1_Cell80 Ref="120" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>18,4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>85</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell80</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{First(movments.incomeAndPrevValue)+Sum(Table1,movments.income)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="121" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell80>
+            <Table1_Cell81 Ref="122" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>20,4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>86</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell81</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Sum(Table1,movments.income)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="123" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell81>
+            <Table1_Cell82 Ref="124" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>22,4,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,9,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>87</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell82</Name>
+              <Page isRef="5" />
+              <Parent isRef="19" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{First(Table1,movments.prev_value)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextFormat Ref="125" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell82>
+            <Table1_Cell83 Ref="126" type="TableCell" isKey="true">
+              <Border>All;Black;2;Solid;False;4;Black</Border>
+              <Brush>[141:179:226]</Brush>
+              <ClientRectangle>24,4,1.8,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Enabled>False</Enabled>
               <Expressions isList="true" count="0" />
@@ -6738,18 +6804,18 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <ID>88</ID>
               <JoinCells isList="true" count="0" />
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell77</Name>
+              <Name>Table1_Cell83</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <ParentJoin>89</ParentJoin>
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell77>
-            <Table1_Cell78 Ref="120" type="TableCell" isKey="true">
+            </Table1_Cell83>
+            <Table1_Cell84 Ref="127" type="TableCell" isKey="true">
               <Border>All;Black;2;Solid;False;4;Black</Border>
               <Brush>[141:179:226]</Brush>
-              <ClientRectangle>23.6,4,4.1,0.8</ClientRectangle>
+              <ClientRectangle>24,4,3.7,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,11,Bold</Font>
@@ -6763,7 +6829,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <JoinHeight>1</JoinHeight>
               <JoinWidth>2</JoinWidth>
               <Margins>0,0,0,0</Margins>
-              <Name>Table1_Cell78</Name>
+              <Name>Table1_Cell84</Name>
               <Page isRef="5" />
               <Parent isRef="19" />
               <ParentJoin>89</ParentJoin>
@@ -6771,7 +6837,7 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
               <Text>الاجمالي</Text>
               <TextBrush>Black</TextBrush>
               <VertAlignment>Center</VertAlignment>
-            </Table1_Cell78>
+            </Table1_Cell84>
           </Components>
           <Conditions isList="true" count="0" />
           <DataRelationName isNull="true" />
@@ -6811,10 +6877,10 @@ YDAYDAbDIwMA/g+qgmJhI8vV/QAAAABJRU5ErkJggg==</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>7/29/2025 10:25:27 AM</ReportChanged>
+  <ReportChanged>7/27/2025 9:57:20 AM</ReportChanged>
   <ReportCreated>12/9/2024 7:27:44 PM</ReportCreated>
-  <ReportFile>D:\projects\stations\Client\public\reportsTemplates\storesMovmentReport.mrt</ReportFile>
-  <ReportGuid>f21c307a119c4d1f857a0623786cc240</ReportGuid>
+  <ReportFile>D:\projects\stations\Client\public\reportsTemplates\storesMovmentReport1.mrt</ReportFile>
+  <ReportGuid>8dca533a2fac40fe941c4f9b6614c288</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2022.1.1.0</ReportVersion>

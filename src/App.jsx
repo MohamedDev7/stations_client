@@ -60,7 +60,11 @@ import ChangePasswordPage from "./pages/changePassword/ChangePasswordPage";
 import StocktakingForm from "./pages/stocktaking/StocktakingForm";
 import Stocktakings from "./pages/stocktaking/Stocktakings";
 import CreditSalesReport from "./pages/reports/CreditSalesReport";
+import QuantityDeductions from "./pages/quantityDeduction/QuantityDeductions";
+import QuantityDeductionForm from "./pages/quantityDeduction/QuantityDeductionForm";
 import SendNotificationFormPage from "./pages/sendNotification/SendNotificationFormPage";
+import MonthlyClosingPage from "./pages/monthlyClosing/MonthlyClosingPage";
+import MonthlyClosingPageForm from "./pages/monthlyClosing/MonthlyClosingPageForm";
 
 function App() {
 	const { currUser } = useContext(AuthContext);
@@ -291,6 +295,24 @@ function App() {
 					],
 				},
 				{
+					path: "quantityDeduction",
+					element: <Outlet />,
+					children: [
+						{
+							path: "",
+							element: <QuantityDeductions />,
+						},
+						{
+							path: "add",
+							element: <QuantityDeductionForm />,
+						},
+						{
+							path: "edit",
+							element: <QuantityDeductionForm />,
+						},
+					],
+				},
+				{
 					path: "surplus",
 					element: <Outlet />,
 					children: [
@@ -496,7 +518,7 @@ function App() {
 						},
 						{
 							path: "print",
-							element: <CreditSalesReport />,
+							element: <ReportViewer />,
 						},
 					],
 				},
@@ -565,6 +587,20 @@ function App() {
 						{
 							path: "print",
 							element: <ReportViewer />,
+						},
+					],
+				},
+				{
+					path: "monthlyClosing",
+					element: <Outlet />,
+					children: [
+						{
+							path: "",
+							element: <MonthlyClosingPage />,
+						},
+						{
+							path: "add",
+							element: <MonthlyClosingPageForm />,
 						},
 					],
 				},

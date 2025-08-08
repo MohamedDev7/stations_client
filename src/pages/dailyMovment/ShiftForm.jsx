@@ -8,7 +8,7 @@ import {
 	getStationMovmentByDate,
 	getSubstancesPricesByDate,
 	getEmployeeByStationId,
-	getStocktakingId,
+	// getStocktakingId,
 	getIncomesByMovmentIdAndShiftId,
 	getCalibrationsByMovmentIdAndShiftId,
 	getSurplusesByMovmentIdAndShiftId,
@@ -16,7 +16,8 @@ import {
 	getDispensersMovmentByMovmentIdAndShiftId,
 	getClientsByStationId,
 	getOthersByMovmentIdAndShiftId,
-} from "../../api/serverApi";
+	getSurplusesByMovmentIdAndDate,
+} from "@/api/serverApi";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import TimeChange from "./../../utils/TimeChange";
@@ -46,13 +47,12 @@ const ShiftForm = () => {
 	//hooks
 	const navigate = useNavigateWithQuery();
 	const info = useLocation();
-
 	//states
 	const [prevData, setPrevData] = useState({
 		movmentId: "",
 		shiftId: "",
-		has_stocktaking: null,
-		getStocktaking_id: null,
+		// has_stocktaking: null,
+		// getStocktaking_id: null,
 	});
 	const [others, setOthers] = useState([]);
 	const [othersCount, setOthersCount] = useState(0);
@@ -60,6 +60,7 @@ const ShiftForm = () => {
 	// const [coupons, setCoupons] = useState([]);
 	// const [couponsCount, setCouponsCount] = useState(0);
 	const [surplus, setSurplus] = useState([]);
+	const [stocktakingSurplus, setStocktakingSurplus] = useState([]);
 	const [dispensers, setDispensers] = useState([]);
 	const [currStoresMovments, setCurrStoresMovments] = useState([]);
 	// const [couponsIsChecked, setCouponsIsChecked] = useState(false);
@@ -150,6 +151,25 @@ const ShiftForm = () => {
 		},
 	});
 	useQuery({
+		queryKey: ["StocktakingSurpluses", info.state.movment_id, info.state.date],
+		queryFn: getSurplusesByMovmentIdAndDate,
+		select: (res) => {
+			return res.data.surpluses.map((el) => {
+				return {
+					id: el.id,
+					amount: el.amount,
+					substance: el.store.substance.id,
+					store: el.store_id,
+					saved: true,
+				};
+			});
+		},
+		onSuccess: (data) => {
+			setStocktakingSurplus(data);
+		},
+		enabled: info.state.shift.number === 1,
+	});
+	useQuery({
 		queryKey: ["others", info.state.movment_id, info.state.shift.id],
 		queryFn: getOthersByMovmentIdAndShiftId,
 		select: (res) => {
@@ -209,66 +229,66 @@ const ShiftForm = () => {
 			setPrevData({
 				movmentId: data.id,
 				shiftId: data.lastShift.id,
-				has_stocktaking: data.has_stocktaking,
-				stocktaking_id: data.stocktaking_id,
+				// has_stocktaking: data.has_stocktaking,
+				// stocktaking_id: data.stocktaking_id,
 			});
 		},
 		enabled: false,
 	});
 
-	let { data: stocktakingMovments } = useQuery({
-		queryKey: ["stocktaking", prevData.stocktaking_id],
-		queryFn: getStocktakingId,
-		select: (res) => {
-			return res.data.stores.map((el) => {
-				const substanceId = el.store.substance.id;
-				let price = 0;
-				let substance = {};
-				let store = {};
-				let curr_value;
-				let prev_value;
-				let deficit;
-				prices.forEach((ele) => {
-					if (ele.substance_id === substanceId) {
-						price = ele.price;
-						substance = { ...el.store.substance, price };
-						store = { ...el.store, substance };
-					}
-				});
-				if (el.store_adjustment) {
-					curr_value = el.curr_value;
-					prev_value = el.curr_value;
-					deficit = el.prev_value - el.curr_value;
-				} else {
-					curr_value = el.curr_value;
-					prev_value = el.prev_value;
-					deficit = 0;
-				}
-				return {
-					...el,
-					prev_value:
-						el.curr_value < el.prev_value ? el.prev_value : el.curr_value,
-					curr_value:
-						el.curr_value < el.prev_value ? el.prev_value : el.curr_value,
-					price,
-					store,
-					deficit:
-						el.curr_value < el.prev_value ? el.prev_value - el.curr_value : 0,
-					totalCoupons: 0,
-					totalIncomes: 0,
-				};
-			});
-		},
-		onSuccess: (data) => {
-			setCurrStoresMovments(data);
-		},
-		enabled:
-			!!prevData.movmentId &&
-			!!prevData.shiftId &&
-			!!prevData.shiftId &&
-			!!prices &&
-			!!prevData.has_stocktaking,
-	});
+	// let { data: stocktakingMovments } = useQuery({
+	// 	queryKey: ["stocktaking", prevData.stocktaking_id],
+	// 	queryFn: getStocktakingId,
+	// 	select: (res) => {
+	// 		return res.data.stores.map((el) => {
+	// 			const substanceId = el.store.substance.id;
+	// 			let price = 0;
+	// 			let substance = {};
+	// 			let store = {};
+	// 			let curr_value;
+	// 			let prev_value;
+	// 			let deficit;
+	// 			prices.forEach((ele) => {
+	// 				if (ele.substance_id === substanceId) {
+	// 					price = ele.price;
+	// 					substance = { ...el.store.substance, price };
+	// 					store = { ...el.store, substance };
+	// 				}
+	// 			});
+	// 			if (el.store_adjustment) {
+	// 				curr_value = el.curr_value;
+	// 				prev_value = el.curr_value;
+	// 				deficit = el.prev_value - el.curr_value;
+	// 			} else {
+	// 				curr_value = el.curr_value;
+	// 				prev_value = el.prev_value;
+	// 				deficit = 0;
+	// 			}
+	// 			return {
+	// 				...el,
+	// 				prev_value:
+	// 					el.curr_value < el.prev_value ? el.prev_value : el.curr_value,
+	// 				curr_value:
+	// 					el.curr_value < el.prev_value ? el.prev_value : el.curr_value,
+	// 				price,
+	// 				store,
+	// 				deficit:
+	// 					el.curr_value < el.prev_value ? el.prev_value - el.curr_value : 0,
+	// 				totalCoupons: 0,
+	// 				totalIncomes: 0,
+	// 			};
+	// 		});
+	// 	},
+	// 	onSuccess: (data) => {
+	// 		setCurrStoresMovments(data);
+	// 	},
+	// 	enabled:
+	// 		!!prevData.movmentId &&
+	// 		!!prevData.shiftId &&
+	// 		!!prevData.shiftId &&
+	// 		!!prices &&
+	// 		!!prevData.has_stocktaking,
+	// });
 	const { data: prevStoresMovments } = useQuery({
 		queryKey: ["prevStoresMovments", prevData.movmentId, prevData.shiftId],
 		queryFn: getStoresMovmentByMovmentIdAndShiftId,
@@ -298,13 +318,9 @@ const ShiftForm = () => {
 		},
 		onSuccess: (data) => {
 			setCurrStoresMovments(data);
-			// setPrevStoresMovments(data);
 		},
-		enabled:
-			!!prevData.movmentId &&
-			!!prevData.shiftId &&
-			!!prices &&
-			!prevData.has_stocktaking,
+		enabled: !!prevData.movmentId && !!prevData.shiftId && !!prices,
+		// !prevData.has_stocktaking,
 	});
 	useQuery({
 		queryKey: ["dispensers", prevData.movmentId, prevData.shiftId],
@@ -360,7 +376,7 @@ const ShiftForm = () => {
 		setPrevData({
 			movmentId: "",
 			shiftId: "",
-			has_stocktaking: null,
+			// has_stocktaking: null,
 		});
 
 		if (info.state.shift.number === 1) {
@@ -373,13 +389,12 @@ const ShiftForm = () => {
 			setPrevData({
 				movmentId: info.state.movment_id,
 				shiftId: info.state.prevShiftId,
-				has_stocktaking: 0,
+				// has_stocktaking: 0,
 			});
 		}
 	}, [info]);
 
 	const addOthersHandler = () => {
-		console.log(`others`, others);
 		setOthers((prev) => [
 			...prev,
 			{
@@ -453,19 +468,18 @@ const ShiftForm = () => {
 			(el) => el.store.id === item.store
 		)[0];
 
-		if (storeToUpdate.curr_value < item.amount) {
-			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
-				position: "top-center",
-			});
-			return;
-		}
+		// if (storeToUpdate.curr_value < item.amount) {
+		// 	toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
+		// 		position: "top-center",
+		// 	});
+		// 	return;
+		// }
 		if (othersTotal > dispensersTotal) {
 			toast.error("القيمة المدخلة أكبر من مبيعات النوبة", {
 				position: "top-center",
 			});
 			return;
 		}
-
 		setOthers((prev) =>
 			prev.filter((el) => el.id !== item.id).concat({ ...item, saved: true })
 		);
@@ -533,12 +547,12 @@ const ShiftForm = () => {
 		const storeToUpdate = currStoresMovments.filter(
 			(el) => el.store.id === item.store
 		)[0];
-		if (storeToUpdate.curr_value < item.amount) {
-			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
-				position: "top-center",
-			});
-			return;
-		}
+		// if (storeToUpdate.curr_value < item.amount) {
+		// 	toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
+		// 		position: "top-center",
+		// 	});
+		// 	return;
+		// }
 		if (
 			storeToUpdate.totalCoupons +
 				storeToUpdate.totalCreditSales +
@@ -556,12 +570,12 @@ const ShiftForm = () => {
 	};
 	const updateCurrStoresMovments = () => {
 		let updatedStoresMovments = [];
-		if (prevData.has_stocktaking === 0) {
-			updatedStoresMovments = [...prevStoresMovments];
-		} else {
-			updatedStoresMovments = [...stocktakingMovments];
-		}
-
+		// if (prevData.has_stocktaking === 0) {
+		// 	updatedStoresMovments = [...prevStoresMovments];
+		// } else {
+		// 	updatedStoresMovments = [...stocktakingMovments];
+		// }
+		updatedStoresMovments = [...prevStoresMovments];
 		updatedStoresMovments.forEach((ele) => {
 			ele.totalIncomes = 0;
 			ele.totalCoupons = 0;
@@ -578,6 +592,14 @@ const ShiftForm = () => {
 		});
 		updatedStoresMovments.forEach((el) => {
 			surplus.forEach((ele) => {
+				if (el.store.id === ele.store) {
+					el.curr_value = el.curr_value + +ele.amount;
+					el.totalIncomes = el.totalIncomes + +ele.amount;
+				}
+			});
+		});
+		updatedStoresMovments.forEach((el) => {
+			stocktakingSurplus.forEach((ele) => {
 				if (el.store.id === ele.store) {
 					el.curr_value = el.curr_value + +ele.amount;
 					el.totalIncomes = el.totalIncomes + +ele.amount;
@@ -611,6 +633,7 @@ const ShiftForm = () => {
 				if (el.store.id === ele.store) {
 					el.curr_value = el.curr_value + +ele.amount;
 					el.totalIncomes = el.totalIncomes + +ele.amount;
+					el.totalCreditSales = el.totalCreditSales + +ele.amount;
 					// el.otherSpends = el.otherSpends + +ele.amount;
 				}
 			});
@@ -655,7 +678,7 @@ const ShiftForm = () => {
 			surplus.filter((el) => !el.saved).length === 0 &&
 			prices &&
 			prices.length > 0 &&
-			(prevStoresMovments || stocktakingMovments)
+			prevStoresMovments
 		) {
 			updateCurrStoresMovments();
 		}
@@ -666,6 +689,7 @@ const ShiftForm = () => {
 		calibrations,
 		creditSales,
 		surplus,
+		stocktakingSurplus,
 		// coupons,
 		prices,
 	]);
@@ -708,12 +732,6 @@ const ShiftForm = () => {
 			});
 			return;
 		}
-		if (currStoresMovments.filter((el) => el.curr_value < 0).length > 0) {
-			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
-				position: "top-center",
-			});
-			return;
-		}
 		saveMutation.mutate({
 			dispensers,
 			station_id: info.state.station_id,
@@ -723,7 +741,6 @@ const ShiftForm = () => {
 			others: others.filter((el) => el.type !== "settlement"),
 			currStoresMovments,
 			creditSales,
-			// coupons,
 			state: "pending",
 		});
 	};
@@ -1275,7 +1292,6 @@ const ShiftForm = () => {
 															label="المستودع"
 															isDisabled={item.saved}
 															onChange={(e) => {
-																console.log(`item`, item);
 																const updated = others.map((el) => {
 																	if (el.id === item.id) {
 																		return {

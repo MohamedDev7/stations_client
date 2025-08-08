@@ -1,29 +1,38 @@
 import React, { useState } from "react";
 import Row from "../../UI/row/Row";
 import { useQuery } from "react-query";
-import { getAllStations, getDepositsMovmentReport } from "../../api/serverApi";
-import { useNavigate } from "react-router-dom";
+import { getAllStations, getDepositsMovmentReport } from "@/api/serverApi";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
+import { useSearchParams } from "react-router-dom";
+import { parseDate } from "@internationalized/date";
 import { toast } from "react-toastify";
 import {
 	Card,
 	CardBody,
 	CardHeader,
-	Input,
 	Select,
 	SelectItem,
 	RadioGroup,
 	Radio,
 	Button,
+	DatePicker,
 } from "@heroui/react";
 import { Desktop } from "@mynaui/icons-react";
 const DepositsMovmentReport = () => {
 	//hooks
-	const navigate = useNavigate();
+	const navigate = useNavigateWithQuery();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const rawEndDate = searchParams.get("endDate");
+	const rawStartDate = searchParams.get("startDate");
 	//states
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
-	const [station, setStation] = useState("");
-	const [type, setType] = useState("");
+	const [startDate, setStartDate] = useState(
+		rawStartDate && rawStartDate !== "null" ? parseDate(rawStartDate) : null
+	);
+	const [endDate, setEndDate] = useState(
+		rawEndDate && rawEndDate !== "null" ? parseDate(rawEndDate) : null
+	);
+	const [station, setStation] = useState(searchParams.get("station") || "");
+	const [type, setType] = useState(searchParams.get("type") || "");
 
 	//queries
 	const { data: stations } = useQuery({
@@ -66,6 +75,16 @@ const DepositsMovmentReport = () => {
 		retry: 0,
 		enabled: false,
 	});
+	//functions
+	const updateParams = (params) => {
+		setSearchParams({
+			startDate,
+			endDate,
+			station,
+			type,
+			...params, // overwrite changed
+		});
+	};
 	return (
 		<div className="w-full h-full overflow-auto">
 			<div className="w-full p-5 pb-16">
@@ -86,6 +105,7 @@ const DepositsMovmentReport = () => {
 									selectedKeys={[station.toString()]}
 									onChange={(e) => {
 										setStation(+e.target.value);
+										updateParams({ station: +e.target.value });
 									}}
 									isRequired
 								>
@@ -96,25 +116,22 @@ const DepositsMovmentReport = () => {
 											);
 										})}
 								</Select>
-
-								<Input
+								<DatePicker
 									label="من تاريخ"
 									required
-									placeholder="تاريخ الوارد"
 									value={startDate}
-									type="date"
-									onChange={(e) => {
-										setStartDate(e.target.value);
+									onChange={(date) => {
+										setStartDate(date);
+										updateParams({ startDate: date });
 									}}
 								/>
-								<Input
+								<DatePicker
 									label="الى تاريخ "
 									required
-									placeholder="تاريخ الوارد"
 									value={endDate}
-									type="date"
-									onChange={(e) => {
-										setEndDate(e.target.value);
+									onChange={(date) => {
+										setEndDate(date);
+										updateParams({ endDate: date });
 									}}
 								/>
 							</Row>
@@ -126,6 +143,7 @@ const DepositsMovmentReport = () => {
 									label="حسب تاريخ"
 									onChange={(e) => {
 										setType(e.target.value);
+										updateParams({ type: e.target.value });
 									}}
 								>
 									<Radio value="اشعار الايداع">اشعار الايداع</Radio>

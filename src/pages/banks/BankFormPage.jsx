@@ -6,7 +6,7 @@ import { SaveRegular } from "@fluentui/react-icons";
 import { Card, CardBody, CardHeader, Input } from "@heroui/react";
 
 import { useMutation } from "react-query";
-import { addBank, updateBank } from "../../api/serverApi";
+import { addBank, updateBank } from "@/api/serverApi";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 

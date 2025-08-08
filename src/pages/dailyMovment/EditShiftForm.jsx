@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TopBar from "../../components/TopBar/TopBar";
 import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
@@ -13,7 +13,8 @@ import {
 	getCalibrationsByMovmentIdAndShiftId,
 	getSurplusesByMovmentIdAndShiftId,
 	getClientsByStationId,
-} from "../../api/serverApi";
+	getSurplusesByMovmentIdAndDate,
+} from "@/api/serverApi";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import TimeChange from "./../../utils/TimeChange";
@@ -48,8 +49,8 @@ const EditShiftForm = () => {
 	const [prevData, setPrevData] = useState({
 		movmentId: "",
 		shiftId: "",
-		has_stocktaking: null,
-		getStocktaking_id: null,
+		// has_stocktaking: null,
+		// getStocktaking_id: null,
 	});
 	const [others, setOthers] = useState([]);
 	const [othersCount, setOthersCount] = useState(0);
@@ -57,6 +58,7 @@ const EditShiftForm = () => {
 	// const [coupons, setCoupons] = useState([]);
 	// const [couponsCount, setCouponsCount] = useState(0);
 	const [surplus, setSurplus] = useState([]);
+	const [stocktakingSurplus, setStocktakingSurplus] = useState([]);
 	const [dispensers, setDispensers] = useState([]);
 	const [currStoresMovments, setCurrStoresMovments] = useState([]);
 	// const [couponsIsChecked, setCouponsIsChecked] = useState(false);
@@ -239,6 +241,25 @@ const EditShiftForm = () => {
 			setSurplus(data);
 		},
 	});
+	useQuery({
+		queryKey: ["StocktakingSurpluses", info.state.movment_id, info.state.date],
+		queryFn: getSurplusesByMovmentIdAndDate,
+		select: (res) => {
+			return res.data.surpluses.map((el) => {
+				return {
+					id: el.id,
+					amount: el.amount,
+					substance: el.store.substance.id,
+					store: el.store_id,
+					saved: true,
+				};
+			});
+		},
+		onSuccess: (data) => {
+			setStocktakingSurplus(data);
+		},
+		enabled: info.state.shift.number === 1,
+	});
 	const { data: storesName } = useQuery({
 		queryKey: ["stores", info.state.station_id],
 		queryFn: getStoreByStationId,
@@ -419,7 +440,7 @@ const EditShiftForm = () => {
 	const saveCreditSalesHandler = (item) => {
 		// let couponsTotal = 0;
 		// let dispensersTotal = 0;
-		console.log(`creditSales`, creditSales);
+
 		if (
 			creditSales.filter(
 				(el) => el.amount === "" || !el.client || !el.store || el.title === ""
@@ -471,6 +492,14 @@ const EditShiftForm = () => {
 			});
 		});
 		updatedStoresMovments.forEach((el) => {
+			stocktakingSurplus.forEach((ele) => {
+				if (el.store.id === ele.store) {
+					el.curr_value = el.curr_value + +ele.amount;
+					el.totalIncomes = el.totalIncomes + +ele.amount;
+				}
+			});
+		});
+		updatedStoresMovments.forEach((el) => {
 			creditSales.forEach((ele) => {
 				if (el.store.id === ele.store) {
 					// el.curr_value = el.curr_value - +ele.amount;
@@ -497,6 +526,7 @@ const EditShiftForm = () => {
 				if (el.store.id === ele.store) {
 					el.curr_value = el.curr_value + +ele.amount;
 					el.totalIncomes = el.totalIncomes + +ele.amount;
+					el.totalCreditSales = el.totalCreditSales + +ele.amount;
 					// el.otherSpends = el.otherSpends + +ele.amount;
 				}
 			});
@@ -568,7 +598,12 @@ const EditShiftForm = () => {
 			});
 			return;
 		}
-
+		if (currStoresMovments.filter((el) => el.curr_value < 0).length > 0) {
+			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
+				position: "top-center",
+			});
+			return;
+		}
 		editMutation.mutate({
 			dispensers,
 			station_id: info.state.station_id,
@@ -588,6 +623,12 @@ const EditShiftForm = () => {
 			creditSales.filter((el) => el.saved === false).length > 0
 		) {
 			toast.error("يرجى التأكد من حفظ جميع المسحوبات الاخرى والمبيعات الآجلة", {
+				position: "top-center",
+			});
+			return;
+		}
+		if (currStoresMovments.filter((el) => el.curr_value < 0).length > 0) {
+			toast.error("لا يمكن ان يكون رصيد المخزن بالسالب", {
 				position: "top-center",
 			});
 			return;
@@ -735,7 +776,7 @@ const EditShiftForm = () => {
 									<TableColumn>الرصيد السابق(لتر)</TableColumn>
 									<TableColumn>الوارد(لتر)</TableColumn>
 									<TableColumn>مبيعات نقدية(لتر)</TableColumn>
-									<TableColumn>مسحوبات الفرع(لتر)</TableColumn>
+									{/* <TableColumn>مسحوبات الفرع(لتر)</TableColumn> */}
 									<TableColumn>مبيعات آجلة(لتر)</TableColumn>
 									<TableColumn>الرصيد الحالي(لتر)</TableColumn>
 									<TableColumn>النقدية</TableColumn>
@@ -752,9 +793,10 @@ const EditShiftForm = () => {
 														(item.curr_value || 0) +
 														(item.totalIncomes || 0) -
 														(item.totalCoupons || 0) -
+														(item.calibrations || 0) -
 														(item.totalCreditSales || 0)}
 												</TableCell>
-												<TableCell>{item.totalCoupons || 0}</TableCell>
+												{/* <TableCell>{item.totalCoupons || 0}</TableCell> */}
 												<TableCell>{item.totalCreditSales || 0}</TableCell>
 												<TableCell>{item.curr_value || 0}</TableCell>
 												<TableCell>

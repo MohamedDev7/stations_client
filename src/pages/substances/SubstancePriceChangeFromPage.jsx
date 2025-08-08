@@ -11,7 +11,7 @@ import {
 	changeSubstancePrice,
 	editSubstance,
 	getSubstance,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 const SubstancePriceChangeFromPage = () => {
 	//hooks
 	const navigate = useNavigate();

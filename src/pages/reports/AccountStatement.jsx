@@ -5,17 +5,19 @@ import {
 	Card,
 	CardBody,
 	CardHeader,
-	Input,
 	Select,
 	SelectItem,
 	RadioGroup,
 	Radio,
 	Button,
 	SelectSection,
+	DatePicker,
 } from "@heroui/react";
 import { Desktop } from "@mynaui/icons-react";
 
-import { useNavigate } from "react-router-dom";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
+import { useSearchParams } from "react-router-dom";
+import { parseDate } from "@internationalized/date";
 import {
 	getAllStations,
 	getBoxAccountStatementReport,
@@ -24,19 +26,28 @@ import {
 	getEmployeeByStationId,
 	getStationAccountStatementReport,
 	getStoreByStationId,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 const headingClasses =
 	"flex py-1.5 px-2 bg-primary-100  rounded-small text-lg font-bold";
 const AccountStatement = () => {
 	//hooks
-	const navigate = useNavigate();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const navigate = useNavigateWithQuery();
+	const rawEndDate = searchParams.get("endDate");
+	const rawStartDate = searchParams.get("startDate");
 	//states
-	const [station, setStation] = useState("");
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
+	const [station, setStation] = useState(searchParams.get("station") || "");
+	const [startDate, setStartDate] = useState(
+		rawStartDate && rawStartDate !== "null" ? parseDate(rawStartDate) : null
+	);
+	const [endDate, setEndDate] = useState(
+		rawEndDate && rawEndDate !== "null" ? parseDate(rawEndDate) : null
+	);
 	const [selectedEmployee, setSelectedEmployee] = useState("");
-	const [selectedStore, setSelectedStore] = useState("");
-	const [type, setType] = useState("");
+	const [selectedStore, setSelectedStore] = useState(
+		searchParams.get("store") || ""
+	);
+	const [type, setType] = useState(searchParams.get("type") || "");
 
 	//queries
 	const { data: stations } = useQuery({
@@ -58,7 +69,6 @@ const AccountStatement = () => {
 		queryKey: ["stores", station],
 		queryFn: getStoreByStationId,
 		select: (res) => {
-			console.log(`res.data.stores`, res.data.stores);
 			const substancessSet = new Set(
 				res.data.stores.map((el) => el.substance.id)
 			);
@@ -187,12 +197,24 @@ const AccountStatement = () => {
 		},
 		enabled: false,
 	});
+
+	//function
+	const updateParams = (params) => {
+		setSearchParams({
+			startDate,
+			endDate,
+			station,
+			selectedStore,
+			selectedEmployee,
+			type,
+			...params, // overwrite changed
+		});
+	};
 	return (
 		<div className="w-full h-full overflow-auto">
 			<div className="w-full p-5 pb-16">
 				<form
 					onSubmit={(e) => {
-						console.log(`type`, type);
 						e.preventDefault();
 						if (type === "المحطة") {
 							refetchStation();
@@ -219,6 +241,7 @@ const AccountStatement = () => {
 									selectedKeys={[station.toString()]}
 									onChange={(e) => {
 										setStation(+e.target.value);
+										updateParams({ station: +e.target.value });
 									}}
 									isRequired
 								>
@@ -229,8 +252,25 @@ const AccountStatement = () => {
 											);
 										})}
 								</Select>
-
-								<Input
+								<DatePicker
+									label="من تاريخ"
+									required
+									value={startDate}
+									onChange={(date) => {
+										setStartDate(date);
+										updateParams({ startDate: date });
+									}}
+								/>
+								<DatePicker
+									label="الى تاريخ "
+									required
+									value={endDate}
+									onChange={(date) => {
+										setEndDate(date);
+										updateParams({ endDate: date });
+									}}
+								/>
+								{/* <Input
 									label="من تاريخ"
 									required
 									placeholder="تاريخ الوارد"
@@ -249,7 +289,7 @@ const AccountStatement = () => {
 									onChange={(e) => {
 										setEndDate(e.target.value);
 									}}
-								/>
+								/> */}
 							</Row>
 							<RadioGroup
 								value={type}
@@ -259,6 +299,7 @@ const AccountStatement = () => {
 								onChange={(e) => {
 									setSelectedEmployee("");
 									setType(e.target.value);
+									updateParams({ type: e.target.value });
 								}}
 							>
 								<Radio value="المحطة">المحطة</Radio>
@@ -273,6 +314,7 @@ const AccountStatement = () => {
 										selectedKeys={[selectedEmployee.toString()]}
 										onChange={(e) => {
 											setSelectedEmployee(+e.target.value);
+											updateParams({ selectedEmployee: +e.target.value });
 										}}
 										isRequired
 									>
@@ -292,7 +334,10 @@ const AccountStatement = () => {
 								<Row flex={[1000]}>
 									<Select
 										label="المخازن"
-										onChange={(e) => setSelectedStore(e.target.value)}
+										onChange={(e) => {
+											setSelectedStore(e.target.value);
+											updateParams({ selectedStore: +e.target.value });
+										}}
 										selectedKey={selectedStore}
 									>
 										{stores &&

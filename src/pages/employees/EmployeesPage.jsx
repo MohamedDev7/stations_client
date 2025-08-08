@@ -18,7 +18,7 @@ import {
 } from "@fluentui/react-components";
 import { SaveRegular, DeleteRegular, EditRegular } from "@fluentui/react-icons";
 import { useNavigate } from "react-router-dom";
-import { deleteEmployee, getAllEmployees } from "../../api/serverApi";
+import { deleteEmployee, getAllEmployees } from "@/api/serverApi";
 const EmployeesPage = () => {
 	//hooks
 	const navigate = useNavigate();

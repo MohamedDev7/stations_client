@@ -94,6 +94,12 @@ export const getSurplusesByMovmentIdAndShiftId = async (data) => {
 	);
 	return res;
 };
+export const getSurplusesByMovmentIdAndDate = async (data) => {
+	const res = await serverApi.get(
+		`/surplus/movment/date/${data.queryKey[1]}/${data.queryKey[2]}`
+	);
+	return res;
+};
 export const addSurplus = async (data) => {
 	const res = await serverApi.post("/surplus", data);
 	return res;
@@ -117,7 +123,7 @@ export const editSurplus = async (data) => {
 //Movments API
 export const getAllMovments = async (data) => {
 	const res = await serverApi.get(
-		`/movments?page=${data.queryKey[1]}&limit=${data.queryKey[2]}&filters=${data.queryKey[3]}`
+		`/movments?page=${data.queryKey[1]}&limit=${data.queryKey[2]}&stations=${data.queryKey[3]}&startDate=${data.queryKey[4]}&endDate=${data.queryKey[5]}`
 	);
 	return res;
 };
@@ -386,6 +392,22 @@ export const deleteStocktaking = async (id) => {
 	const res = await serverApi.delete(`/stocktaking/${id}`);
 	return res;
 };
+//quantityDeduction API
+export const addQuantityDeduction = async (data) => {
+	const res = await serverApi.post("/quantityDeductions", data);
+	return res;
+};
+
+export const getAllQuantityDeductions = async (data) => {
+	const res = await serverApi.get(
+		`/quantityDeductions?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+	);
+	return res;
+};
+export const deleteQuantityDeduction = async (id) => {
+	const res = await serverApi.delete(`/quantityDeductions/${id}`);
+	return res;
+};
 //receives API
 export const getAllReceives = async (data) => {
 	const res = await serverApi.get(
@@ -473,7 +495,6 @@ export const addCreditSalesSettlement = async (data) => {
 	return res;
 };
 export const deleteCreditSalesSettlement = async (id) => {
-	console.log(id);
 	const res = await serverApi.delete(`/creditSales/settlements/${id}`);
 	return res;
 };
@@ -504,7 +525,15 @@ export const getClientsByStationId = async (data) => {
 	const res = await serverApi.get(`/clients/station/${data.queryKey[1]}`);
 	return res;
 };
-
+//stations state state API
+export const getStationStateByMonth = async (data) => {
+	const res = await serverApi.get(`/closing/${data.queryKey[1]}`);
+	return res;
+};
+export const changeClosingState = async (data) => {
+	const res = await serverApi.patch(`/closing`, data);
+	return res;
+};
 // export const getBank = async (id) => {
 // 	const res = await serverApi.get(`/banks/${id}`);
 // 	return res;
@@ -542,7 +571,13 @@ export const getBoxAccountStatementReport = async (data) => {
 };
 export const getCreditSalesStatementReport = async (data) => {
 	const res = await serverApi.get(
-		`/reports/accountStatement/creditSales/?startDate=${data.queryKey[1]}&endDate=${data.queryKey[2]}&station=${data.queryKey[3]}&store=${data.queryKey[4]}`
+		`/reports/accountStatement/creditSales/?startDate=${data.queryKey[1]}&endDate=${data.queryKey[2]}&station=${data.queryKey[3]}&store=${data.queryKey[4]}&type=${data.queryKey[5]}`
+	);
+	return res;
+};
+export const getCreditSalesByStoreIdAndClientsIds = async (data) => {
+	const res = await serverApi.get(
+		`/reports/creditSales/?startDate=${data.queryKey[1]}&endDate=${data.queryKey[2]}&station=${data.queryKey[3]}&store=${data.queryKey[4]}&clients=${data.queryKey[5]}&type=${data.queryKey[6]}`
 	);
 	return res;
 };

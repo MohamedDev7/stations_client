@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import TopBar from "../../components/TopBar/TopBar";
@@ -29,7 +29,7 @@ import {
 import { DotsVertical, Printer, Trash, Edit } from "@mynaui/icons-react";
 import { useSearchParams } from "react-router-dom";
 import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
-import { deleteIncome, getAllIncomes } from "../../api/serverApi";
+import { deleteIncome, getAllIncomes } from "@/api/serverApi";
 import tafqeet from "../../utils/Tafqeet";
 import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
 const IncomesPage = () => {
@@ -54,7 +54,6 @@ const IncomesPage = () => {
 		queryKey: ["incomes", page - 1, rowsPerPage],
 		queryFn: getAllIncomes,
 		select: (res) => {
-			console.log(`res.data`, res.data);
 			return res.data;
 		},
 		onSuccess: (data) => {
@@ -70,7 +69,7 @@ const IncomesPage = () => {
 
 	const deleteMutation = useMutation({
 		mutationFn: deleteIncome,
-		onSuccess: (res) => {
+		onSuccess: () => {
 			toast.success("تم حذف الوارد بنجاح", {
 				position: "top-center",
 			});

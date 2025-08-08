@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import useNavigateWithQuery from "../../hooks/useNavigateWithQuery";
-import { getAllStores } from "@/api/serverApi";
 import { toast } from "react-toastify";
 import TopBar from "../../components/TopBar/TopBar";
+
 import {
 	Modal,
 	ModalContent,
@@ -27,16 +26,19 @@ import {
 	DropdownMenu,
 	DropdownItem,
 } from "@heroui/react";
-import { useSearchParams } from "react-router-dom";
 import { DotsVertical, Printer, Trash, Edit } from "@mynaui/icons-react";
+import { useSearchParams } from "react-router-dom";
+import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
+import { deleteIncome, getAllIncomes } from "@/api/serverApi";
+import tafqeet from "../../utils/Tafqeet";
 import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
-
-const StoresPage = () => {
+const MonthlyClosingPage = () => {
 	//hooks
 	const navigate = useNavigateWithQuery();
 	const queryClient = useQueryClient();
 	const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 	//states
+	// const [incomes, setIncomes] = useState([]);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const page = parseInt(searchParams.get("page")) || 1;
 	const rowsPerPage = parseInt(searchParams.get("rowsPerPage")) || 5;
@@ -48,10 +50,9 @@ const StoresPage = () => {
 		footer: "",
 	});
 	//queries
-
-	const { data: stores } = useQuery({
-		queryKey: ["stores", page - 1, rowsPerPage],
-		queryFn: getAllStores,
+	const { data: incomes } = useQuery({
+		queryKey: ["incomes", page - 1, rowsPerPage],
+		queryFn: getAllIncomes,
 		select: (res) => {
 			return res.data;
 		},
@@ -65,84 +66,36 @@ const StoresPage = () => {
 			});
 		},
 	});
-	const columns = [
-		{ field: "id", headerName: "م", width: 70 },
-		{ field: "store_name", headerName: "المخزن", width: 350 },
-		{ field: "station_name", headerName: "المحطة", width: 350 },
-		{
-			field: "actions",
-			filterable: false,
-			headerName: "خيارات",
-			width: 250,
-			renderCell: (params) => {
-				return (
-					<div style={{ display: "flex", gap: "10px" }}>
-						<Tooltip content="تعديل" relationship="label">
-							<Button
-								appearance="primary"
-								icon={<EditRegular />}
-								size="medium"
-								{...restoreFocusTargetAttribute}
-								onClick={() => {
-									navigate("./edit", { state: { id: params.id } });
-								}}
-							/>
-						</Tooltip>
-						<Tooltip content="حذف" relationship="label">
-							<Button
-								style={{
-									backgroundColor: "#b33c37",
-								}}
-								appearance="primary"
-								icon={<DeleteRegular />}
-								size="medium"
-								{...restoreFocusTargetAttribute}
-								onClick={() => {
-									setDialog((prev) => {
-										return {
-											...prev,
-											isOpened: true,
-											title: "حذف مادة",
-											content: (
-												<DialogContent>
-													هل أنت متأكد من حذف مادة
-													<span
-														style={{
-															fontWeight: "bold",
-															fontSize: "16px",
-															color: "#b33c37",
-														}}
-													>{` ال${params.row.name} `}</span>
-													؟
-												</DialogContent>
-											),
-											actions: (
-												<DialogActions>
-													<DialogTrigger disableButtonEnhancement>
-														<Button appearance="secondary">الغاء</Button>
-													</DialogTrigger>
-													<Button
-														appearance="primary"
-														onClick={() => {
-															deleteMutation.mutate(params.id);
-														}}
-													>
-														تأكيد
-													</Button>
-												</DialogActions>
-											),
-										};
-									});
-								}}
-							/>
-						</Tooltip>
-					</div>
-				);
-			},
+
+	const deleteMutation = useMutation({
+		mutationFn: deleteIncome,
+		onSuccess: () => {
+			toast.success("تم حذف الوارد بنجاح", {
+				position: "top-center",
+			});
+			queryClient.invalidateQueries({
+				queryKey: ["incomes", page - 1, rowsPerPage],
+			});
+			setModal({
+				title: "",
+				content: "",
+				actions: "",
+			});
+			onClose();
 		},
-	];
+		onError: (err) => {
+			toast.error(err.response.data.message, {
+				position: "top-center",
+			});
+			setModal({
+				title: "",
+				content: "",
+				actions: "",
+			});
+		},
+	});
 	//functions
-	const onRowsPerPageChange = useCallback(
+	const onRowsPerPageChange = React.useCallback(
 		(e) => {
 			const newRowsPerPage = Number(e.target.value);
 			setSearchParams({
@@ -197,10 +150,10 @@ const StoresPage = () => {
 			<div className="w-full p-5 pb-16">
 				<Card>
 					<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-						العملاء
+						الواردات
 					</CardHeader>
 					<CardBody>
-						{stores && stores.stores.length > 0 ? (
+						{incomes && incomes.incomes.length > 0 ? (
 							<Table
 								aria-labelledby="table"
 								bottomContent={
@@ -234,19 +187,28 @@ const StoresPage = () => {
 								bottomContentPlacement="outside"
 							>
 								<TableHeader>
-									<TableColumn> المحطة</TableColumn>
-									<TableColumn>اسم المستودع</TableColumn>
+									<TableColumn>التاريخ</TableColumn>
+									<TableColumn>المحطة</TableColumn>
+									<TableColumn>المخزن</TableColumn>
+									<TableColumn>المادة</TableColumn>
+									<TableColumn>الكمية</TableColumn>
 									<TableColumn>خيارات</TableColumn>
 								</TableHeader>
 								<TableBody>
-									{stores.stores &&
-										stores.stores.map((client) => {
+									{incomes.incomes &&
+										incomes.incomes.map((income) => {
+											const disabledActions = [];
+											if (income.state === "approved") {
+												disabledActions.push("delete");
+												disabledActions.push("edit");
+											}
 											return (
-												<TableRow key={client.id}>
-													<TableCell>{client.station.name}</TableCell>
-													<TableCell>
-														{client.name} - {client.substance.name}
-													</TableCell>
+												<TableRow key={income.id}>
+													<TableCell>{income.movment.date}</TableCell>
+													<TableCell>{income.station.name}</TableCell>
+													<TableCell>{income.store.name}</TableCell>
+													<TableCell>{income.store.substance.name}</TableCell>
+													<TableCell>{income.amount}</TableCell>
 													<TableCell>
 														<div className="relative flex justify-center items-center gap-2">
 															<Dropdown>
@@ -256,22 +218,23 @@ const StoresPage = () => {
 																	</Button>
 																</DropdownTrigger>
 																<DropdownMenu
+																	disabledKeys={disabledActions}
 																	onAction={(key) => {
 																		if (key === "delete") {
 																			setModal((prev) => {
 																				return {
 																					...prev,
-																					header: "حذف عميل",
+																					header: "حذف وارد",
 																					body: (
 																						<div>
-																							هل أنت متأكد من حذف العميل
+																							هل أنت متأكد من حذف الوارد لـ
 																							<span
 																								style={{
 																									fontWeight: "bold",
 																									fontSize: "16px",
 																									color: "#b33c37",
 																								}}
-																							>{` ${client.name} `}</span>
+																							>{` ${income.station.name} `}</span>
 																							؟
 																						</div>
 																					),
@@ -289,7 +252,94 @@ const StoresPage = () => {
 																								color="primary"
 																								onPress={() => {
 																									deleteMutation.mutate(
-																										client.id
+																										income.id
+																									);
+																								}}
+																							>
+																								تأكيد
+																							</Button>
+																						</div>
+																					),
+																				};
+																			});
+																			onOpen();
+																		}
+																		if (key === "print") {
+																			const dataToPrint = `${income.movment.date
+																				.split("T")[0]
+																				.replace(/-/g, "/")}`;
+																			navigate("./print", {
+																				state: {
+																					data: {
+																						...income,
+																						type: "وارد",
+																						amount_difference:
+																							income.amount - income.doc_amount,
+																						date: dataToPrint,
+																						store: `${income.store.name}-${income.store.substance.name}`,
+																						amount_text: tafqeet(income.amount),
+																					},
+																					reportTemplate: "receipt1",
+																				},
+																			});
+																		}
+
+																		if (key === "open") {
+																			setModal((prev) => {
+																				return {
+																					...prev,
+																					header: "فتح حركة",
+																					body: (
+																						<div>
+																							<div>
+																								هل أنت متأكد من فتح الحركة
+																								بتاريخ
+																								<span
+																									style={{
+																										fontWeight: "bold",
+																										fontSize: "16px",
+																										color: "#b33c37",
+																									}}
+																								>{` ${movment.date} `}</span>
+																								لـ
+																								<span
+																									style={{
+																										fontWeight: "bold",
+																										fontSize: "16px",
+																										color: "#b33c37",
+																									}}
+																								>{` ${movment["station.name"]} `}</span>
+																								؟
+																							</div>
+
+																							<div className="text-danger-500 mt-5 text-xs font-bold">
+																								*ملاحظة:سيتم فتح جميع التواريخ
+																								بعد
+																								{movment.date}!
+																							</div>
+																						</div>
+																					),
+																					footer: (
+																						<div className=" flex gap-5">
+																							<Button
+																								onPress={() => {
+																									onClose();
+																								}}
+																								color="warning"
+																							>
+																								الغاء
+																							</Button>
+																							<Button
+																								color="primary"
+																								onPress={() => {
+																									updateMovmentStateMutation.mutate(
+																										{
+																											state: "pending",
+																											movment_id: movment.id,
+																											station_id:
+																												movment.station_id,
+																											date: movment.date,
+																										}
 																									);
 																								}}
 																							>
@@ -308,6 +358,20 @@ const StoresPage = () => {
 																		startContent={<Edit />}
 																	>
 																		تعديل
+																	</DropdownItem>
+																	<DropdownItem
+																		key="print"
+																		startContent={<Printer />}
+																	>
+																		طباعة
+																	</DropdownItem>
+																	<DropdownItem
+																		key="delete"
+																		className="text-danger"
+																		color="danger"
+																		startContent={<Trash />}
+																	>
+																		حذف
 																	</DropdownItem>
 																</DropdownMenu>
 															</Dropdown>
@@ -328,4 +392,4 @@ const StoresPage = () => {
 	);
 };
 
-export default StoresPage;
+export default MonthlyClosingPage;

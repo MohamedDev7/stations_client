@@ -2,7 +2,7 @@
 	"name": "ypc-stations",
 	"private": true,
 	"description": "stations client",
-	"version": "1.1.7",
+	"version": "1.1.9",
 	"main": "public/main.js",
 	"homepage": "./",
 	"author": "Mohamed Hasan",

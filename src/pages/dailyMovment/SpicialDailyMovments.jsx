@@ -9,7 +9,7 @@ import {
 	getAllStations,
 	getMovmentData,
 	spicialChangeMovmentState,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 
 import {
 	Check,

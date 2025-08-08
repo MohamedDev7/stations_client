@@ -17,7 +17,7 @@ import {
 	deleteStation,
 	deleteSubstance,
 	getAllStations,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import { toast } from "react-toastify";
 import TopBar from "../../components/TopBar/TopBar";
 import Table from "../../UI/table/Table";

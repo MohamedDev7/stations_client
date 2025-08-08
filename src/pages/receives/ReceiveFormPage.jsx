@@ -10,7 +10,7 @@ import {
 	getEmployeeByStationId,
 	getReceive,
 	updateReceive,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import { X, Save } from "@mynaui/icons-react";
 import { Button } from "@heroui/button";
 import {

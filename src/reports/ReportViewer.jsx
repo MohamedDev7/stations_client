@@ -21,6 +21,7 @@ const ReportViewer = () => {
 		report.loadFile(`reportsTemplates/${info.state.reportTemplate}.mrt`);
 
 		var dataSet = new Stimulsoft.System.Data.DataSet("Demo");
+
 		dataSet.readJson(info.state.data);
 		report.dictionary.databases.clear();
 		// Assign the data source to the report

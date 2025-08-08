@@ -24,6 +24,7 @@ import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
 import Row from "../../UI/row/Row";
 import { useMutation, useQuery } from "react-query";
 import {
+	addQuantityDeduction,
 	addStocktaking,
 	getAllStations,
 	getAllSubstances,
@@ -31,6 +32,7 @@ import {
 	getLastShiftIdByMovmentId,
 	getStationMovmentByDate,
 	getStationPendingMovment,
+	getStoreByStationId,
 	getStoresMovmentByMovmentIdAndShiftId,
 	getSubstancePriceMovment,
 	getSubstancesPricesByDate,
@@ -40,7 +42,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Card, CardBody, CardHeader } from "@heroui/react";
 
-const StocktakingForm = () => {
+const QuantityDeductionForm = () => {
 	//states
 	const [date, setDate] = useState("");
 	const [nextDate, setNextDate] = useState("");
@@ -50,12 +52,13 @@ const StocktakingForm = () => {
 	const [currMovmentIsChecked, setCurrMovmentIsChecked] = useState(false);
 	const [nextMovmentIsChecked, setNextMovmentIsChecked] = useState(false);
 	const [pendingMovmentIsChecked, setPendingMovmentIsChecked] = useState(false);
-	const [priceMovmentIsChecked, setPriceMovmentIsChecked] = useState(true);
-	const [stocks, setStocks] = useState([]);
-	const [stores, setStores] = useState([]);
-	const [selectedSubstances, setSelectedSubstances] = useState([]);
-	const [isPriceChange, setIsPriceChange] = useState(false);
-	const [storeAdjustment, setStoreAdjustment] = useState(false);
+	const [selectedSubstance, setSelectedSubstance] = useState("");
+	const [selectedStore, setSelectedStore] = useState("");
+	const [withValue, setWithValue] = useState(true);
+	const [storesMovments, setStoresMovments] = useState([]);
+	const [prevValue, setPrevValue] = useState(0);
+	const [currValue, setCurrValue] = useState(0);
+	const [amount, setAmount] = useState(0);
 	//hooks
 	let formatter = useDateFormatter({ dateStyle: "short" });
 	const navigate = useNavigate();
@@ -84,6 +87,16 @@ const StocktakingForm = () => {
 			});
 		},
 	});
+	const { data: stores } = useQuery({
+		queryKey: ["substances", station],
+		queryFn: getStoreByStationId,
+		select: (res) => {
+			return res.data.stores.filter(
+				(el) => el.substance.id === +selectedSubstance
+			);
+		},
+		enabled: !!station && !!selectedSubstance,
+	});
 	const { data: currMovment } = useQuery({
 		queryKey: ["movments", station, date],
 		queryFn: getStationMovmentByDate,
@@ -93,9 +106,12 @@ const StocktakingForm = () => {
 		onSuccess: (data) => {
 			if (Object.keys(data).length === 0) {
 				setCurrMovmentIsChecked(false);
-				toast.error(`لايمكن إضافة جرد بسبب عدم اعتماد الحركة بتاريخ  ${date}`, {
-					position: "top-center",
-				});
+				toast.error(
+					`لايمكن استنزال كمية بسبب عدم اعتماد الحركة بتاريخ  ${date}`,
+					{
+						position: "top-center",
+					}
+				);
 			} else setCurrMovmentIsChecked(true);
 		},
 		enabled: !!station && !!date,
@@ -110,7 +126,7 @@ const StocktakingForm = () => {
 			if (data && Object.keys(data).length > 0) {
 				setNextMovmentIsChecked(false);
 				toast.error(
-					`لايمكن إضافة جرد بسبب وجود حركة في اليوم التالي ${nextDate}`,
+					`لايمكن استنزال كمية بسبب وجود حركة في اليوم التالي ${nextDate}`,
 					{
 						position: "top-center",
 					}
@@ -127,7 +143,7 @@ const StocktakingForm = () => {
 		select: (res) => {
 			return res.data.lastShift.id;
 		},
-		enabled: !!currMovment,
+		enabled: currMovmentIsChecked,
 	});
 	const { data: pendingMovment } = useQuery({
 		queryKey: ["pendingMovment", station, date],
@@ -138,31 +154,31 @@ const StocktakingForm = () => {
 		onSuccess: (data) => {
 			if (data.length > 0) {
 				setPendingMovmentIsChecked(false);
-				toast.error("لايمكن إضافة جرد لوجود حركة غير معتمدة", {
+				toast.error("لايمكن استنزال كمية لوجود حركة غير معتمدة", {
 					position: "top-center",
 				});
 			} else setPendingMovmentIsChecked(true);
 		},
 		enabled: !!station,
 	});
-	const { data: priceMovment } = useQuery({
-		queryKey: ["priceMovment", date, selectedSubstances],
-		queryFn: getSubstancePriceMovment,
-		select: (res) => {
-			return res.data.PriceMovment;
-		},
-		onSuccess: (data) => {
-			if (data.length === 0 && selectedSubstances.length !== 0) {
-				setPriceMovmentIsChecked(false);
-				setIsPriceChange(false);
-				toast.error("لا يمكن اضافة جرد تسعيرة في هذا التاريخ لعدم تغير السعر", {
-					position: "top-center",
-				});
-			} else setPriceMovmentIsChecked(true);
-		},
-		enabled: !!station && !!date && !!isPriceChange,
-	});
-	const { data: storesMovments } = useQuery({
+	// const { data: priceMovment } = useQuery({
+	// 	queryKey: ["priceMovment", date, selectedSubstance],
+	// 	queryFn: getSubstancePriceMovment,
+	// 	select: (res) => {
+	// 		return res.data.PriceMovment;
+	// 	},
+	// 	onSuccess: (data) => {
+	// 		if (data.length === 0 && selectedSubstance.length !== 0) {
+	// 			setPriceMovmentIsChecked(false);
+	// 			setIsPriceChange(false);
+	// 			toast.error("لا يمكن اضافة جرد تسعيرة في هذا التاريخ لعدم تغير السعر", {
+	// 				position: "top-center",
+	// 			});
+	// 		} else setPriceMovmentIsChecked(true);
+	// 	},
+	// 	enabled: !!station && !!date && !!isPriceChange,
+	// });
+	useQuery({
 		queryKey: ["storesMovments", currMovment?.id, lastShift],
 		queryFn: getStoresMovmentByMovmentIdAndShiftId,
 		select: (res) => {
@@ -170,69 +186,57 @@ const StocktakingForm = () => {
 				return {
 					...el,
 					prev_value: el.curr_value,
-					curr_value: el.curr_value - el.deficit,
+					curr_value: el.curr_value,
+					price: prices.filter(
+						(ele) => ele.substance_id === el.store.substance.id
+					)[0].price,
 				};
 			});
 		},
 		onSuccess: (data) => {
-			setStores(data);
+			setStoresMovments(data);
 		},
 		enabled:
 			currMovmentIsChecked &&
 			nextMovmentIsChecked &&
 			pendingMovmentIsChecked &&
-			!!lastShift &&
-			priceMovmentIsChecked,
+			!!prices &&
+			!!lastShift,
 	});
-	useQuery({
-		queryKey: ["stocks", currMovment?.id, lastShift, selectedSubstances],
-		queryFn: getSubstancesStocksByMovmentIdAndShiftId,
-		select: (res) => {
-			return res.data.stocks.map((el) => {
-				let deficit = 0;
+	// useQuery({
+	// 	queryKey: ["stocks", currMovment?.id, lastShift, selectedSubstance],
+	// 	queryFn: getSubstancesStocksByMovmentIdAndShiftId,
+	// 	select: (res) => {
+	// 		return res.data.stocks.map((el) => {
+	// 			let deficit = 0;
 
-				stores.forEach((ele) => {
-					if (ele.store.substance.id === el.substance_id) {
-						deficit = deficit + ele.deficit;
-					}
-				});
-				return {
-					...el,
-					realAmount: el.amount - deficit,
-					diff: -deficit,
-				};
-			});
-		},
-		onSuccess: (data) => {
-			setStocks(data);
-		},
-		enabled:
-			currMovmentIsChecked &&
-			nextMovmentIsChecked &&
-			pendingMovmentIsChecked &&
-			!!lastShift &&
-			!!stores &&
-			priceMovmentIsChecked,
-	});
-
-	const { data: dispensersMovments } = useQuery({
-		queryKey: ["dispensersMovments", currMovment?.id, lastShift],
-		queryFn: getDispensersMovmentByMovmentIdAndShiftId,
-		select: (res) => {
-			return res.data.dispensersMovments;
-		},
-
-		enabled:
-			currMovmentIsChecked &&
-			nextMovmentIsChecked &&
-			pendingMovmentIsChecked &&
-			!!lastShift &&
-			priceMovmentIsChecked,
-	});
+	// 			stores.forEach((ele) => {
+	// 				if (ele.store.substance.id === el.substance_id) {
+	// 					deficit = deficit + ele.deficit;
+	// 				}
+	// 			});
+	// 			return {
+	// 				...el,
+	// 				realAmount: el.amount - deficit,
+	// 				diff: -deficit,
+	// 			};
+	// 		});
+	// 	},
+	// 	onSuccess: (data) => {
+	// 		setStocks(data);
+	// 	},
+	// 	enabled:
+	// 		currMovmentIsChecked &&
+	// 		nextMovmentIsChecked &&
+	// 		pendingMovmentIsChecked &&
+	// 		!!lastShift &&
+	// 		!!stores &&
+	// 		priceMovmentIsChecked,
+	// });
 	const saveMutation = useMutation({
-		mutationFn: addStocktaking,
+		mutationFn: addQuantityDeduction,
 		onSuccess: (res) => {
-			toast.success("تم إضافة الجرد بنجاح", {
+			toast.success("تم استنزال الكمية بنجاح", {
 				position: "top-center",
 			});
 			navigate("./..");
@@ -266,13 +270,16 @@ const StocktakingForm = () => {
 	const onSaveMovmentHandler = () => {
 		saveMutation.mutate({
 			station,
-			substance: selectedSubstances,
+			substance: selectedSubstance,
 			date: date,
-			stores,
-			members,
-			stocks,
-			currMovmentId: currMovment.id,
-			type: isPriceChange ? "تسعيرة" : "جرد",
+			store: selectedStore,
+			currValue,
+			prevValue,
+			amount,
+			price: prices.filter((el) => el.substance_id === +selectedSubstance)[0]
+				.price,
+			movmentId: currMovment.id,
+			withValue,
 		});
 	};
 	return (
@@ -310,7 +317,7 @@ const StocktakingForm = () => {
 				<div className="w-full p-5 pb-16">
 					<Card>
 						<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-							بيانات الجرد
+							بيانات الاستنزال
 						</CardHeader>
 						<CardBody>
 							<Row flex={[1, 1, 1]}>
@@ -330,8 +337,9 @@ const StocktakingForm = () => {
 								<Select
 									label="المادة"
 									onChange={(e) => {
-										setSelectedSubstances(e.target.value);
+										setSelectedSubstance(e.target.value);
 									}}
+									selectedKeys={[selectedSubstance]}
 								>
 									{substances &&
 										substances.map((substance) => {
@@ -352,172 +360,64 @@ const StocktakingForm = () => {
 									}}
 								/>
 							</Row>
-							<Row flex={[1, 2, 18]}>
+							<Row flex={[1, 20]}>
 								<Checkbox
-									isSelected={isPriceChange}
+									isSelected={withValue}
 									onChange={(e) => {
-										setIsPriceChange(e.target.checked);
-										setPriceMovmentIsChecked(!e.target.checked);
+										setWithValue(e.target.checked);
 									}}
 								>
-									تسعيرة
+									بقيمة
 								</Checkbox>
-								<Checkbox
-									isSelected={storeAdjustment}
-									onChange={(e) => {
-										setStoreAdjustment(e.target.checked);
-									}}
-								>
-									معالجة العجز
-								</Checkbox>
+
 								<></>
+							</Row>
+							<Row flex={[1, 1, 1]}>
+								<Select
+									label="المخازن"
+									onChange={(e) => {
+										const store = storesMovments.filter(
+											(el) => el.store.id === +e.target.value
+										)[0];
+										setSelectedStore(e.target.value);
+										setCurrValue(store?.prev_value || 0);
+										setPrevValue(store?.curr_value || 0);
+										setAmount(0);
+									}}
+									selectedKeys={[selectedStore]}
+								>
+									{stores &&
+										stores.map((store) => (
+											<SelectItem key={store.id}>
+												{`${store.name} - ${store.substance.name}`}
+											</SelectItem>
+										))}
+								</Select>
+								<Input
+									label="الرصيد السابق"
+									type="number"
+									isDisabled
+									value={prevValue}
+								/>
+								<Input
+									label="الكمية المستنزلة"
+									type="number"
+									value={amount}
+									onChange={(e) => {
+										setAmount(+e.target.value);
+										setCurrValue(prevValue - +e.target.value);
+									}}
+								/>
+								<Input
+									label="الرصيد الحالي"
+									type="number"
+									isDisabled
+									value={currValue}
+								/>
 							</Row>
 						</CardBody>
 					</Card>
-					{dispensersMovments && (
-						<Card>
-							<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-								قراءة العدادات
-							</CardHeader>
-							<CardBody>
-								<Table aria-label="Example static collection table">
-									<TableHeader>
-										<TableColumn>بيانات الطرمبة</TableColumn>
-										<TableColumn>أ</TableColumn>
-										<TableColumn>ب</TableColumn>
-									</TableHeader>
-									<TableBody>
-										{dispensersMovments
-											.filter(
-												(dispenser) =>
-													dispenser.dispenser.tank.substance.id ===
-													+selectedSubstances
-											)
-											.map((dispenser) => (
-												<TableRow key={dispenser.id}>
-													<TableCell>
-														{dispenser.dispenser.number}-
-														{dispenser.dispenser.tank.substance.name}
-													</TableCell>
-													<TableCell>{dispenser.curr_A}</TableCell>
-													<TableCell>{dispenser.curr_B}</TableCell>
-												</TableRow>
-											))}
-									</TableBody>
-								</Table>
-							</CardBody>
-						</Card>
-					)}
 
-					{currMovmentIsChecked &&
-						nextMovmentIsChecked &&
-						pendingMovmentIsChecked &&
-						priceMovmentIsChecked && (
-							<>
-								<Card>
-									<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-										بيانات الجرد
-									</CardHeader>
-									<CardBody>
-										<Table aria-label="Example static collection table">
-											<TableHeader>
-												<TableColumn>المادة</TableColumn>
-												<TableColumn>المخزون الدفتري</TableColumn>
-												<TableColumn>مخزون الجرد</TableColumn>
-												<TableColumn>الفارق</TableColumn>
-											</TableHeader>
-											<TableBody>
-												{stocks.map((stock) => (
-													<TableRow key={stock.substance_id}>
-														<TableCell>
-															{stock["store.substance.name"]}
-														</TableCell>
-														<TableCell>{stock.amount}</TableCell>
-														<TableCell>
-															<Input
-																value={stock.realAmount}
-																type="number"
-																isWheelDisabled
-																aria-label="مخزون الجرد"
-																onChange={(e) => {
-																	let diff = 0;
-																	const updatedStocks = stocks.map((ele) => {
-																		if (
-																			ele.substance_id === stock.substance_id
-																		) {
-																			diff = +e.target.value - +ele.amount;
-
-																			return {
-																				...ele,
-																				realAmount: +e.target.value,
-																				diff,
-																			};
-																		} else {
-																			return ele;
-																		}
-																	});
-																	const updatedStores = stores.map((ele) => {
-																		if (
-																			ele.store.substance.id ===
-																				stock.substance_id &&
-																			ele.store.type === "نقدي"
-																		) {
-																			return {
-																				...ele,
-																				curr_value: +ele.prev_value + diff,
-																			};
-																		} else {
-																			return ele;
-																		}
-																	});
-																	setStores(updatedStores);
-																	setStocks(updatedStocks);
-																}}
-															/>
-														</TableCell>
-														<TableCell>{stock.diff}</TableCell>
-													</TableRow>
-												))}
-											</TableBody>
-										</Table>
-									</CardBody>
-								</Card>
-								<Card>
-									<CardHeader className="bg-primary text-default-50 font-bold text-medium">
-										بيانات المخزون
-									</CardHeader>
-									<CardBody>
-										<Table aria-label="Example static collection table">
-											<TableHeader>
-												<TableColumn>المادة</TableColumn>
-												<TableColumn>رصيد قبل الجرد</TableColumn>
-												<TableColumn>رصيد بعد الجرد</TableColumn>
-												<TableColumn>الفارق</TableColumn>
-											</TableHeader>
-											<TableBody>
-												{stores
-													.filter(
-														(store) =>
-															store.store.substance.id === +selectedSubstances
-													)
-													.map((store) => (
-														<TableRow key={store.id}>
-															<TableCell>
-																{store.store.name}-{store.store.substance.name}
-															</TableCell>
-															<TableCell>{store.prev_value}</TableCell>
-															<TableCell>{store.curr_value}</TableCell>
-															<TableCell>
-																{store.curr_value - store.prev_value}
-															</TableCell>
-														</TableRow>
-													))}
-											</TableBody>
-										</Table>
-									</CardBody>
-								</Card>
-							</>
-						)}
 					<Card>
 						<CardHeader className="bg-primary text-default-50 font-bold text-medium">
 							اعضاء اللجنة
@@ -582,4 +482,4 @@ const StocktakingForm = () => {
 	);
 };
 
-export default StocktakingForm;
+export default QuantityDeductionForm;

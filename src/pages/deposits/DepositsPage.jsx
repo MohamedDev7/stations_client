@@ -28,7 +28,7 @@ import {
 } from "@heroui/react";
 import { DotsVertical, Printer, Trash, Edit, Plus } from "@mynaui/icons-react";
 import { useNavigate } from "react-router-dom";
-import { deleteDeposit, getAllDeposits } from "../../api/serverApi";
+import { deleteDeposit, getAllDeposits } from "@/api/serverApi";
 
 const DepositsPage = () => {
 	//hooks

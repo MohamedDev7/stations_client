@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import TopBar from "../../components/TopBar/TopBar";
 import Row from "../../UI/row/Row";
@@ -11,7 +10,7 @@ import {
 	getAllSubstances,
 	getClientsByStationId,
 	getSubstancesPricesByDate,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import { X, Save } from "@mynaui/icons-react";
 import useNavigateWithQuery from "../../hooks/useNavigateWithQuery";
 import {
@@ -22,11 +21,10 @@ import {
 	Button,
 	Select,
 	SelectItem,
-	DatePicker,
 } from "@heroui/react";
 const StoreFormPage = () => {
 	//hooks
-	const info = useLocation();
+
 	const navigate = useNavigateWithQuery();
 	//states
 	const [station, setStation] = useState("");
@@ -73,14 +71,13 @@ const StoreFormPage = () => {
 		queryKey: ["clients", station],
 		queryFn: getClientsByStationId,
 		select: (res) => {
-			console.log(`res`, res);
 			return res.data.clients;
 		},
 		enabled: !!station,
 	});
 	const addMutation = useMutation({
 		mutationFn: addStore,
-		onSuccess: (res) => {
+		onSuccess: () => {
 			toast.success("تمت الاضافة بنجاح", {
 				position: "top-center",
 			});
@@ -99,7 +96,7 @@ const StoreFormPage = () => {
 				client === "none"
 					? "شركة"
 					: clients.filter((el) => el.client.id === +client)[0].client.name;
-			console.log(`clientName`, clientName);
+
 			const substanceName = substances.filter((el) => el.id === +substance)[0]
 				.name;
 			setStoreName(`${clientName} - ${substanceName}`);

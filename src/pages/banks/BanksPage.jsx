@@ -17,7 +17,7 @@ import {
 import { Button } from "@heroui/react";
 
 import { useNavigate } from "react-router-dom";
-import { deleteBank, getAllBanks } from "../../api/serverApi";
+import { deleteBank, getAllBanks } from "@/api/serverApi";
 import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
 import Card from "../../UI/card/Card";
 import Table from "../../UI/table/Table";

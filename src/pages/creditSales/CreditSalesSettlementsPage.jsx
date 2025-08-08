@@ -31,7 +31,7 @@ import { useNavigate } from "react-router-dom";
 import {
 	deleteCreditSalesSettlement,
 	getAllCreditSalesSettlements,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import tafqeet from "@/utils/Tafqeet";
 const CreditSalesSettlementsPage = () => {
 	//hooks

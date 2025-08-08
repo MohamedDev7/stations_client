@@ -16,7 +16,7 @@ import {
 	TableCell,
 } from "@heroui/react";
 import { useMutation, useQuery } from "react-query";
-import { addClient, getAllStations } from "../../api/serverApi";
+import { addClient, getAllStations } from "@/api/serverApi";
 import useNavigateWithQuery from "../../hooks/useNavigateWithQuery";
 import { toast } from "react-toastify";
 

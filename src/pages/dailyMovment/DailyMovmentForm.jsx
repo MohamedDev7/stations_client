@@ -6,7 +6,7 @@ import {
 	getAllStations,
 	addMovment,
 	getStationMovmentByDate,
-} from "../../api/serverApi";
+} from "@/api/serverApi";
 import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
 import { Save, X } from "@mynaui/icons-react";
 import { toast } from "react-toastify";

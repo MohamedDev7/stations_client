@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import TopBar from "../../components/TopBar/TopBar";
 import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
 import useNavigateWithQuery from "../../hooks/useNavigateWithQuery";
-import { deleteClient, getAllClients } from "../../api/serverApi";
+import { deleteClient, getAllClients } from "@/api/serverApi";
 import {
 	Modal,
 	ModalContent,
