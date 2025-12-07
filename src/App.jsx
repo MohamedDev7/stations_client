@@ -65,6 +65,8 @@ import QuantityDeductionForm from "./pages/quantityDeduction/QuantityDeductionFo
 import SendNotificationFormPage from "./pages/sendNotification/SendNotificationFormPage";
 import MonthlyClosingPage from "./pages/monthlyClosing/MonthlyClosingPage";
 import MonthlyClosingPageForm from "./pages/monthlyClosing/MonthlyClosingPageForm";
+import AnnualStocktakingForm from "./pages/annualStocktaking/AnnualStocktakingForm";
+import AnnualStocktakings from "./pages/annualStocktaking/AnnualStocktakings";
 
 function App() {
 	const { currUser } = useContext(AuthContext);
@@ -681,6 +683,24 @@ function App() {
 				{
 					path: "sendNotification",
 					element: <SendNotificationFormPage />,
+				},
+				{
+					path: "annualStocktaking",
+					element: <Outlet />,
+					children: [
+						{
+							path: "",
+							element: <AnnualStocktakings />,
+						},
+						{
+							path: "add",
+							element: <AnnualStocktakingForm />,
+						},
+						{
+							path: "print",
+							element: <ReportViewer />,
+						},
+					],
 				},
 			],
 		},

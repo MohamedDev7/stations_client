@@ -25,13 +25,22 @@ import {
 	DropdownTrigger,
 	DropdownMenu,
 	DropdownItem,
+	DatePicker,
+	Select,
+	SelectItem,
 } from "@heroui/react";
 import { DotsVertical, Printer, Trash, Edit } from "@mynaui/icons-react";
 import { useSearchParams } from "react-router-dom";
 import useNavigateWithQuery from "./../../hooks/useNavigateWithQuery";
-import { deleteIncome, getAllIncomes } from "@/api/serverApi";
+import {
+	deleteIncome,
+	getAllIncomes,
+	getAllStations,
+	getAllSubstances,
+} from "@/api/serverApi";
 import tafqeet from "../../utils/Tafqeet";
 import EmptyContainer from "../../components/EmptyContainer/EmptyContainer";
+import { parseDate } from "@internationalized/date";
 const IncomesPage = () => {
 	//hooks
 	const navigate = useNavigateWithQuery();
@@ -49,9 +58,37 @@ const IncomesPage = () => {
 		body: "",
 		footer: "",
 	});
+	const rawEndDate = searchParams.get("endDate");
+	const rawStartDate = searchParams.get("startDate");
+	const selectedStations = searchParams.get("selectedStations")
+		? searchParams.get("selectedStations").split(",").filter(Boolean)
+		: [];
+	const startDate =
+		rawStartDate && rawStartDate !== "null" ? parseDate(rawStartDate) : null;
+	const endDate =
+		rawEndDate && rawEndDate !== "null" ? parseDate(rawEndDate) : null;
+	const substance = searchParams.get("substance")
+		? searchParams.get("substance").split(",").filter(Boolean)
+		: [];
 	//queries
+	const { data: stations } = useQuery({
+		queryKey: ["stations"],
+		queryFn: getAllStations,
+		select: (res) => {
+			return res.data.stations.map((el) => {
+				return { key: el.id, text: el.name };
+			});
+		},
+	});
 	const { data: incomes } = useQuery({
-		queryKey: ["incomes", page - 1, rowsPerPage],
+		queryKey: [
+			"incomes",
+			page - 1,
+			rowsPerPage,
+			selectedStations,
+			startDate,
+			endDate,
+		],
 		queryFn: getAllIncomes,
 		select: (res) => {
 			return res.data;
@@ -66,7 +103,15 @@ const IncomesPage = () => {
 			});
 		},
 	});
-
+	const { data: substances } = useQuery({
+		queryKey: ["substances"],
+		queryFn: getAllSubstances,
+		select: (res) => {
+			return res.data.substances.map((el) => {
+				return { key: el.id, text: el.name };
+			});
+		},
+	});
 	const deleteMutation = useMutation({
 		mutationFn: deleteIncome,
 		onSuccess: () => {
@@ -95,29 +140,54 @@ const IncomesPage = () => {
 		},
 	});
 	//functions
-	const onRowsPerPageChange = React.useCallback(
-		(e) => {
-			const newRowsPerPage = Number(e.target.value);
-			setSearchParams({
-				page: "1", // Reset to first page when changing rows per page
-				rowsPerPage: newRowsPerPage.toString(),
-			});
-		},
-		[setSearchParams]
-	);
-	const handlePageChange = (newPage) => {
-		setSearchParams({
-			page: newPage.toString(),
+
+	const updateParams = (params, resetPage = false) => {
+		const newParams = {
+			page: resetPage ? "1" : page.toString(),
 			rowsPerPage: rowsPerPage.toString(),
+		};
+		// Preserve existing params
+		if (startDate) newParams.startDate = startDate.toString();
+		if (endDate) newParams.endDate = endDate.toString();
+		if (selectedStations.length > 0)
+			newParams.selectedStations = selectedStations.join(",");
+		if (substance.length > 0) newParams.substance = substance.join(",");
+
+		// Apply new params
+		Object.entries(params).forEach(([key, value]) => {
+			if (value === null || value === "" || value === undefined) {
+				delete newParams[key];
+			} else if (typeof value === "object" && value.toString) {
+				newParams[key] = value.toString();
+			} else {
+				newParams[key] = value;
+			}
 		});
+
+		setSearchParams(newParams);
 	};
-	useEffect(() => {
-		const urlPage = parseInt(searchParams.get("page")) || 1;
-		if (urlPage !== page) {
-			// This ensures the pagination component updates when URL changes
-			setPages((prev) => prev); // Force re-render if needed
-		}
-	}, [searchParams, page]);
+
+	const onRowsPerPageChange = (e) => {
+		const newRowsPerPage = Number(e.target.value);
+		updateParams({ rowsPerPage: newRowsPerPage.toString(), page: "1" });
+	};
+
+	const handlePageChange = (newPage) => {
+		updateParams({ page: newPage.toString() });
+	};
+
+	const handleStationsChange = (e) => {
+		const value = e.target.value;
+		updateParams({ selectedStations: value || null }, true);
+	};
+
+	const handleStartDateChange = (date) => {
+		updateParams({ startDate: date || null }, true);
+	};
+
+	const handleEndDateChange = (date) => {
+		updateParams({ endDate: date || null }, true);
+	};
 	return (
 		<div className="w-full h-full overflow-auto ">
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -153,6 +223,62 @@ const IncomesPage = () => {
 						الواردات
 					</CardHeader>
 					<CardBody>
+						<div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
+							<Select
+								label="اسم المحطة"
+								multiple
+								className="max-w-xs"
+								onChange={handleStationsChange}
+								size="sm"
+								selectedKeys={selectedStations}
+								selectionMode="multiple"
+							>
+								{stations &&
+									stations.map((station) => {
+										return (
+											<SelectItem key={station.key}>{station.text}</SelectItem>
+										);
+									})}
+							</Select>
+							<DatePicker
+								label="من تاريخ"
+								required
+								value={startDate}
+								className="max-w-xs"
+								size="sm"
+								onChange={handleStartDateChange}
+							/>
+							<DatePicker
+								label="الى تاريخ "
+								required
+								value={endDate}
+								className="max-w-xs"
+								size="sm"
+								onChange={handleEndDateChange}
+							/>
+							{/* <Select
+								label="المادة"
+								multiple
+								className="max-w-xs"
+								onChange={(e) => {
+									const selectedSet = new Set(e.target.value.split(","));
+									setSubstance(Array.from(selectedSet));
+									updateParams({ substance: e.target.value });
+								}}
+								size="sm"
+								selectedKeys={substance}
+								selectionMode="multiple"
+							>
+								{substances &&
+									substances.map((substance) => {
+										return (
+											<SelectItem key={substance.key}>
+												{substance.text}
+											</SelectItem>
+										);
+									})}
+							</Select> */}
+						</div>
 						{incomes && incomes.incomes.length > 0 ? (
 							<Table
 								aria-labelledby="table"
@@ -162,6 +288,7 @@ const IncomesPage = () => {
 											الاجمالي {total} حركة
 										</span>
 										<Pagination
+											key={pages}
 											isCompact
 											showControls
 											showShadow
@@ -281,6 +408,15 @@ const IncomesPage = () => {
 																					},
 																					reportTemplate: "receipt1",
 																				},
+																			});
+																			console.log(`test`, {
+																				...income,
+																				type: "وارد",
+																				amount_difference:
+																					income.amount - income.doc_amount,
+																				date: dataToPrint,
+																				store: `${income.store.name}-${income.store.substance.name}`,
+																				amount_text: tafqeet(income.amount),
 																			});
 																		}
 

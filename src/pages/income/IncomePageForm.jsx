@@ -26,6 +26,7 @@ import {
 	CardBody,
 } from "@heroui/react";
 import TimeChange from "./../../utils/TimeChange";
+import tafqeet from "@/utils/Tafqeet";
 const IncomePageForm = () => {
 	//hooks
 	const navigate = useNavigateWithQuery();
@@ -131,7 +132,34 @@ const IncomePageForm = () => {
 			toast.success("تم إضافة الوارد بنجاح", {
 				position: "top-center",
 			});
-			navigate("./..");
+			const dataToPrint = pendingMovments
+				.filter((el) => el.id === movment)[0]
+				.date.split("T")[0]
+				.replace(/-/g, "/");
+			// const dataToPrint = `${movment.date.split("T")[0].replace(/-/g, "/")}`;
+			navigate("./../print", {
+				state: {
+					data: {
+						type: "وارد",
+						amount_difference: amount - docAmount,
+						doc_amount: docAmount,
+						amount: amount,
+						from,
+						truck_driver: truckDriver,
+						truck_number: truckNumber,
+						doc_number: docNumber,
+						date: dataToPrint,
+						id: res.data.id,
+						store:
+							stores.filter((el) => el.id === store)[0].name +
+							"-" +
+							stores.filter((el) => el.id === store)[0].substance.name,
+						amount_text: tafqeet(docAmount),
+						station_name: station.name,
+					},
+					reportTemplate: "receipt1",
+				},
+			});
 		},
 		onError: (err) => {
 			toast.error(err.response.data.message, {

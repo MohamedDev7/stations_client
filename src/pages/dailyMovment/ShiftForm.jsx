@@ -305,14 +305,31 @@ const ShiftForm = () => {
 						store = { ...el.store, substance };
 					}
 				});
+				let totalIncomes = 0;
+				surplus.forEach((ele) => {
+					if (el.store.id === ele.store) {
+						totalIncomes += +ele.amount;
+					}
+				});
+				stocktakingSurplus.forEach((ele) => {
+					if (el.store.id === ele.store) {
+						totalIncomes += +ele.amount;
+					}
+				});
+				incomes.forEach((ele) => {
+					if (el.store.id === ele.store) {
+						totalIncomes += +ele.amount;
+					}
+				});
 
 				return {
 					...el,
+					curr_value: el.curr_value + totalIncomes,
 					prev_value: el.curr_value,
 					price,
 					store,
 					totalCoupons: 0,
-					totalIncomes: 0,
+					totalIncomes,
 				};
 			});
 		},

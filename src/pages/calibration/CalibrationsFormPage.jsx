@@ -190,6 +190,8 @@ const CalibrationFormPage = () => {
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
+					console.log(`dispensers`, dispensers);
+					console.log(`selectedDispensers`, selectedDispensers);
 					const groupedDispensers = dispensers
 						.filter((el) => selectedDispensers.includes(`${el.id}`))
 						.map((el) => {
@@ -311,7 +313,7 @@ const CalibrationFormPage = () => {
 												<SelectSection
 													showDivider
 													title={dispenser.text}
-													key={dispenser.key}
+													key={dispenser.key - dispenser.text}
 												>
 													{dispenser.items.map((el) => (
 														<SelectItem key={el.id}>{el.text}</SelectItem>

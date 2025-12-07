@@ -514,13 +514,6 @@ const EditShiftForm = () => {
 				}
 			});
 		});
-		// updatedStoresMovments.forEach((el) => {
-		// 	coupons.forEach((ele) => {
-		// 		if (el.store.id === ele.store) {
-		// 			el.totalCoupons = el.totalCoupons + +ele.amount;
-		// 		}
-		// 	});
-		// });
 		updatedStoresMovments.forEach((el) => {
 			calibrations.forEach((ele) => {
 				if (el.store.id === ele.store) {

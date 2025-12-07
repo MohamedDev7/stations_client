@@ -1,6 +1,5 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-
 import { toast } from "react-toastify";
 import TopBar from "../../components/TopBar/TopBar";
 import {
@@ -25,30 +24,64 @@ import {
 	DropdownTrigger,
 	DropdownMenu,
 	DropdownItem,
+	DatePicker,
+	Select,
+	SelectItem,
 } from "@heroui/react";
 import { DotsVertical, Printer, Trash, Edit, Plus } from "@mynaui/icons-react";
-import { useNavigate } from "react-router-dom";
-import { deleteReceive, getAllReceives } from "@/api/serverApi";
+import { useSearchParams } from "react-router-dom";
+import useNavigateWithQuery from "../../hooks/useNavigateWithQuery";
+import { deleteReceive, getAllReceives, getAllStations } from "@/api/serverApi";
 import tafqeet from "@/utils/Tafqeet";
+import { parseDate } from "@internationalized/date";
 const ReceivesPage = () => {
 	//hooks
-	const navigate = useNavigate();
+	const navigate = useNavigateWithQuery();
 	const queryClient = useQueryClient();
 	const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+	const [searchParams, setSearchParams] = useSearchParams();
+
 	//states
-	const [page, setPage] = useState(1);
-	const [pages, setPages] = useState("");
+	const page = parseInt(searchParams.get("page")) || 1;
+	const rowsPerPage = parseInt(searchParams.get("rowsPerPage")) || 5;
+	const [pages, setPages] = useState(1);
 	const [total, setTotal] = useState("");
-	const [receives, setReceives] = useState([]);
-	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const [modal, setModal] = useState({
 		header: "",
 		body: "",
 		footer: "",
 	});
+
+	const rawEndDate = searchParams.get("endDate");
+	const rawStartDate = searchParams.get("startDate");
+	const selectedStations = searchParams.get("selectedStations")
+		? searchParams.get("selectedStations").split(",").filter(Boolean)
+		: [];
+	const startDate =
+		rawStartDate && rawStartDate !== "null" ? parseDate(rawStartDate) : null;
+	const endDate =
+		rawEndDate && rawEndDate !== "null" ? parseDate(rawEndDate) : null;
+
 	//queries
-	useQuery({
-		queryKey: ["receives", page - 1, rowsPerPage],
+	const { data: stations } = useQuery({
+		queryKey: ["stations"],
+		queryFn: getAllStations,
+		select: (res) => {
+			return res.data.stations.map((el) => {
+				return { key: el.id, text: el.name };
+			});
+		},
+	});
+
+	const { data: receives } = useQuery({
+		queryKey: [
+			"receives",
+			page - 1,
+			rowsPerPage,
+			selectedStations,
+			startDate,
+			endDate,
+		],
 		queryFn: getAllReceives,
 		select: (res) => {
 			return res.data;
@@ -56,7 +89,6 @@ const ReceivesPage = () => {
 		onSuccess: (data) => {
 			setPages(Math.ceil(data.total / rowsPerPage));
 			setTotal(data.total);
-			setReceives(data.receives);
 		},
 		onError: (err) => {
 			toast.error(err.response.data.message, {
@@ -90,11 +122,53 @@ const ReceivesPage = () => {
 			onClose();
 		},
 	});
+
 	//functions
-	const onRowsPerPageChange = React.useCallback((e) => {
-		setRowsPerPage(Number(e.target.value));
-		setPage(1);
-	}, []);
+	const updateParams = (params, resetPage = false) => {
+		const newParams = {
+			page: resetPage ? "1" : page.toString(),
+			rowsPerPage: rowsPerPage.toString(),
+		};
+		if (startDate) newParams.startDate = startDate.toString();
+		if (endDate) newParams.endDate = endDate.toString();
+		if (selectedStations.length > 0)
+			newParams.selectedStations = selectedStations.join(",");
+
+		Object.entries(params).forEach(([key, value]) => {
+			if (value === null || value === "" || value === undefined) {
+				delete newParams[key];
+			} else if (typeof value === "object" && value.toString) {
+				newParams[key] = value.toString();
+			} else {
+				newParams[key] = value;
+			}
+		});
+
+		setSearchParams(newParams);
+	};
+
+	const onRowsPerPageChange = (e) => {
+		const newRowsPerPage = Number(e.target.value);
+		updateParams({ rowsPerPage: newRowsPerPage.toString(), page: "1" });
+	};
+
+	const handlePageChange = (newPage) => {
+		updateParams({ page: newPage.toString() });
+	};
+
+	const handleStationsChange = (e) => {
+		const value = e.target.value;
+		updateParams({ selectedStations: value || null }, true);
+	};
+
+	const handleStartDateChange = (date) => {
+		updateParams({ startDate: date || null }, true);
+	};
+
+	const handleEndDateChange = (date) => {
+		updateParams({ endDate: date || null }, true);
+	};
+
 	const columns = [
 		{ field: "date", headerName: "التاريخ", width: 200 },
 		{ field: "amount", headerName: "المبلغ", width: 200 },
@@ -209,6 +283,43 @@ const ReceivesPage = () => {
 						الاستلامات
 					</CardHeader>
 					<CardBody>
+						<div
+							style={{
+								display: "flex",
+								gap: "15px",
+								alignItems: "center",
+								marginBottom: "15px",
+							}}
+						>
+							<Select
+								label="اسم المحطة"
+								multiple
+								className="max-w-xs"
+								onChange={handleStationsChange}
+								size="sm"
+								selectedKeys={selectedStations}
+								selectionMode="multiple"
+							>
+								{stations &&
+									stations.map((station) => (
+										<SelectItem key={station.key}>{station.text}</SelectItem>
+									))}
+							</Select>
+							<DatePicker
+								label="من تاريخ"
+								value={startDate}
+								className="max-w-xs"
+								size="sm"
+								onChange={handleStartDateChange}
+							/>
+							<DatePicker
+								label="الى تاريخ"
+								value={endDate}
+								className="max-w-xs"
+								size="sm"
+								onChange={handleEndDateChange}
+							/>
+						</div>
 						<Table
 							aria-label="table"
 							bottomContent={
@@ -217,14 +328,14 @@ const ReceivesPage = () => {
 										الاجمالي {total} نتيجة
 									</span>
 									<Pagination
+										key={pages}
 										isCompact
 										showControls
 										showShadow
 										color="primary"
 										page={page}
 										total={pages}
-										onChange={setPage}
-										// dir="ltr"
+										onChange={handlePageChange}
 									/>
 									<label className="flex items-center text-default-400 text-small">
 										النتائج لكل صفحة:
@@ -252,7 +363,8 @@ const ReceivesPage = () => {
 							</TableHeader>
 							<TableBody>
 								{receives &&
-									receives.map((receive) => {
+									receives.receives &&
+									receives.receives.map((receive) => {
 										const disabledActions = [];
 
 										return (

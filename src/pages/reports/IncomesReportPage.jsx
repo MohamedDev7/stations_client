@@ -181,7 +181,7 @@ const IncomesReportPage = () => {
 												<SelectSection
 													showDivider
 													title={store.text}
-													key={store.key}
+													key={store.key - store.text}
 												>
 													{store.items.map((el) => (
 														<SelectItem key={el.id}>{el.name}</SelectItem>

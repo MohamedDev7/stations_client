@@ -24,7 +24,7 @@ export const deleteStation = async (id) => {
 //Income API
 export const getAllIncomes = async (data) => {
 	const res = await serverApi.get(
-		`/income?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+		`/income?page=${data.queryKey[1]}&limit=${data.queryKey[2]}&stations=${data.queryKey[3]}&startDate=${data.queryKey[4]}&endDate=${data.queryKey[5]}`
 	);
 	return res;
 };
@@ -84,7 +84,7 @@ export const editCalibration = async (data) => {
 //surplus API
 export const getAllSurpluses = async (data) => {
 	const res = await serverApi.get(
-		`/surplus?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+		`/surplus?page=${data.queryKey[1]}&limit=${data.queryKey[2]}&stations=${data.queryKey[3]}&startDate=${data.queryKey[4]}&endDate=${data.queryKey[5]}`
 	);
 	return res;
 };
@@ -215,6 +215,10 @@ export const changeDispenserState = async (data) => {
 };
 export const addDispenser = async (data) => {
 	const res = await serverApi.post(`/dispensers`, data);
+	return res;
+};
+export const getAnnualDispensersMovment = async (data) => {
+	const res = await serverApi.get(`/dispensers/annual/${data.queryKey[1]}`);
 	return res;
 };
 //Tanks API
@@ -411,7 +415,7 @@ export const deleteQuantityDeduction = async (id) => {
 //receives API
 export const getAllReceives = async (data) => {
 	const res = await serverApi.get(
-		`/receives?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+		`/receives?page=${data.queryKey[1]}&limit=${data.queryKey[2]}&stations=${data.queryKey[3]}&startDate=${data.queryKey[4]}&endDate=${data.queryKey[5]}`
 	);
 	return res;
 };
@@ -434,7 +438,7 @@ export const deleteReceive = async (id) => {
 //deposits API
 export const getAllDeposits = async (data) => {
 	const res = await serverApi.get(
-		`/deposits?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+		`/deposits?page=${data.queryKey[1]}&limit=${data.queryKey[2]}&stations=${data.queryKey[3]}&startDate=${data.queryKey[4]}&endDate=${data.queryKey[5]}`
 	);
 	return res;
 };
@@ -627,10 +631,33 @@ export const getStocktakingPriceReport = async (data) => {
 	);
 	return res;
 };
+export const getAnnualStocktakingReport = async (data) => {
+	const res = await serverApi.get(
+		`/reports/annualStocktaking/${data.queryKey[1]}`
+	);
+	return res;
+};
 export const getOverview = async () => {
 	const res = await serverApi.get(`/reports/overview`);
 	return res;
 };
+
+// annualStocktaking API
+export const getAllAnnualStocktaking = async (data) => {
+	const res = await serverApi.get(
+		`/annualStocktaking?page=${data.queryKey[1]}&limit=${data.queryKey[2]}`
+	);
+	return res;
+};
+export const addAnnualStocktaking = async (data) => {
+	const res = await serverApi.post(`/annualStocktaking`, data);
+	return res;
+};
+export const deleteAnnualStocktaking = async (id) => {
+	const res = await serverApi.delete(`/annualStocktaking/${id}`);
+	return res;
+};
+
 //notifications API
 export const sendNotifications = async (data) => {
 	const res = await serverApi.post(`/notifications/send`, data, {

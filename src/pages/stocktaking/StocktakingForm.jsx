@@ -348,6 +348,7 @@ const StocktakingForm = () => {
 									value={date}
 									type="date"
 									onChange={(e) => {
+										console.log(`e.target.value`, e.target.value);
 										setDate(e.target.value);
 									}}
 								/>

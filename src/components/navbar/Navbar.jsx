@@ -133,6 +133,16 @@ const Navbar = () => {
 								تغيير كلمة المرور
 							</MenubarItem>
 						</Link>
+						{authCtx.permissions.stocktaking && (
+							<Link to="/Stocktaking">
+								<MenubarItem className="justify-end">الجرد</MenubarItem>
+							</Link>
+						)}
+						{authCtx.permissions.calibration && (
+							<Link to="/calibrations">
+								<MenubarItem className="justify-end">معايرة</MenubarItem>
+							</Link>
+						)}{" "}
 						{authCtx.permissions.admin && (
 							<>
 								<Link to="/users">
@@ -174,17 +184,15 @@ const Navbar = () => {
 										استنزال كمية
 									</MenubarItem>
 								</Link>
+								<Link
+									to="/annualStocktaking
+"
+								>
+									<MenubarItem className="justify-end">
+										الجرد السنوي
+									</MenubarItem>
+								</Link>
 							</>
-						)}
-						{authCtx.permissions.stocktaking && (
-							<Link to="/Stocktaking">
-								<MenubarItem className="justify-end">الجرد</MenubarItem>
-							</Link>
-						)}
-						{authCtx.permissions.calibration && (
-							<Link to="/calibrations">
-								<MenubarItem className="justify-end">معايرة</MenubarItem>
-							</Link>
 						)}
 					</MenubarContent>
 				</MenubarMenu>

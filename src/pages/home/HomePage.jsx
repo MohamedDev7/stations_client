@@ -26,6 +26,7 @@ const HomePage = () => {
 		queryKey: ["stations"],
 		queryFn: getOverview,
 		select: (res) => {
+			console.log(`res.data.stations`, res.data.stations);
 			res.data.stations.forEach((station) => {
 				const groupedSubstances = Object.values(
 					station.stores.reduce((acc, curr) => {
